@@ -1,0 +1,38 @@
+{
+  "name": "Doodgeball",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "eventmap": "^2.1.0",
+    "immutability-helper": "^2.2.3",
+    "jquery": "^3.2.1",
+    "matter-js": "^0.13.0",
+    "mobx": "^3.3.2",
+    "querystring": "^0.2.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-game-kit": "^1.0.3",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-scripts": "1.0.10",
+    "react-spritesheet": "^1.0.1",
+    "react-token-autocomplete": "^0.5.3",
+    "redux": "^3.7.1",
+    "redux-persist": "^4.8.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "scripts": {
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "node-sass-chokidar": "^0.0.3",
+    "npm-run-all": "^4.0.2"
+  }
+}
