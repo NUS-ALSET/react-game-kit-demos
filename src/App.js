@@ -36,8 +36,6 @@ class App extends Component {
         <img src="images/movimentation.png"/>
         <br/>
         
-
-        
       </div>
     );
   }
