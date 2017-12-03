@@ -35,6 +35,10 @@ class App extends Component {
         </h3> 
         <img src="images/movimentation.png"/>
         <br/>
+	<h3> Scroller
+	 (<a href="scroller/build/index.html">demo</a>)
+	</h3>
+	<img src="images/background.jpg"/>
         
 
         
