@@ -12,36 +12,25 @@ export default class board extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      stageX: 0,
-    };
+  
   }
 
   componentDidMount() {
-    this.cameraWatcher = autorun(() => {
-      const targetX = Math.round(GameStore.stageX * this.context.scale);
-      this.setState({
-        stageX: targetX,
-      });
-    });
+   
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    const targetX = Math.round(GameStore.stageX * nextContext.scale);
-    this.setState({
-      stageX: targetX,
-    });
+   
   }
 
   componentWillUnmount() {
-    this.cameraWatcher();
+    
   }
 
   getWrapperStyles() {
     return {
       position: 'absolute',
-      transform: `translate(${this.state.stageX}px, 0px) translateZ(0)`,
+      transform: `translate(0px, 0px) translateZ(0)`,
       transformOrigin: 'top left',
     };
   }

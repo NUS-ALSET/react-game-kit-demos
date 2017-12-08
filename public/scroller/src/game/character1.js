@@ -6,10 +6,11 @@ import Matter from 'matter-js';
 import { Body, Sprite } from 'react-game-kit/lib';
 
 @observer
-export default class Character extends Component {
+export default class Character1 extends Component {
   static propTypes = {
     keys: PropTypes.object,
     store: PropTypes.object,
+    index: PropTypes.number,
   };
 
   static contextTypes = {
@@ -46,8 +47,8 @@ export default class Character extends Component {
   getWrapperStyles() {
     const { characterPosition, stageX } = this.props.store;
     const { scale } = this.context;
-    const { x, y } = characterPosition;
-    const targetX = x + stageX;
+    const { x, y } = characterPosition[this.props.index];
+    const targetX = x + stageX[this.props.index];
 
     return {
       position: 'absolute',
@@ -56,8 +57,80 @@ export default class Character extends Component {
     };
   }
 
+  handlePlayStateChanged(state) {
+    this.setState({
+      spritePlaying: state ? true : false,
+    });
+  };
+
+  move(body, x) {
+    Matter.Body.setVelocity(body, { x, y: 0 });
+  };
+
+  checkKeys(shouldMoveStageLeft, shouldMoveStageRight) {
+    const { keys, store, index } = this.props;
+    const { body } = this.body;
+
+    let characterState = 2;
+
+    if (keys.isDown(keys.LEFT)) {
+      if (shouldMoveStageLeft) {
+        store.setStageX(store.stageX[index] + 5, index);
+      }
+
+      this.move(body, -5);
+      characterState = 1;
+    } else if (keys.isDown(keys.RIGHT)) {
+      if (shouldMoveStageRight) {
+        store.setStageX(store.stageX[index] - 5, index);
+      }
+
+      this.move(body, 5);
+      characterState = 0;
+    }
+
+    this.setState({
+      characterState,
+      repeat: characterState < 2,
+    });
+  };
+
+  update() {
+    const { store, index } = this.props;
+    const { body } = this.body;
+
+    const midPoint = Math.abs(store.stageX[index]) + 920;
+
+    const shouldMoveStageLeft = body.position.x < midPoint && store.stageX[index] < 0;
+    const shouldMoveStageRight =
+      body.position.x > midPoint && store.stageX[index] > -2048;
+
+    const velY = parseFloat(body.velocity.y.toFixed(10));
+
+    if (velY === 0) {
+      this.isJumping = false;
+      Matter.Body.set(body, 'friction', 0.9999);
+    }
+
+    if (!this.isLeaving) {
+      this.checkKeys(shouldMoveStageLeft, shouldMoveStageRight);
+
+      store.setCharacterPosition(body.position, index);
+    } else {
+      
+      const targetX = store.stageX[index] + (this.lastX - body.position.x);
+      if (shouldMoveStageLeft || shouldMoveStageRight) {
+        store.setStageX(targetX, index);
+      }
+    }
+
+    this.lastX = body.position.x;
+    console.log("character1");
+    console.log(this.lastX);
+  };
+
   render() {
-    const x = this.props.store.characterPosition.x;
+    const x = this.props.store.characterPosition[this.props.index].x;
 
     return (
       <div style={this.getWrapperStyles()}>
@@ -80,74 +153,5 @@ export default class Character extends Component {
       </div>
     );
   }
-
-  handlePlayStateChanged(state) {
-    this.setState({
-      spritePlaying: state ? true : false,
-    });
-  };
-
-  move(body, x) {
-    Matter.Body.setVelocity(body, { x, y: 0 });
-  };
-
-  checkKeys(shouldMoveStageLeft, shouldMoveStageRight) {
-    const { keys, store } = this.props;
-    const { body } = this.body;
-
-    let characterState = 2;
-
-    if (keys.isDown(keys.LEFT)) {
-      if (shouldMoveStageLeft) {
-        store.setStageX(store.stageX + 5);
-      }
-
-      this.move(body, -5);
-      characterState = 1;
-    } else if (keys.isDown(keys.RIGHT)) {
-      if (shouldMoveStageRight) {
-        store.setStageX(store.stageX - 5);
-      }
-
-      this.move(body, 5);
-      characterState = 0;
-    }
-
-    this.setState({
-      characterState,
-      repeat: characterState < 2,
-    });
-  };
-
-  update() {
-    const { store } = this.props;
-    const { body } = this.body;
-
-    const midPoint = Math.abs(store.stageX) + 1024;
-
-    const shouldMoveStageLeft = body.position.x < midPoint && store.stageX < 0;
-    const shouldMoveStageRight =
-      body.position.x > midPoint && store.stageX > -2048;
-
-    const velY = parseFloat(body.velocity.y.toFixed(10));
-
-    if (velY === 0) {
-      this.isJumping = false;
-      Matter.Body.set(body, 'friction', 0.9999);
-    }
-
-    if (!this.isLeaving) {
-      this.checkKeys(shouldMoveStageLeft, shouldMoveStageRight);
-
-      store.setCharacterPosition(body.position);
-    } else {
-      
-      const targetX = store.stageX + (this.lastX - body.position.x);
-      if (shouldMoveStageLeft || shouldMoveStageRight) {
-        store.setStageX(targetX);
-      }
-    }
-
-    this.lastX = body.position.x;
-  };
+ 
 }

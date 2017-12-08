@@ -4,41 +4,43 @@ import Matter from 'matter-js';
 
 import { Loop, Stage, KeyListener, World } from 'react-game-kit/lib';
 
+
 import Character from './character';
+import Character1 from './character1';
+import Character2 from './character2';
+
+
 import GameBoard from './board';
 
 
 import GameStore from './stores/game-store';
 
 export default class Game extends Component {
+  constructor(props) {
+    super(props);
+
+    this.keyListener1 = new KeyListener();
+    this.keyListener2 = new KeyListener();
+    window.context = window.context || new AudioContext();
+
+  }
 
   componentDidMount() {
     
-    this.keyListener.subscribe([
-      this.keyListener.LEFT,
-      this.keyListener.RIGHT,
+    this.keyListener1.subscribe([
+      this.keyListener1.LEFT,
+      this.keyListener1.RIGHT,
       65,
+    ]);
+    this.keyListener2.subscribe([
+      74,
+      76,
     ]);
   }
 
   componentWillUnmount() {
-    this.keyListener.unsubscribe();
-  }
-
-  render() {
-    return (
-      <Loop>
-        <Stage style={{ background: '#3a9bdc' }}>
-          <World onInit={this.physicsInit}>
-            <GameBoard store={GameStore} />
-            <Character
-              store={GameStore}
-              keys={this.keyListener}
-            />
-          </World>
-        </Stage>
-      </Loop>
-    );
+    this.keyListener1.unsubscribe();
+    this.keyListener2.unsubscribe();
   }
 
   physicsInit(engine) {
@@ -50,7 +52,7 @@ export default class Game extends Component {
       isStatic: true,
     });
 
-    const rightWall = Matter.Bodies.rectangle(512, 288, 64, 576, {
+    const rightWall = Matter.Bodies.rectangle(900, 288, 64, 576, {
       isStatic: true,
     });
 
@@ -59,12 +61,29 @@ export default class Game extends Component {
     Matter.World.addBody(engine.world, rightWall);
   };
 
-
-  constructor(props) {
-    super(props);
-
-    this.keyListener = new KeyListener();
-    window.context = window.context || new AudioContext();
-
+  render() {
+    return (
+      <Loop>
+        <Stage style={{ background: '#3a9bdc' }}>
+          <World onInit={this.physicsInit}>
+            <GameBoard store={GameStore} />
+            
+            <Character1
+              store={GameStore}
+              keys={this.keyListener1}
+              index={0}
+            />
+            <Character2
+              store={GameStore}
+              keys={this.keyListener2}
+              index={1}
+            />
+            
+          </World>
+        </Stage>
+      </Loop>
+    );
   }
+
+  
 }
