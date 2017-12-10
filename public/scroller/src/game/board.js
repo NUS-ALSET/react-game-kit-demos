@@ -39,11 +39,10 @@ export default class board extends Component {
     return (
       <div style={this.getWrapperStyles()}>
         <TileMap
-          style={{ top: Math.floor(-63 * this.context.scale) }}
-          src="assets/background.png"
+          src="assets/background.jpg"
           rows={1}
           columns={3}
-          tileSize={512}
+          tileSize={590}
           layers={[[1, 2, 3]]}
         />
       </div>
