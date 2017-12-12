@@ -1,154 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdf8877c-b2c0-4902-9835-13a31a9e51f9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/assets/background.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/assets/background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/assets/character-sprite.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/assets/character1-sprite.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/assets/character1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/assets/character2-sprite.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/assets/character2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/assets/splash.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/.babelrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/build/app.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/package-lock.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/App.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/game/board.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/game/character.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/game/character1.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/game/character2.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/game/coin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/game/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/game/pos.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/game/stores/game-store.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/index.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/keys.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/src/splash.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/webpack.config.dev.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scroller/webpack.config.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/README.old.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/asset-manifest.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/manifest.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/service-worker.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/static/css/main.d41d8cd9.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/static/css/main.d41d8cd9.css.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/static/js/main.6fb644c1.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/static/js/main.6fb644c1.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/static/js/main.c6244acc.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/static/js/main.c6244acc.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/static/media/pirat.e5d92c99.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/package-lock.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/public/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/public/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/public/manifest.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/public/style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/App.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/actions/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/App.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/App.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/App.test.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/AppContainer.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/Game/Background.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/Game/Bomb.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/Game/Game.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/Game/Health.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/Game/KeyEvent.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/Game/PhysicsBody.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/Game/Pirat.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/Game/Pos.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/Input.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/components/Key.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/config/actionEvents.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/reducers/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/reducers/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/registerServiceWorker.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/static/images/boardwalktile.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/static/images/bomb.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/static/images/buildings.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/static/images/character-gif.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/static/images/character-sprite-grid.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/static/images/character-sprite.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/static/images/intro.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/static/images/pirat.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/static/images/tiles.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/styles/_vars.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/src/styles/index.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/yarn.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/basic.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/goblins.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/large_map.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/movimentation.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/images/soc-car.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/manifest.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/.babelrc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/assets/background.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/assets/character-sprite.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/assets/splash.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/index.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/package-lock.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/App.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/assets/background.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/assets/character-sprite.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/assets/splash.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/game/board.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/game/character.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/game/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/game/stores/game-store.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/index.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/splash.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/webpack.config.dev.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/webpack.config.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/assets/boardwalktile.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/assets/buildings.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/assets/character-sprite.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/background.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/bundle.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/character.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/game.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/houses.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/package-lock.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/simple/webpack.config.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/App.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/App.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/App.test.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/index.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/logo.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/registerServiceWorker.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/yarn.lock" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LICENSE" afterPath="$PROJECT_DIR$/LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-    </list>
+    <list default="true" id="cdf8877c-b2c0-4902-9835-13a31a9e51f9" name="Default" comment="" />
     <ignored path="react-game-kit-demos.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -740,15 +593,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1513070903913</updated>
-      <workItem from="1513070907757" duration="9318000" />
+      <workItem from="1513070907757" duration="9586000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9318000" />
+    <option name="totallyTimeSpent" value="9586000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
