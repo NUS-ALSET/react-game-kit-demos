@@ -2,6 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdf8877c-b2c0-4902-9835-13a31a9e51f9" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/dodgeball/build/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/.babelrc" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/app.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/assets/background.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/assets/character-sprite.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/assets/splash.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/index.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/build/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/package-lock.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/package.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/App.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/assets/background.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/assets/character-sprite.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/assets/splash.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/game/board.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/game/character.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/game/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/game/stores/game-store.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/index.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/src/splash.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/webpack.config.dev.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/scroller/webpack.config.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="react-game-kit-demos.iws" />
@@ -45,11 +72,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -80,6 +117,7 @@
         <option value="$PROJECT_DIR$/scroller/src/game/character1.js" />
         <option value="$PROJECT_DIR$/scroller/src/game/index.js" />
         <option value="$PROJECT_DIR$/scroller/package.json" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -143,38 +181,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="react-game-kit-demos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="react-game-kit-demos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="react-game-kit-demos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dodgeball" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="react-game-kit-demos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="react-game-kit-demos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dodgeball" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -738,12 +744,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1513070903913</updated>
-      <workItem from="1513070907757" duration="10199000" />
+      <workItem from="1513070907757" duration="10322000" />
     </task>
+    <task id="LOCAL-00001" summary="merge conflict">
+      <created>1513089032808</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1513089032808</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10199000" />
+    <option name="totallyTimeSpent" value="10322000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -785,6 +799,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="merge conflict" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge conflict" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -996,6 +1014,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
           <folding />
         </state>
       </provider>
