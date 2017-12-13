@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import Matter from 'matter-js';
-import Pos from './pos';
 
 import { Body, Sprite } from 'react-game-kit/lib';
-import Keys from '../keys';
 
 @observer
 export default class Character2 extends Component {
@@ -32,7 +30,6 @@ export default class Character2 extends Component {
       characterState: 4,
       loop: false,
       spritePlaying: true,
-      posCharset: '',
     };
 
     this.handlePlayStateChanged = this.handlePlayStateChanged.bind(this);
@@ -79,51 +76,35 @@ export default class Character2 extends Component {
 
     let characterState = 4;
 
-    if (keys.isDown(Keys.player2.left)) {
+    if (keys.isDown(74)) {
       if (shouldMoveStageLeft) {
         store.setStageX(store.stageX[index] + 2, index);
       }
-      this.setState({
-        posCharset: 'Left'
-      });
 
       this.move(body, -2, 0);
       characterState = 0;
 
-    } else if (keys.isDown(Keys.player2.right)) {
+    } else if (keys.isDown(76)) {
       if (shouldMoveStageRight) {
         store.setStageX(store.stageX[index] - 2, index);
       }
-      this.setState({
-        posCharset: 'Right'
-      });
 
       this.move(body, 2, 0);
       characterState = 1;
-    } else if (keys.isDown(Keys.player2.up)) {
+    } else if (keys.isDown(73)) {
       if (shouldMoveStageUp) {
         store.setStageY(store.stageY[index] + 2, index);
       }
-      this.setState({
-        posCharset: 'Up'
-      });
 
       this.move(body, 0, -2);
       characterState = 2;
-    } else if (keys.isDown(Keys.player2.down)) {
+    } else if (keys.isDown(75)) {
       if (shouldMoveStageDown) {
         store.setStageY(store.stageY[index] - 2, index);
       }
-      this.setState({
-        posCharset: 'down'
-      });
 
       this.move(body, 0, 2);
       characterState = 3;
-    } else if (keys.isDown(Keys.player2.action) || keys.isDown(32)) {
-      this.setState({
-        posCharset: 'Action'
-      })
     }
 
     this.setState({
@@ -171,6 +152,9 @@ export default class Character2 extends Component {
 
    this.lastX = body.position.x;
    this.lastY = body.position.y;
+
+   console.log("character2");
+   console.log(this.lastX, this.lastY);
   };
 
   render() {
@@ -194,7 +178,6 @@ export default class Character2 extends Component {
             state={this.state.characterState}
             steps={[7, 7, 7, 7, 0]}
           />
-          <Pos value={this.state.posCharset} />
         </Body>
       </div>
     );

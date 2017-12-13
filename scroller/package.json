@@ -4,7 +4,7 @@
   "description": "Game using react-game-kit",
   "scripts": {
     "start": "webpack-dev-server --hot --inline --port 3000 --config webpack.config.dev.js --content-base src/",
-    "build": "rimraf build && webpack && copy -a src/assets/. build/assets && copy -a src/index.html build/index.html && copy -a src/index.css build/index.css"
+    "build": "rimraf build && webpack && cp -a src/assets/. build/assets && cp -a src/index.html build/index.html && cp -a src/index.css build/index.css"
   },
   "author": "",
   "license": "",
