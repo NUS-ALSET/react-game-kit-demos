@@ -1,0 +1,59 @@
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-size: 3vw;
+}
+
+.yellow {
+  color: #f1c40f;
+}
+
+del {
+  color: #e74c3c;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.5;
+}
+
+li {
+  font-size: 1.3em;
+  line-height: 1.5;
+}
+
+pre {
+  font-size: 1.5vw;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.splash {
+  margin: auto;
+  padding-top: 20%;
+  width: 100%;
+  max-width: 1024px;
+  display: block;
+}
+
+.start {
+  display: block;
+  width: 400px;
+  font-size: 24px;
+  margin: -1% auto 0px;
+  text-align: center;
+  color: black;
+}
+
+
+* {
+  box-sizing: border-box;
+}
