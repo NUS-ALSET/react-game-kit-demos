@@ -18,5 +18,3 @@ yarn-debug.log*
 yarn-error.log*
 
 /src/**/*.css
-
-.idea
