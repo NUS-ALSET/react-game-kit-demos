@@ -4,8 +4,6 @@ import Matter from 'matter-js';
 import Keys from '../keys';
 import { Loop, Stage, KeyListener, World } from 'react-game-kit/lib';
 
-
-import Character from './character';
 import Character1 from './character1';
 import Character2 from './character2';
 import Coin from './coin';
@@ -88,6 +86,11 @@ export default class Game extends Component {
             <Character1
                 store={GameStore}
                 keys={this.keyListener1}
+                index={0}
+            />
+
+            <Coin
+                store={GameStore}
                 index={0}
             />
 

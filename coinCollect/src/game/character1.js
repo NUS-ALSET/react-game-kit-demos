@@ -30,7 +30,6 @@ export default class Character1 extends Component {
       characterState: 5,
       loop: false,
       spritePlaying: true,
-      posCharset: '',
     };
 
     this.handlePlayStateChanged = this.handlePlayStateChanged.bind(this);
@@ -54,6 +53,8 @@ export default class Character1 extends Component {
     const targetY = y + stageY[this.props.index];
 
     return {
+      width: 100,
+      height: 100,
       position: 'absolute',
       transform: `translate(${targetX * scale}px, ${targetY * scale}px)`,
       transformOrigin: 'left top',
@@ -81,10 +82,6 @@ export default class Character1 extends Component {
         store.setStageX(store.stageX[index] + 2, index);
       }
 
-      this.setState({
-        posCharset: 'Left'
-      });
-
       this.move(body, -2, 0);
       characterState = 1;
     } else if (keys.isDown(Keys.player1.right)) {
@@ -92,19 +89,12 @@ export default class Character1 extends Component {
         store.setStageX(store.stageX[index] - 2, index);
       }
 
-      this.setState({
-        posCharset: 'Right'
-      });
-
       this.move(body, 2, 0);
       characterState = 0;
     } else if (keys.isDown(Keys.player1.up)) {
       if(shouldMoveStageUp) {
         store.setStageY(store.stageY[index] + 2, index);
       }
-      this.setState({
-        posCharset: 'Up'
-      });
       this.move(body, 0, -2);
       characterState = 2;
     } else if (keys.isDown(Keys.player1.down)) {
@@ -112,16 +102,10 @@ export default class Character1 extends Component {
         store.setStageY(store.stageY[index] - 2, index);
       }
 
-      this.setState({
-        posCharset: 'Down'
-      });
-
       this.move(body, 0, 2);
       characterState = 3;
     } else if (keys.isDown(Keys.player1.action)) {
-      this.setState({
-        posCharset: 'Action'
-      });
+      console.log('player 1 action')
     }
  
     this.setState({
@@ -137,8 +121,7 @@ export default class Character1 extends Component {
     const midPoint = Math.abs(store.stageX[index]) + 920;
 
     const shouldMoveStageLeft = body.position.x < midPoint && store.stageX[index] < 0;
-    const shouldMoveStageRight =
-      body.position.x > midPoint && store.stageX[index] > -2048;
+    const shouldMoveStageRight = body.position.x > midPoint && store.stageX[index] > -2048;
     const shouldMoveStageUp = body.position.y < 576 && store.stageY[index] < 0 ;
     const shouldMoveStageDown = body.position.y >576 && store.stageY[index]>-576 ;
 
@@ -147,10 +130,10 @@ export default class Character1 extends Component {
 
       store.setCharacterPosition(body.position, index);
     } else {
-      
+
       const targetX = store.stageX[index] + (this.lastX - body.position.x);
       const targetY = store.stageY[index] + (this.lastY - body.position.y);
-      
+
 
       if (shouldMoveStageLeft || shouldMoveStageRight) {
         store.setStageX(targetX, index);
@@ -168,7 +151,7 @@ export default class Character1 extends Component {
     const y = this.props.store.characterPosition[this.props.index].y;
 
     return (
-      <div style={this.getWrapperStyles()}>
+      <div id="player1" style={this.getWrapperStyles()}>
         <Body
           args={[x, y, 64, 64]}
           inertia={Infinity}
@@ -184,7 +167,7 @@ export default class Character1 extends Component {
             state={this.state.characterState}
             steps={[7, 7, 7, 7, 0, 0]}
           />
-          <Pos value={this.state.posCharset} />
+          <Pos value={this.props.store.playersScore[this.props.index].score} />
         </Body>
       </div>
     );
