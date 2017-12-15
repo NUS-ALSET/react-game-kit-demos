@@ -6,12 +6,11 @@ import { Loop, Stage, KeyListener, World } from 'react-game-kit/lib';
 
 import Character1 from './character1';
 import Character2 from './character2';
+import Bot from './bot';
+import Bot2 from './bot2';
 import Coin from './coin';
 
-
 import GameBoard from './board';
-
-
 import GameStore from './stores/game-store';
 
 export default class Game extends Component {
@@ -70,13 +69,10 @@ export default class Game extends Component {
     Matter.World.addBody(engine.world, rightWall);
   };
 
-  render() {
-    return (
-      <Loop>
-        <Stage style={{ background: '#3a9bdc' }}>
-          <World onInit={this.physicsInit} gravity={{y:0, scale:0.000000000001}}>
-            <GameBoard store={GameStore} />
-
+  gameModes() {
+    if(GameStore.gameMode.playerVsPlayer === true) {
+      return (
+          <div>
             <Character2
                 store={GameStore}
                 keys={this.keyListener2}
@@ -93,6 +89,84 @@ export default class Game extends Component {
                 store={GameStore}
                 index={0}
             />
+
+            <Coin
+                store={GameStore}
+                index={1}
+            />
+
+            <Coin
+                store={GameStore}
+                index={2}
+            />
+          </div>
+      )
+    } else if(GameStore.gameMode.playerVsBot === true) {
+      return (
+          <div>
+            <Character2
+                store={GameStore}
+                keys={this.keyListener2}
+                index={1}
+            />
+
+            <Bot
+                store={GameStore}
+                index={0}
+            />
+
+              <Coin
+                  store={GameStore}
+                  index={2}
+              />
+              <Coin
+                  store={GameStore}
+                  index={1}
+              />
+              <Coin
+                  store={GameStore}
+                  index={0}
+              />
+          </div>
+      )
+    } else if(GameStore.gameMode.botVsBot === true) {
+      return (
+          <div>
+            <Bot2
+                store={GameStore}
+                index={1}
+            />
+
+            <Bot
+                store={GameStore}
+                index={0}
+            />
+
+            <Coin
+                store={GameStore}
+                index={2}
+            />
+            <Coin
+                store={GameStore}
+                index={1}
+            />
+            <Coin
+                store={GameStore}
+                index={0}
+            />
+          </div>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <Loop>
+        <Stage style={{ background: '#3a9bdc' }}>
+          <World onInit={this.physicsInit} gravity={{y:0, scale:0.000000000001}}>
+            <GameBoard store={GameStore} />
+
+            {this.gameModes()}
 
           </World>
         </Stage>

@@ -21,7 +21,6 @@ export default class Coin extends Component {
 
         this.update = this.update.bind(this);
         this.getCoinStyle = this.getCoinStyle.bind(this);
-        this.rect2Rect = this.rect2Rect.bind(this);
     }
 
     componentDidMount() {
@@ -49,15 +48,6 @@ export default class Coin extends Component {
         };
     }
 
-    rect2Rect(coin, player) {
-        return (
-            coin.getBoundingClientRect().left <= player.getBoundingClientRect().left + player.getBoundingClientRect().width &&
-            coin.getBoundingClientRect().left + coin.getBoundingClientRect().width  >= player.getBoundingClientRect().left &&
-            coin.getBoundingClientRect().top + coin.getBoundingClientRect().height >= player.getBoundingClientRect().top &&
-            coin.getBoundingClientRect().top <= player.getBoundingClientRect().top + player.getBoundingClientRect().height
-        );
-    }
-
     update() {
         const { store, index } = this.props;
         const { body } = this.body;
@@ -66,19 +56,19 @@ export default class Coin extends Component {
             store.setCoinPosition(body.position, index);
             this.isLeaving = true;
         } else {
-            const coin = document.getElementById('coin');
+            const coin = document.getElementById('coin' + index);
             const player1 = document.getElementById('player1');
             const player2 = document.getElementById('player2');
 
             let coinPositionX = Math.random() * (100 - 800) + 800;
             let coinPositionY = Math.random() * (100 - 500) + 500;
 
-            if(this.rect2Rect(coin, player1)) {
+            if(store.rect2Rect(coin, player1)) {
                 store.setScore(0);
                 store.setCoinPosition({x: coinPositionX, y: coinPositionY}, index);
                 console.log(coinPositionX, coinPositionY);
             }
-            if(this.rect2Rect(coin, player2)) {
+            if(store.rect2Rect(coin, player2)) {
                 store.setScore(1);
                 store.setCoinPosition({x: coinPositionX, y: coinPositionY}, index);
                 console.log(coinPositionX, coinPositionY);
@@ -92,7 +82,7 @@ export default class Coin extends Component {
         let y = this.props.store.coinPosition[this.props.index].y;
 
         return (
-            <div id="coin" style={this.getCoinStyle()}>
+            <div id={"coin" + this.props.index} style={this.getCoinStyle()}>
                 <Body
                     args={[x, y, 30, 30]}
                     inertia={Infinity}
