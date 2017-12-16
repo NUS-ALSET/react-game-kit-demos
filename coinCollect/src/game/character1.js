@@ -71,37 +71,22 @@ export default class Character1 extends Component {
     Matter.Body.setVelocity(body, { x, y });
   };
 
-  checkKeys(shouldMoveStageLeft, shouldMoveStageRight, shouldMoveStageUp, shouldMoveStageDown) {
+  checkKeys() {
     const { keys, store, index } = this.props;
     const { body } = this.body;
 
     let characterState = 4;
 
     if (keys.isDown(Keys.player1.left)) {
-      if (shouldMoveStageLeft) {
-        store.setStageX(store.stageX[index] + 2, index);
-      }
-
       this.move(body, -2, 0);
       characterState = 1;
     } else if (keys.isDown(Keys.player1.right)) {
-      if (shouldMoveStageRight) {
-        store.setStageX(store.stageX[index] - 2, index);
-      }
-
       this.move(body, 2, 0);
       characterState = 0;
     } else if (keys.isDown(Keys.player1.up)) {
-      if(shouldMoveStageUp) {
-        store.setStageY(store.stageY[index] + 2, index);
-      }
       this.move(body, 0, -2);
       characterState = 2;
     } else if (keys.isDown(Keys.player1.down)) {
-      if(shouldMoveStageDown) {
-        store.setStageY(store.stageY[index] - 2, index);
-      }
-
       this.move(body, 0, 2);
       characterState = 3;
     } else if (keys.isDown(Keys.player1.action)) {
@@ -118,28 +103,9 @@ export default class Character1 extends Component {
     const { store, index } = this.props;
     const { body } = this.body;
 
-    const midPoint = Math.abs(store.stageX[index]) + 920;
-
-    const shouldMoveStageLeft = body.position.x < midPoint && store.stageX[index] < 0;
-    const shouldMoveStageRight = body.position.x > midPoint && store.stageX[index] > -2048;
-    const shouldMoveStageUp = body.position.y < 576 && store.stageY[index] < 0 ;
-    const shouldMoveStageDown = body.position.y >576 && store.stageY[index]>-576 ;
-
     if (!this.isLeaving) {
-      this.checkKeys(shouldMoveStageLeft, shouldMoveStageRight, shouldMoveStageUp, shouldMoveStageDown);
-
+      this.checkKeys();
       store.setCharacterPosition(body.position, index);
-    } else {
-
-      const targetX = store.stageX[index] + (this.lastX - body.position.x);
-      const targetY = store.stageY[index] + (this.lastY - body.position.y);
-
-
-      if (shouldMoveStageLeft || shouldMoveStageRight) {
-        store.setStageX(targetX, index);
-      } else if (shouldMoveStageUp || shouldMoveStageDown) {
-        store.setStageY(targetY, index);
-      }
     }
 
     this.lastX = body.position.x;

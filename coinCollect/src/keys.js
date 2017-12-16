@@ -1,5 +1,7 @@
 const keys = {
-    "enter": 13,
+    "playerVsPlayer": 49,
+    "playerVsBot": 50,
+    "botVsBot": 51,
     "player1": {
         "left": 83,
         "right": 70,

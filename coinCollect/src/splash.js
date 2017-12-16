@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Keys from './keys';
 
 export default class splash extends Component {
   static propTypes = {
@@ -37,12 +38,14 @@ export default class splash extends Component {
     return (
       <div>
         <img className="splash" src="assets/splash.png" />
-        <p
+        <div
           className="start"
           style={{ display: this.state.blink ? 'block' : 'none' }}
         >
-          Press Enter
-        </p>
+          <p>Press 1 - Player vs Player</p>
+          <p>Press 2 - Player vs Bot</p>
+          <p>Press 3 - Bot vs Bot</p>
+        </div>
       </div>
     );
   }
@@ -52,8 +55,14 @@ export default class splash extends Component {
   }
 
   handleKeyPress(e) {
-    if (e.keyCode === 13) {
-      this.props.onStart();
+    if (e.keyCode === Keys.playerVsPlayer) {
+      this.props.onStart(0);
+    }
+    if (e.keyCode === Keys.playerVsBot) {
+      this.props.onStart(1);
+    }
+    if (e.keyCode === Keys.botVsBot) {
+      this.props.onStart(2);
     }
   }
 }

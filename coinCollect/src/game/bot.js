@@ -8,9 +8,8 @@ import { Body, Sprite } from 'react-game-kit/lib';
 import Keys from '../keys';
 
 @observer
-export default class Character2 extends Component {
+export default class Bot extends Component {
   static propTypes = {
-    keys: PropTypes.object,
     store: PropTypes.object,
     index: PropTypes.number,
   };
@@ -24,12 +23,10 @@ export default class Character2 extends Component {
     super(props);
 
     this.loopID = null;
-    this.isLeaving = false;
-    this.lastX = 0;
-    this.lastY = 0;
-
+    
+    
     this.state = {
-      characterState: 4,
+      characterState: 5,
       loop: false,
       spritePlaying: true,
     };
@@ -51,7 +48,6 @@ export default class Character2 extends Component {
     const { characterPosition, stageX, stageY } = this.props.store;
     const { scale } = this.context;
     const { x, y } = characterPosition[this.props.index];
-
     const targetX = x + stageX[this.props.index];
     const targetY = y + stageY[this.props.index];
 
@@ -64,7 +60,7 @@ export default class Character2 extends Component {
     };
   }
 
-   handlePlayStateChanged(state) {
+  handlePlayStateChanged(state) {
     this.setState({
       spritePlaying: state ? true : false,
     });
@@ -75,39 +71,47 @@ export default class Character2 extends Component {
   };
 
   checkKeys() {
-    const { keys, store, index } = this.props;
+    const { store } = this.props;
     const { body } = this.body;
 
     let characterState = 4;
-    let speed = 2;
-    if(store.gameMode.playerVsPlayer !== true) {
-      speed = 1;
+
+    let botPositionX = parseInt(body.position.x);
+    let botPositionY = parseInt(body.position.y);
+
+    let botLengthToCoin;
+    let data = [], dataMin = [];
+    for(let i = 0; i < store.coinPosition.length; i++) {
+      botLengthToCoin = store.sort(store.coinPosition[i].x, botPositionX, store.coinPosition[i].y, botPositionY);
+      data.push(botLengthToCoin);
+      dataMin.push(botLengthToCoin[0].minCoin);
     }
+    let dataMinCoin = Math.min.apply(null, dataMin);
 
-    if (keys.isDown(Keys.player2.left)) {
+    let found = data.find((loc) => {
+      return loc[0].minCoin === dataMinCoin;
+    });
 
-      this.move(body, -speed, 0);
-      characterState = 0;
+    let coinPosX = parseInt(found[0].x);
+    let coinPosY = parseInt(found[0].y);
 
-    } else if (keys.isDown(Keys.player2.right)) {
-
-      this.move(body, speed, 0);
+    if (coinPosX < botPositionX) {
+      this.move(body, -1, 0);
       characterState = 1;
-    } else if (keys.isDown(Keys.player2.up)) {
-
-      this.move(body, 0, -speed);
+    } else if(coinPosX > botPositionX) {
+      this.move(body, 1, 0);
+      characterState = 0;
+    } else if(coinPosY < botPositionY) {
+      this.move(body, 0, -1);
       characterState = 2;
-    } else if (keys.isDown(Keys.player2.down)) {
-
-      this.move(body, 0, speed);
+    } else if(coinPosY > botPositionY) {
+      this.move(body, 0, 1);
       characterState = 3;
-    } else if (keys.isDown(Keys.player2.action) || keys.isDown(32)) {
-      console.log('player 2 action')
     }
-
+ 
     this.setState({
       characterState,
-      repeat: characterState < 4,
+      repeat: characterState < 5,
     });
   };
 
@@ -115,13 +119,32 @@ export default class Character2 extends Component {
     const { store, index } = this.props;
     const { body } = this.body;
 
+    const midPoint = Math.abs(store.stageX[index]) + 920;
+
+    const shouldMoveStageLeft = body.position.x < midPoint && store.stageX[index] < 0;
+    const shouldMoveStageRight = body.position.x > midPoint && store.stageX[index] > -2048;
+    const shouldMoveStageUp = body.position.y < 576 && store.stageY[index] < 0 ;
+    const shouldMoveStageDown = body.position.y >576 && store.stageY[index]>-576 ;
+
     if (!this.isLeaving) {
-      this.checkKeys();
+      this.checkKeys(shouldMoveStageLeft, shouldMoveStageRight, shouldMoveStageUp, shouldMoveStageDown);
+
       store.setCharacterPosition(body.position, index);
+    } else {
+
+      const targetX = store.stageX[index] + (this.lastX - body.position.x);
+      const targetY = store.stageY[index] + (this.lastY - body.position.y);
+
+
+      if (shouldMoveStageLeft || shouldMoveStageRight) {
+        store.setStageX(targetX, index);
+      } else if (shouldMoveStageUp || shouldMoveStageDown) {
+        store.setStageY(targetY, index);
+      }
     }
 
-   this.lastX = body.position.x;
-   this.lastY = body.position.y;
+    this.lastX = body.position.x;
+    this.lastY = body.position.y;
   };
 
   render() {
@@ -129,7 +152,7 @@ export default class Character2 extends Component {
     const y = this.props.store.characterPosition[this.props.index].y;
 
     return (
-      <div id="player2" style={this.getWrapperStyles()}>
+      <div id="player1" style={this.getWrapperStyles()}>
         <Body
           args={[x, y, 64, 64]}
           inertia={Infinity}
@@ -140,10 +163,10 @@ export default class Character2 extends Component {
           <Sprite
             repeat={this.state.repeat}
             onPlayStateChanged={this.handlePlayStateChanged}
-            src="assets/character2.png"
+            src="assets/character1.png"
             scale={this.context.scale}
             state={this.state.characterState}
-            steps={[7, 7, 7, 7, 0]}
+            steps={[7, 7, 7, 7, 0, 0]}
           />
           <Pos value={this.props.store.playersScore[this.props.index].score} />
         </Body>
