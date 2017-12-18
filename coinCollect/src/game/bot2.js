@@ -5,8 +5,8 @@ import Matter from 'matter-js';
 import Pos from './pos';
 
 import { Body, Sprite } from 'react-game-kit/lib';
-import Keys from '../keys';
 
+@observer
 export default class Bot2 extends Component {
   static propTypes = {
     keys: PropTypes.object,
@@ -137,7 +137,7 @@ export default class Bot2 extends Component {
     const y = this.props.store.characterPosition[this.props.index].y;
 
     return (
-        <div id="player2" style={this.getWrapperStyles()}>
+        <div id={this.props.mode + '-player2'} style={this.getWrapperStyles()}>
           <Body
               args={[x, y, 64, 64]}
               inertia={Infinity}

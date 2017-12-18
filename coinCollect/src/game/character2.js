@@ -80,7 +80,7 @@ export default class Character2 extends Component {
 
     let characterState = 4;
     let speed = 2;
-    if(store.gameMode.playerVsPlayer !== true) {
+    if(this.props.mode !== 'player-vs-player') {
       speed = 1;
     }
 
@@ -129,7 +129,7 @@ export default class Character2 extends Component {
     const y = this.props.store.characterPosition[this.props.index].y;
 
     return (
-      <div id="player2" style={this.getWrapperStyles()}>
+      <div id={this.props.mode + "-player2"} style={this.getWrapperStyles()}>
         <Body
           args={[x, y, 64, 64]}
           inertia={Infinity}

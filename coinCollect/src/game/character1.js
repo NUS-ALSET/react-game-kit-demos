@@ -117,7 +117,7 @@ export default class Character1 extends Component {
     const y = this.props.store.characterPosition[this.props.index].y;
 
     return (
-      <div id="player1" style={this.getWrapperStyles()}>
+      <div id={this.props.mode + "-player1"} style={this.getWrapperStyles()}>
         <Body
           args={[x, y, 64, 64]}
           inertia={Infinity}

@@ -8,7 +8,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      gameState: 0,
+      gameState: 1,
       gameMode: 'player-vs-player', //modes: player-vs-player, player-vs-bot, bot-vs-bot
     };
 
@@ -17,26 +17,31 @@ export default class App extends Component {
   }
 
   render() {
-    this.gameStates = [
-      <Splash onStart={this.handleStart} />,
-      <Game
-          onLeave={this.handleLeave}
-          mode={this.state.gameMode}
-      />,
-      // <Game
-      //     onLeave={this.handleLeave}
-      //     mode='player-vs-player'
-      // />,
-      // <Game
-      //     onLeave={this.handleLeave}
-      //     mode='player-vs-bot'
-      // />,
-      // <Game
-      //     onLeave={this.handleLeave}
-      //     mode='bot-vs-bot'
-      // />,
-    ];
-    return this.gameStates[this.state.gameState];
+    return (
+        <div>
+          <div style={{height: '100vh', width: '100%'}}>
+            <Game
+                key="player-vs-player"
+                onLeave={this.handleLeave}
+                mode='player-vs-player'
+            />
+          </div>
+          <div style={{height: '100vh', width: '100%'}}>
+            <Game
+                key="player-vs-bot"
+                onLeave={this.handleLeave}
+                mode='player-vs-bot'
+            />
+          </div>
+          <div style={{height: '100vh', width: '100%'}}>
+            <Game
+                key="bot-vs-bot"
+                onLeave={this.handleLeave}
+                mode='bot-vs-bot'
+            />
+          </div>
+        </div>
+    )
   }
 
   handleStart(index) {
