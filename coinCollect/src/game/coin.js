@@ -56,9 +56,9 @@ export default class Coin extends Component {
             store.setCoinPosition(body.position, index);
             this.isLeaving = true;
         } else {
-            const coin = document.getElementById('coin' + index);
-            const player1 = document.getElementById('player1');
-            const player2 = document.getElementById('player2');
+            const coin = document.getElementById(this.props.mode + '-coin' + index);
+            const player1 = document.getElementById(this.props.mode + '-player1');
+            const player2 = document.getElementById(this.props.mode + '-player2');
 
             let coinPositionX = Math.random() * (100 - 800) + 800;
             let coinPositionY = Math.random() * (100 - 500) + 500;
@@ -66,12 +66,10 @@ export default class Coin extends Component {
             if(store.rect2Rect(coin, player1)) {
                 store.setScore(0);
                 store.setCoinPosition({x: coinPositionX, y: coinPositionY}, index);
-                console.log(coinPositionX, coinPositionY);
             }
             if(store.rect2Rect(coin, player2)) {
                 store.setScore(1);
                 store.setCoinPosition({x: coinPositionX, y: coinPositionY}, index);
-                console.log(coinPositionX, coinPositionY);
             }
 
         }
@@ -82,7 +80,7 @@ export default class Coin extends Component {
         let y = this.props.store.coinPosition[this.props.index].y;
 
         return (
-            <div id={"coin" + this.props.index} style={this.getCoinStyle()}>
+            <div id={this.props.mode + "-coin" + this.props.index} style={this.getCoinStyle()}>
                 <Body
                     args={[x, y, 30, 30]}
                     inertia={Infinity}

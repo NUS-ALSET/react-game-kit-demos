@@ -12,6 +12,8 @@ import Coin from './coin';
 
 import GameBoard from './board';
 import GameStore from './stores/game-store';
+import GameStoreBot1 from './stores/game-store-bot1';
+import GameStoreBot2 from './stores/game-store-bot2';
 
 export default class Game extends Component {
   constructor(props) {
@@ -75,28 +77,33 @@ export default class Game extends Component {
           <div>
             <Character2
                 store={GameStore}
+                mode={this.props.mode}
                 keys={this.keyListener2}
                 index={1}
             />
 
             <Character1
                 store={GameStore}
+                mode={this.props.mode}
                 keys={this.keyListener1}
                 index={0}
             />
 
             <Coin
                 store={GameStore}
+                mode={this.props.mode}
                 index={0}
             />
 
             <Coin
                 store={GameStore}
+                mode={this.props.mode}
                 index={1}
             />
 
             <Coin
                 store={GameStore}
+                mode={this.props.mode}
                 index={2}
             />
           </div>
@@ -105,26 +112,31 @@ export default class Game extends Component {
       return (
           <div>
             <Character2
-                store={GameStore}
+                store={GameStoreBot1}
+                mode={this.props.mode}
                 keys={this.keyListener2}
                 index={1}
             />
 
             <Bot
-                store={GameStore}
+                store={GameStoreBot1}
+                mode={this.props.mode}
                 index={0}
             />
 
               <Coin
-                  store={GameStore}
+                  store={GameStoreBot1}
+                  mode={this.props.mode}
                   index={2}
               />
               <Coin
-                  store={GameStore}
+                  store={GameStoreBot1}
+                  mode={this.props.mode}
                   index={1}
               />
               <Coin
-                  store={GameStore}
+                  store={GameStoreBot1}
+                  mode={this.props.mode}
                   index={0}
               />
           </div>
@@ -133,25 +145,30 @@ export default class Game extends Component {
       return (
           <div>
             <Bot2
-                store={GameStore}
+                store={GameStoreBot2}
+                mode={this.props.mode}
                 index={1}
             />
 
             <Bot
-                store={GameStore}
+                store={GameStoreBot2}
+                mode={this.props.mode}
                 index={0}
             />
 
             <Coin
-                store={GameStore}
+                store={GameStoreBot2}
+                mode={this.props.mode}
                 index={2}
             />
             <Coin
-                store={GameStore}
+                store={GameStoreBot2}
+                mode={this.props.mode}
                 index={1}
             />
             <Coin
-                store={GameStore}
+                store={GameStoreBot2}
+                mode={this.props.mode}
                 index={0}
             />
           </div>
@@ -165,6 +182,7 @@ export default class Game extends Component {
         <Stage style={{ background: '#3a9bdc' }}>
           <World onInit={this.physicsInit} gravity={{y:0, scale:0.000000000001}}>
             <GameBoard store={GameStore} />
+              <p style={{position: 'absolute', left: 0, top: 0, color: 'white', margin: 0, fontSize: 36}}>{this.props.mode}</p>
             {this.gameModes()}
           </World>
         </Stage>
