@@ -2,6 +2,7 @@ const keys = {
     "playerVsPlayer": 49,
     "playerVsBot": 50,
     "botVsBot": 51,
+    "start": 13,
     "player1": {
         "left": 83,
         "right": 70,
