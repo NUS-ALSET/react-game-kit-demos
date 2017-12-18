@@ -42,9 +42,9 @@ export default class splash extends Component {
           className="start"
           style={{ display: this.state.blink ? 'block' : 'none' }}
         >
-          <p>Press 1 - Player vs Player</p>
-          <p>Press 2 - Player vs Bot</p>
-          <p>Press 3 - Bot vs Bot</p>
+          <p>Press Enter</p>
+          {/*<p>Press 2 - Player vs Bot</p>*/}
+          {/*<p>Press 3 - Bot vs Bot</p>*/}
         </div>
       </div>
     );
@@ -55,14 +55,17 @@ export default class splash extends Component {
   }
 
   handleKeyPress(e) {
-    if (e.keyCode === Keys.playerVsPlayer) {
-      this.props.onStart(0);
+    if (e.keyCode === Keys.start) {
+      this.props.onStart();
     }
-    if (e.keyCode === Keys.playerVsBot) {
-      this.props.onStart(1);
-    }
-    if (e.keyCode === Keys.botVsBot) {
-      this.props.onStart(2);
-    }
+    // if (e.keyCode === Keys.playerVsPlayer) {
+    //   this.props.onStart(0);
+    // }
+    // if (e.keyCode === Keys.playerVsBot) {
+    //   this.props.onStart(1);
+    // }
+    // if (e.keyCode === Keys.botVsBot) {
+    //   this.props.onStart(2);
+    // }
   }
 }

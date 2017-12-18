@@ -70,7 +70,7 @@ export default class Game extends Component {
   };
 
   gameModes() {
-    if(GameStore.gameMode.playerVsPlayer === true) {
+    if(this.props.mode === 'player-vs-player') {
       return (
           <div>
             <Character2
@@ -101,7 +101,7 @@ export default class Game extends Component {
             />
           </div>
       )
-    } else if(GameStore.gameMode.playerVsBot === true) {
+    } else if(this.props.mode === 'player-vs-bot') {
       return (
           <div>
             <Character2
@@ -129,7 +129,7 @@ export default class Game extends Component {
               />
           </div>
       )
-    } else if(GameStore.gameMode.botVsBot === true) {
+    } else if(this.props.mode === 'bot-vs-bot') {
       return (
           <div>
             <Bot2
@@ -165,14 +165,11 @@ export default class Game extends Component {
         <Stage style={{ background: '#3a9bdc' }}>
           <World onInit={this.physicsInit} gravity={{y:0, scale:0.000000000001}}>
             <GameBoard store={GameStore} />
-
             {this.gameModes()}
-
           </World>
         </Stage>
       </Loop>
     );
   }
 
-  
 }
