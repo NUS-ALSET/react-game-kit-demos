@@ -1,0 +1,16 @@
+node_modules/
+
+.backup/
+.idea/
+.coverage/
+
+.temp/
+_temp/
+temp/
+
+dist/
+.dist/
+
+*.zip
+*.7z
+npm-debug.log
