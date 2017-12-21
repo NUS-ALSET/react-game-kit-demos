@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Matter from 'matter-js';
 import Keys from '../keys';
 import { Loop, Stage, KeyListener, World } from 'react-game-kit/lib';
@@ -11,9 +10,9 @@ import Bot2 from './bot2';
 import Coin from './coin';
 
 import GameBoard from './board';
+import Bar from './top-bar';
+
 import GameStore from './stores/game-store';
-import GameStoreBot1 from './stores/game-store-bot1';
-import GameStoreBot2 from './stores/game-store-bot2';
 
 export default class Game extends Component {
   constructor(props) {
@@ -22,11 +21,20 @@ export default class Game extends Component {
     this.keyListener1 = new KeyListener();
     this.keyListener2 = new KeyListener();
     window.context = window.context || new AudioContext();
-
+  }
+  componentWillMount() {
+    const { gameStore, rounds, coinInRound } = this.props;
+    if(rounds) {
+      gameStore.rounds = rounds;
+    }
+    if(coinInRound) {
+      gameStore.coinInRound = coinInRound;
+    }
+    this.setCoinPositions();
+    this.setPlayerPosition();
   }
 
   componentDidMount() {
-    
     this.keyListener1.subscribe([
       Keys.player1.left,
       Keys.player1.right,
@@ -71,109 +79,44 @@ export default class Game extends Component {
     Matter.World.addBody(engine.world, rightWall);
   };
 
-  gameModes() {
-    if(this.props.mode === 'player-vs-player') {
-      return (
-          <div>
-            <Character2
-                store={GameStore}
-                mode={this.props.mode}
-                keys={this.keyListener2}
-                index={1}
-            />
+  setCoinPositions() {
+      const {coinsPosition, gameStore, coins} = this.props;
+      if(coinsPosition) {
+          gameStore.coinPosition = coinsPosition;
+          if(coinsPosition.length !== coins.length) {
+              if(coinsPosition.length < coins.length) {
+                  for(let i = coinsPosition.length; i < coins.length; i++) {
+                      gameStore.setCoinPosition({x: Math.random() * (100 - 800) + 800, y: Math.random() * (100 - 500) + 500}, i)
+                  }
+              } else {
+                  console.error('Mode: ' + this.props.mode + ' - Error, coins ' + coins.length  + ' < ' + coinsPosition.length + ' coinsPosition, you can add coin');
+              }
+          }
+      } else {
+          gameStore.coinPosition = coins.map(() => {return ({x: Math.random() * (100 - 800) + 800, y: Math.random() * (100 - 500) + 500})});
+      }
+  }
 
-            <Character1
-                store={GameStore}
-                mode={this.props.mode}
-                keys={this.keyListener1}
-                index={0}
-            />
-
-            <Coin
-                store={GameStore}
-                mode={this.props.mode}
-                index={0}
-            />
-
-            <Coin
-                store={GameStore}
-                mode={this.props.mode}
-                index={1}
-            />
-
-            <Coin
-                store={GameStore}
-                mode={this.props.mode}
-                index={2}
-            />
-          </div>
-      )
-    } else if(this.props.mode === 'player-vs-bot') {
-      return (
-          <div>
-            <Character2
-                store={GameStoreBot1}
-                mode={this.props.mode}
-                keys={this.keyListener2}
-                index={1}
-            />
-
-            <Bot
-                store={GameStoreBot1}
-                mode={this.props.mode}
-                index={0}
-            />
-
-              <Coin
-                  store={GameStoreBot1}
-                  mode={this.props.mode}
-                  index={2}
-              />
-              <Coin
-                  store={GameStoreBot1}
-                  mode={this.props.mode}
-                  index={1}
-              />
-              <Coin
-                  store={GameStoreBot1}
-                  mode={this.props.mode}
-                  index={0}
-              />
-          </div>
-      )
-    } else if(this.props.mode === 'bot-vs-bot') {
-      return (
-          <div>
-            <Bot2
-                store={GameStoreBot2}
-                mode={this.props.mode}
-                index={1}
-            />
-
-            <Bot
-                store={GameStoreBot2}
-                mode={this.props.mode}
-                index={0}
-            />
-
-            <Coin
-                store={GameStoreBot2}
-                mode={this.props.mode}
-                index={2}
-            />
-            <Coin
-                store={GameStoreBot2}
-                mode={this.props.mode}
-                index={1}
-            />
-            <Coin
-                store={GameStoreBot2}
-                mode={this.props.mode}
-                index={0}
-            />
-          </div>
-      )
-    }
+  setPlayerPosition() {
+      const {playersPosition, gameStore } = this.props;
+      if(playersPosition) {
+          gameStore.characterPosition = playersPosition;
+          if(playersPosition.length !== 2) {
+              for(let i = playersPosition.length; i < 2; i++) {
+                  gameStore.setCharacterPosition({x: Math.random() * (100 - 800) + 800, y: Math.random() * (100 - 500) + 500}, i)
+              }
+          }
+      } else {
+          for(let i = 0; i < 2; i++) {
+              if(i === 0) {
+                  gameStore.setCharacterPosition({x: 64, y: 64}, i);
+              } else if(i === 1) {
+                  gameStore.setCharacterPosition({x: 899, y: 450}, i);
+              } else {
+                  gameStore.setCharacterPosition({x: Math.random() * (100 - 800) + 800, y: Math.random() * (100 - 500) + 500}, i);
+              }
+          }
+      }
   }
 
   render() {
@@ -182,8 +125,50 @@ export default class Game extends Component {
         <Stage style={{ background: '#3a9bdc' }}>
           <World onInit={this.physicsInit} gravity={{y:0, scale:0.000000000001}}>
             <GameBoard store={GameStore} />
-              <p style={{position: 'absolute', left: 0, top: 0, color: 'white', margin: 0, fontSize: 36}}>{this.props.mode}</p>
-            {this.gameModes()}
+              <Bar mode={this.props.mode} store={this.props.gameStore} coinsPosition={this.props.coinsPosition} coins={this.props.coins} playersPosition={this.props.playersPosition} />
+              {this.props.gameStore.winner.length < 1 ? (
+                  <div>
+                      {this.props.player2 ? (
+                          <Bot2
+                              store={this.props.gameStore}
+                              mode={this.props.mode}
+                              index={1}
+                              player={this.props.player2}
+                          />
+                      ) : (
+                          <Character2
+                              store={this.props.gameStore}
+                              mode={this.props.mode}
+                              keys={this.keyListener2}
+                              index={1}
+                          />
+                      )}
+                      {this.props.player1 ? (
+                          <Bot
+                              store={this.props.gameStore}
+                              mode={this.props.mode}
+                              index={0}
+                              player={this.props.player1}
+                          />
+                      ) : (
+                          <Character1
+                              store={this.props.gameStore}
+                              mode={this.props.mode}
+                              keys={this.keyListener1}
+                              index={0}
+                          />
+                      )}
+
+                      {this.props.coins.map((index, key) => (
+                          <Coin
+                              key={key}
+                              store={this.props.gameStore}
+                              mode={this.props.mode}
+                              index={key}
+                          />
+                      ))}
+                  </div>
+              ) : []}
           </World>
         </Stage>
       </Loop>

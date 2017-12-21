@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import Matter from 'matter-js';
-import Pos from './pos';
 
 import { Body, Sprite } from 'react-game-kit/lib';
 
@@ -74,7 +73,7 @@ export default class Bot2 extends Component {
   };
 
   checkKeys() {
-    const { store, index } = this.props;
+    const { store, index, player, mode, playersPosition } = this.props;
     const { body } = this.body;
 
     let characterState = 4;
@@ -100,15 +99,31 @@ export default class Bot2 extends Component {
     if (coinPosX < botPositionX) {
       this.move(body, -1, 0);
       characterState = 4;
+      if(player) {
+        player({youAre: mode + '-bot-' + index, positions: body.position, left: true, right: false, up: false, top: false});
+      }
+      store.setDirection({left: 'true', right: 'false', up: 'false', down: 'false'}, index);
     } else if(coinPosX > botPositionX) {
       this.move(body, 1, 0);
       characterState = 1;
+      if(player) {
+        player({youAre: mode + '-bot-' + index, positions: body.position, left: false, right: true, up: false, top: false});
+      }
+      store.setDirection({left: 'false', right: 'true', up: 'false', down: 'false'}, index);
     } else if(coinPosY < botPositionY) {
       this.move(body, 0, -1);
       characterState = 2;
+      if(player) {
+        player({youAre: mode + '-bot-' + index, positions: body.position, left: false, right: false, up: true, top: false});
+      }
+      store.setDirection({left: 'false', right: 'false', up: 'true', down: 'false'}, index);
     } else if(coinPosY > botPositionY) {
       this.move(body, 0, 1);
       characterState = 3;
+      if(player) {
+        player({youAre: mode + '-bot-' + index, positions: body.position, left: false, right: false, up: false, top: true});
+      }
+      store.setDirection({left: 'false', right: 'false', up: 'false', down: 'true'}, index);
     }
 
     this.setState({
@@ -118,18 +133,15 @@ export default class Bot2 extends Component {
   };
 
   update() {
-    const { store, index } = this.props;
-    const { body } = this.body;
+    const {store, index} = this.props;
+    const {body} = this.body;
 
-
-    if (!this.isLeaving) {
-      this.checkKeys();
-
-      store.setCharacterPosition(body.position, index);
-    }
-
-    this.lastX = body.position.x;
-    this.lastY = body.position.y;
+      if (!this.isLeaving) {
+        this.checkKeys();
+        store.setCharacterPosition(body.position, index);
+      }
+      this.lastX = body.position.x;
+      this.lastY = body.position.y;
   };
 
   render() {
@@ -153,7 +165,6 @@ export default class Bot2 extends Component {
                 state={this.state.characterState}
                 steps={[7, 7, 7, 7, 0]}
             />
-            <Pos value={this.props.store.playersScore[this.props.index].score} />
           </Body>
         </div>
     );
