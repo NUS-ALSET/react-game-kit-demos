@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import Matter from 'matter-js';
-import Pos from './pos';
 
 import { Body, Sprite } from 'react-game-kit/lib';
 import Keys from '../keys';
@@ -75,32 +74,32 @@ export default class Character2 extends Component {
   };
 
   checkKeys() {
-    const { keys, store, index } = this.props;
+    const { store, keys, index } = this.props;
     const { body } = this.body;
 
     let characterState = 4;
+    store.setDirection({left: 'false', right: 'false', up: 'false', down: 'false'}, index);
     let speed = 2;
     if(this.props.mode !== 'player-vs-player') {
       speed = 1;
     }
 
     if (keys.isDown(Keys.player2.left)) {
-
       this.move(body, -speed, 0);
       characterState = 0;
-
+      store.setDirection({left: 'true', right: 'false', up: 'false', down: 'false'}, index);
     } else if (keys.isDown(Keys.player2.right)) {
-
       this.move(body, speed, 0);
       characterState = 1;
+      store.setDirection({left: 'false', right: 'true', up: 'false', down: 'false'}, index);
     } else if (keys.isDown(Keys.player2.up)) {
-
       this.move(body, 0, -speed);
       characterState = 2;
+      store.setDirection({left: 'false', right: 'false', up: 'true', down: 'false'}, index);
     } else if (keys.isDown(Keys.player2.down)) {
-
       this.move(body, 0, speed);
       characterState = 3;
+      store.setDirection({left: 'false', right: 'false', up: 'false', down: 'true'}, index);
     } else if (keys.isDown(Keys.player2.action) || keys.isDown(32)) {
       console.log('player 2 action')
     }
@@ -145,7 +144,6 @@ export default class Character2 extends Component {
             state={this.state.characterState}
             steps={[7, 7, 7, 7, 0]}
           />
-          <Pos value={this.props.store.playersScore[this.props.index].score} />
         </Body>
       </div>
     );

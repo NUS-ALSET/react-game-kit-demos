@@ -1,26 +1,47 @@
 import { observable } from 'mobx';
 
 class GameStore {
-  @observable characterPosition = [{ x: 64, y: 64 }, {x:899, y:450}];
+  @observable characterPosition = [];
+  @observable playerDirection = [{left: 'false', right: 'true', up: 'false', down: 'false'}, {left: 'true', right: 'false', up: 'false', down: 'false'}];
   @observable playersScore = [{score: 0}, {score: 0}];
-  @observable coinPosition = [{x: 500, y: 285}, {x: 200, y: 324}, {x: 700, y: 200}];
+  @observable playersRoundScore = [{score: 0}, {score: 0}];
+  @observable coinPosition = [];
+  @observable rounds = 3;
+  @observable coinInRound = 15;
+  @observable winner = '';
 
-  @observable stageX = [0,0,0,0,0];
-  @observable stageY = [0,0,0,0,0];
-  @observable gameMode = [{
-    playerVsPlayer: false,
-    playerVsBot: false,
-    botVsBot: false,
-  }];
+  @observable stageX = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  @observable stageY = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
   setCharacterPosition(position, index) {
     this.characterPosition[index] = position;
+  }
+  setDirection(key, index) {
+    this.playerDirection[index] = key;
   }
   setCoinPosition(position, index) {
     this.coinPosition[index] = position;
   }
   setScore(index) {
-    this.playersScore[index].score = this.playersScore[index].score + 1;
+    if(this.winner.length < 1) {
+      if(this.playersScore[0].score !== this.coinInRound || this.playersScore[1].score !== this.coinInRound) {
+        this.playersScore[index].score = this.playersScore[index].score + 1;
+      }
+    }
+    if(this.playersScore[0].score === this.coinInRound || this.playersScore[1].score === this.coinInRound) {
+      if(this.playersRoundScore[0].score !== this.rounds || this.playersRoundScore[1].score !== this.rounds) {
+        this.playersScore[0].score = 0;
+        this.playersScore[1].score = 0;
+        this.playersRoundScore[index].score = this.playersRoundScore[index].score + 1;
+      }
+      if(this.winner.length < 1) {
+        if(this.playersRoundScore[0].score === this.rounds) {
+          this.winner = 'Player 1';
+        } else if(this.playersRoundScore[1].score === this.rounds) {
+          this.winner = 'Player 2';
+        }
+      }
+    }
   }
 
   setStageX(x, index) {
