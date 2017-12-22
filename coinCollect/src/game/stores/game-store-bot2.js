@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 
 class GameStore {
   @observable characterPosition = [];
+  @observable characterState = [4, 4];
   @observable playerDirection = [{left: 'false', right: 'true', up: 'false', down: 'false'}, {left: 'true', right: 'false', up: 'false', down: 'false'}];
   @observable playersScore = [{score: 0}, {score: 0}];
   @observable playersRoundScore = [{score: 0}, {score: 0}];
@@ -15,6 +16,9 @@ class GameStore {
 
   setCharacterPosition(position, index) {
     this.characterPosition[index] = position;
+  }
+  setCharacterState(position, index) {
+    this.characterState[index] = position;
   }
   setDirection(key, index) {
     this.playerDirection[index] = key;
