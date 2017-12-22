@@ -20,17 +20,10 @@ export default class Bot extends Component {
   constructor(props) {
     super(props);
 
-    this.loopID = null;
-    
-    
     this.state = {
       characterState: 5,
-      loop: false,
-      spritePlaying: true,
     };
 
-    this.handlePlayStateChanged = this.handlePlayStateChanged.bind(this);
-    this.checkKeys = this.checkKeys.bind(this);
     this.update = this.update.bind(this);
   }
 
@@ -58,105 +51,20 @@ export default class Bot extends Component {
     };
   }
 
-  handlePlayStateChanged(state) {
-    this.setState({
-      spritePlaying: state ? true : false,
-    });
-  };
-
-  move(body, x, y) {
-    Matter.Body.setVelocity(body, { x, y });
-  };
-
-  checkKeys() {
-    const { store, mode, player, index, playersPosition, } = this.props;
+  update() {
+    const { store, index, player } = this.props;
     const { body } = this.body;
-
     let characterState = 4;
 
-    let botPositionX = parseInt(body.position.x);
-    let botPositionY = parseInt(body.position.y);
-
-    let botLengthToCoin;
-    let data = [], dataMin = [];
-    for(let i = 0; i < store.coinPosition.length; i++) {
-      botLengthToCoin = store.sort(store.coinPosition[i].x, botPositionX, store.coinPosition[i].y, botPositionY);
-      data.push(botLengthToCoin);
-      dataMin.push(botLengthToCoin[0].minCoin);
-    }
-    let dataMinCoin = Math.min.apply(null, dataMin);
-
-    let found = data.find((loc) => {
-      return loc[0].minCoin === dataMinCoin;
-    });
-
-    let coinPosX = parseInt(found[0].x);
-    let coinPosY = parseInt(found[0].y);
-
-    if (coinPosX < botPositionX) {
-      this.move(body, -1, 0);
-      characterState = 1;
-      if(player) {
-        player({youAre: mode + '-bot-' + index, positions: body.position, left: true, right: false, up: false, top: false});
-      }
-      store.setDirection({left: 'true', right: 'false', up: 'false', down: 'false'}, index);
-    } else if(coinPosX > botPositionX) {
-      this.move(body, 1, 0);
-      characterState = 0;
-      if(player) {
-        player({youAre: mode + '-bot-' + index, positions: body.position, left: false, right: true, up: false, top: false});
-      }
-      store.setDirection({left: 'false', right: 'true', up: 'false', down: 'false'}, index);
-    } else if(coinPosY < botPositionY) {
-      this.move(body, 0, -1);
-      characterState = 2;
-      if(player) {
-        player({youAre: mode + '-bot-' + index, positions: body.position, left: false, right: false, up: true, top: false});
-      }
-      store.setDirection({left: 'false', right: 'false', up: 'true', down: 'false'}, index);
-    } else if(coinPosY > botPositionY) {
-      this.move(body, 0, 1);
-      characterState = 3;
-      if(player) {
-        player({youAre: mode + '-bot-' + index, positions: body.position, left: false, right: false, up: false, top: true});
-      }
-      store.setDirection({left: 'false', right: 'false', up: 'false', down: 'true'}, index);
-    }
- 
-    this.setState({
-      characterState,
-      repeat: characterState < 5,
-    });
-  };
-
-  update() {
-    const { store, index } = this.props;
-    const { body } = this.body;
-
-    const midPoint = Math.abs(store.stageX[index]) + 920;
-
-    const shouldMoveStageLeft = body.position.x < midPoint && store.stageX[index] < 0;
-    const shouldMoveStageRight = body.position.x > midPoint && store.stageX[index] > -2048;
-    const shouldMoveStageUp = body.position.y < 576 && store.stageY[index] < 0 ;
-    const shouldMoveStageDown = body.position.y >576 && store.stageY[index]>-576 ;
     if (!this.isLeaving) {
-      this.checkKeys(shouldMoveStageLeft, shouldMoveStageRight, shouldMoveStageUp, shouldMoveStageDown);
-      store.setCharacterPosition(body.position, index);
-    } else {
-
-      const targetX = store.stageX[index] + (this.lastX - body.position.x);
-      const targetY = store.stageY[index] + (this.lastY - body.position.y);
-
-
-      if (shouldMoveStageLeft || shouldMoveStageRight) {
-        store.setStageX(targetX, index);
-      } else if (shouldMoveStageUp || shouldMoveStageDown) {
-        store.setStageY(targetY, index);
+      if(player) {
+        player(store, index, body)
       }
+      this.setState({
+        characterState: store.characterState[index],
+        repeat: characterState < 5,
+      });
     }
-
-    this.lastX = body.position.x;
-    this.lastY = body.position.y;
   };
 
   render() {
