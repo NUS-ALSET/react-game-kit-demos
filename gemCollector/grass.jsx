@@ -22,7 +22,7 @@ export default class Grass extends Component {
 			  style={{ top: 0, left:0 }}
 			  src={"assets/grass.jpg"}
 			  rows={5}
-			  columns={5}
+			  columns={8}
 			  tileSize={128}
 			  layers={[[1]]}
 			/>

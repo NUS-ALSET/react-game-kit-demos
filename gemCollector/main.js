@@ -4,33 +4,38 @@ import ReactDOM from 'react-dom';
 
 class MyNewGame{
     constructor(){
-        ReactDOM.render(<Game key={0} player1= {(world) => this.getCommands(world,1)} player2= {(world) => this.getCommands(world,2)}/>,document.getElementById('game1'));
+        //ReactDOM.render(<Game key={0} player1= {(world) => this.getCommands(world,1)} player2= {(world) => this.getCommands(world,2)}/>,document.getElementById('game1'));
+        ReactDOM.render(
+        <div id={"game-"+1} style={{height: '100vh', width: '100%'}}>
+            <Game key={0} gameId={0}/>
+			<Game key={0} gameId={1}  player2= {(world, stones) => this.getCommands(world,2,stones)}/>
+			<Game key={1} gameId={2}  player1= {(world, stones) => this.getCommands(world,1,stones)}  player2= {(world, stones) => this.getCommands(world,2, stones)}/>
+        </div>,document.getElementById('game')
+        );
         this.timestamp = 0;
         this.timing = 1000;
     }
-    getCommands(world, playerNum){
+    getCommands(world, playerNum, stonesData){
         var player = world.bodies.find(body=>{if(body.label=="character"&&body.customId==playerNum-1) return body;});
         var closestGem = false;
-        world.bodies.forEach(body => {
-            if(body.label == "stone"){
-                if(closestGem==false)
-                    closestGem = body;
-                else if(
-                    Math.sqrt(closestGem.position.x*closestGem.position.x+closestGem.position.y*closestGem.position.y)>
-                    Math.sqrt(body.position.x*body.position.x+body.position.y*body.position.y)
-                ){
-                    closestGem = body;
-                }
-            }
+        stonesData.forEach(gem => {
+			if(closestGem==false)
+				closestGem = gem;
+			else if(
+				Math.sqrt(closestGem.x*closestGem.x+closestGem.y*closestGem.y)>
+				Math.sqrt(gem.x*gem.x+gem.y*gem.y)
+			){
+				closestGem = gem;
+			}
         });
         if(closestGem){
-            if(closestGem.position.x-player.position.x>10)
+            if(closestGem.x-player.position.x>10)
                 var newState = 11;
-            else if(closestGem.position.x-player.position.x<-10)
+            else if(closestGem.x-player.position.x<-10)
                 var newState = 9;
-            else if(closestGem.position.y-player.position.y>10)
+            else if(closestGem.y-player.position.y>10)
                 var newState = 10;
-            else if(closestGem.position.y-player.position.y<-10)
+            else if(closestGem.y-player.position.y<-10)
                 var newState = 8;
             return newState;
         }
