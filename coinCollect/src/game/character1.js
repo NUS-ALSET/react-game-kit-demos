@@ -85,6 +85,7 @@ export default class Character1 extends Component {
       this.move(body, -speed, 0);
       characterState = 1;
       store.setDirection({left: 'true', right: 'false', up: 'false', down: 'false'}, index);
+
     } else if (keys.isDown(Keys.player1.right)) {
       this.move(body, speed, 0);
       characterState = 0;
@@ -97,8 +98,6 @@ export default class Character1 extends Component {
       this.move(body, 0, speed);
       characterState = 3;
       store.setDirection({left: 'false', right: 'false', up: 'false', down: 'true'}, index);
-    } else if (keys.isDown(Keys.player1.action)) {
-      console.log('player 1 action')
     }
  
     this.setState({
@@ -111,13 +110,10 @@ export default class Character1 extends Component {
     const { store, index } = this.props;
     const { body } = this.body;
 
-    if (!this.isLeaving) {
+    if (store.game) {
       this.checkKeys();
-      store.setCharacterPosition(body.position, index);
     }
-
-    this.lastX = body.position.x;
-    this.lastY = body.position.y;
+    store.setCharacterPosition(body.position, index);
   };
 
   render() {

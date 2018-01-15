@@ -16,7 +16,7 @@ export default class board extends Component {
   }
 
   componentDidMount() {
-   
+
   }
 
   componentWillReceiveProps(nextProps, nextContext) {

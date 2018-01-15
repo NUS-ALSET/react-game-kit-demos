@@ -8,14 +8,16 @@ const keys = {
         "right": 70,
         "up": 69,
         "down": 68,
-        "action": 87
+        "action": 87,
+        "pause": 27,
     },
     "player2": {
         "left": 74,
         "up": 73,
         "right": 76,
         "down": 75,
-        "action": 80
+        "action": 80,
+        "pause": 32,
     }
 };
 export default keys;

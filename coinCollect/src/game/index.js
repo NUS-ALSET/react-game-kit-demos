@@ -10,7 +10,9 @@ import Bot2 from './bot2';
 import Coin from './coin';
 
 import GameBoard from './board';
+import GameSettings from './gameSettings';
 import Bar from './top-bar';
+import Restart from './restart';
 
 import GameStore from './stores/game-store';
 
@@ -20,7 +22,7 @@ export default class Game extends Component {
 
     this.keyListener1 = new KeyListener();
     this.keyListener2 = new KeyListener();
-    window.context = window.context || new AudioContext();
+    this.keySettingListener = new KeyListener();
   }
   componentWillMount() {
     const { gameStore, rounds, coinInRound } = this.props;
@@ -40,20 +42,32 @@ export default class Game extends Component {
       Keys.player1.right,
       Keys.player1.up,
       Keys.player1.down,
-      Keys.player1.action
+      Keys.player1.action,
+      Keys.player1.pause,
     ]);
     this.keyListener2.subscribe([
       Keys.player2.left,
       Keys.player2.right,
       Keys.player2.up,
       Keys.player2.down,
-      Keys.player2.action
+      Keys.player2.action,
+      32,
     ]);
+    if(this.props.gamePause) {
+        this.keySettingListener.subscribe([
+            this.props.gamePause
+        ]);
+    } else {
+        this.keySettingListener.subscribe([
+            27
+        ]);
+    }
   }
 
   componentWillUnmount() {
     this.keyListener1.unsubscribe();
     this.keyListener2.unsubscribe();
+    this.keySettingListener.unsubscribe();
   }
 
   physicsInit(engine) {
@@ -120,59 +134,77 @@ export default class Game extends Component {
   }
 
   render() {
-    return (
-      <Loop>
-        <Stage style={{ background: '#3a9bdc' }}>
-          <World onInit={this.physicsInit} gravity={{y:0, scale:0.000000000001}}>
-            <GameBoard store={GameStore} />
-              <Bar mode={this.props.mode} store={this.props.gameStore} coinsPosition={this.props.coinsPosition} coins={this.props.coins} playersPosition={this.props.playersPosition} />
-              {this.props.gameStore.winner.length < 1 ? (
-                  <div>
-                      {this.props.player2 ? (
-                          <Bot2
-                              store={this.props.gameStore}
-                              mode={this.props.mode}
-                              index={1}
-                              player={this.props.player2}
-                          />
-                      ) : (
-                          <Character2
-                              store={this.props.gameStore}
-                              mode={this.props.mode}
-                              keys={this.keyListener2}
-                              index={1}
-                          />
-                      )}
-                      {this.props.player1 ? (
-                          <Bot
-                              store={this.props.gameStore}
-                              mode={this.props.mode}
-                              index={0}
-                              player={this.props.player1}
-                          />
-                      ) : (
-                          <Character1
-                              store={this.props.gameStore}
-                              mode={this.props.mode}
-                              keys={this.keyListener1}
-                              index={0}
-                          />
-                      )}
+      return (
+          <Loop>
+              <Stage style={{ background: '#3a9bdc' }}>
+                  <World onInit={this.physicsInit} gravity={{ x: 0, y: 0, scale: 0.00 }}>
+                      <GameBoard store={GameStore} />
+                      <GameSettings
+                          store={this.props.gameStore}
+                          keys={this.keySettingListener}
+                          gamePause={this.props.gamePauseKey ? this.props.gamePauseKey : 27}
+                          onDispatch={this.props.onDispatch}
+                          gameId={this.props.gameId}
+                          playersPosition={this.props.playersPosition}
+                      />
+                      <Bar
+                          mode={this.props.mode}
+                          store={this.props.gameStore}
+                          coinsPosition={this.props.coinsPosition}
+                          coins={this.props.coins}
+                          playersPosition={this.props.playersPosition}
+                          gameId={this.props.gameId}
+                          handleClick={this.props.handleClick}
+                      />
+                      {this.props.gameState[this.props.gameId] ? this.props.gameStore.winner.length < 1 ? (
+                          <div>
+                              {this.props.player2 ? (
+                                  <Bot2
+                                      store={this.props.gameStore}
+                                      mode={this.props.mode}
+                                      index={1}
+                                      player={this.props.player2}
+                                  />
+                              ) : (
+                                  <Character2
+                                      store={this.props.gameStore}
+                                      mode={this.props.mode}
+                                      keys={this.keyListener2}
+                                      index={1}
+                                  />
+                              )}
+                              {this.props.player1 ? (
+                                  <Bot
+                                      store={this.props.gameStore}
+                                      mode={this.props.mode}
+                                      index={0}
+                                      player={this.props.player1}
+                                  />
+                              ) : (
+                                  <Character1
+                                      store={this.props.gameStore}
+                                      mode={this.props.mode}
+                                      keys={this.keyListener1}
+                                      index={0}
+                                  />
+                              )}
 
-                      {this.props.coins.map((index, key) => (
-                          <Coin
-                              key={key}
-                              store={this.props.gameStore}
-                              mode={this.props.mode}
-                              index={key}
-                          />
-                      ))}
-                  </div>
-              ) : []}
-          </World>
-        </Stage>
-      </Loop>
-    );
+                              {this.props.coins.map((index, key) => (
+                                  <Coin
+                                      key={key}
+                                      store={this.props.gameStore}
+                                      mode={this.props.mode}
+                                      index={key}
+                                  />
+                              ))}
+                          </div>
+                      ) : [] : (
+                          <Restart gameId={this.props.gameId} handleClick={this.props.handleClick} />
+                      ) }
+                  </World>
+              </Stage>
+          </Loop>
+      )
   }
 
 }
