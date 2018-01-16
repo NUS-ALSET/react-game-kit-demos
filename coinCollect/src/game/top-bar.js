@@ -87,11 +87,16 @@ export default class Bar extends Component {
                     <div style={{position: 'absolute', zIndex: 999, top: 0, left: 0, width: '100%', height: '100%', background: 'rgb(0,0,0)', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                         <h3 style={{color: 'red', margin: 0}}>Game Over</h3>
                         <p>{this.state.winner} win</p>
-                        <p><a style={{color: 'white', textDecoration: 'none', padding: '8px 20px', fontSize: 32, background: 'blue', borderRadius: 15}} href="" onClick={(event) => {this.restart(event); this.setCoinPositions()}}>Restart Game</a></p>
+                        <p>
+                            <a style={{color: 'white', textDecoration: 'none', padding: '8px 20px', fontSize: 32, background: 'blue', borderRadius: 15}} href=""
+                            onClick={(event) => {
+                                this.restart(event);
+                                this.setCoinPositions()
+                            }}>Restart Game</a>
+                        </p>
                     </div>
                 ) : []}
                 <div style={{position: 'absolute', left: 0, top: 0, display: 'flex', flexDirection: 'column', textAlign: 'center', color: 'white', margin: 0, fontSize: 36, width: '100%', height: 30}}>
-                    <div style={{fontSize: 16}}>{this.props.mode}</div>
                     <div style={{position: 'relative'}}>
                         <p style={{position: 'absolute', left: 25, top: -15, fontSize: 16}}>
                             left: <span style={this.state.player1Direction.left === 'true' ? {color: 'red'} : []}>{this.state.player1Direction.left}</span>,

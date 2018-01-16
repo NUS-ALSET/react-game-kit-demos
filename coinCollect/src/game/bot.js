@@ -56,15 +56,15 @@ export default class Bot extends Component {
     const { body } = this.body;
     let characterState = 4;
 
-    if (!this.isLeaving) {
+    if (store.game) {
       if(player) {
         player(store, index, body)
       }
-      this.setState({
-        characterState: store.characterState[index],
-        repeat: characterState < 5,
-      });
     }
+    this.setState({
+      characterState: store.characterState[index],
+      repeat: characterState < 5,
+    });
   };
 
   render() {

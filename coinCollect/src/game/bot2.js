@@ -59,7 +59,7 @@ export default class Bot2 extends Component {
     const {body} = this.body;
       let characterState = 4;
 
-      if (!this.isLeaving) {
+      if (store.game) {
         if(player) {
           player(store, index, body)
         }
