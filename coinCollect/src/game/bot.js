@@ -81,8 +81,6 @@ export default class Bot extends Component {
           }}
         >
           <Sprite
-            repeat={this.state.repeat}
-            onPlayStateChanged={this.handlePlayStateChanged}
             src="assets/character1.png"
             scale={this.context.scale}
             state={this.state.characterState}

@@ -12,7 +12,9 @@ export default class App extends Component {
 
     this.state = {
       gameState: [true, true, true],
+      isLeaving: false,
     };
+      this.lastX = 0;
     this.getCommands = this.getCommands.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -20,6 +22,10 @@ export default class App extends Component {
   move(body, x, y) {
       Matter.Body.setVelocity(body, { x, y });
   };
+
+  checkKeys() {
+
+  }
 
   getCommands(store, index, body) {
       let botPositionX = parseInt(body.position.x);
@@ -40,33 +46,51 @@ export default class App extends Component {
 
       let coinPosX = parseInt(found[0].x);
       let coinPosY = parseInt(found[0].y);
+      store.botsTest(store.characterPosition[0].x, store.characterPosition[0].y, store.characterPosition[1].x, store.characterPosition[1].y);
 
-      if(coinPosX < botPositionX) {
-          this.move(body, -1, 0);
+      const randomPosition = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
+      if(store.botBesideBot) {
+          let calculationPosition = randomPosition[Math.floor(Math.random() * randomPosition.length)];
           if(index === 0) {
+              this.move(body, calculationPosition, calculationPosition);
               store.setCharacterState(1, index);
           } else {
+              if(calculationPosition < 0) {
+                  calculationPosition = -calculationPosition;
+                  this.move(body, calculationPosition, calculationPosition);
+              } else {
+                  calculationPosition = +calculationPosition;
+                  this.move(body, calculationPosition, calculationPosition);
+              }
               store.setCharacterState(4, index);
           }
-          store.setDirection({left: 'true', right: 'false', up: 'false', down: 'false'}, index);
-      } else if(coinPosX > botPositionX) {
-          this.move(body, 1, 0);
-          if(index === 0) {
-              store.setCharacterState(0, index);
-          } else {
-              store.setCharacterState(1, index);
+      } else {
+          if(coinPosX < botPositionX) {
+              this.move(body, -1, 0);
+              if(index === 0) {
+                  store.setCharacterState(1, index);
+              } else {
+                  store.setCharacterState(4, index);
+              }
+              store.setDirection({left: 'true', right: 'false', up: 'false', down: 'false'}, index);
+          } else if(coinPosX > botPositionX) {
+              this.move(body, 1, 0);
+              if(index === 0) {
+                  store.setCharacterState(0, index);
+              } else {
+                  store.setCharacterState(1, index);
+              }
+              store.setDirection({left: 'false', right: 'true', up: 'false', down: 'false'}, index);
+          } else if(coinPosY < botPositionY) {
+              this.move(body, 0, -1);
+              store.setCharacterState(2, index);
+              store.setDirection({left: 'false', right: 'false', up: 'true', down: 'false'}, index);
+          } else if(coinPosY > botPositionY) {
+              this.move(body, 0, 1);
+              store.setCharacterState(3, index);
+              store.setDirection({left: 'false', right: 'false', up: 'false', down: 'true'}, index);
           }
-          store.setDirection({left: 'false', right: 'true', up: 'false', down: 'false'}, index);
-      } else if(coinPosY < botPositionY) {
-          this.move(body, 0, -1);
-          store.setCharacterState(2, index);
-          store.setDirection({left: 'false', right: 'false', up: 'true', down: 'false'}, index);
-      } else if(coinPosY > botPositionY) {
-          this.move(body, 0, 1);
-          store.setCharacterState(3, index);
-          store.setDirection({left: 'false', right: 'false', up: 'false', down: 'true'}, index);
       }
-
       store.setCharacterPosition(body.position, index);
   }
 
@@ -135,7 +159,7 @@ export default class App extends Component {
                   coins={[0,0,0,0,0]}
                   coinsPosition={[{x: 500, y: 285}, {x: 200, y: 324}, {x: 700, y: 200}]}
                   rounds={3}
-                  coinInRound={5}
+                  coinInRound={9}
                   gamePauseKey={17}
                   handleClick={this.handleClick}
                   onDispatch={(store, startNewGame, pauseGame, gameId) => this.handleDispatch(store, startNewGame, pauseGame, gameId)}

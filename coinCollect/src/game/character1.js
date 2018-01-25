@@ -60,9 +60,9 @@ export default class Character1 extends Component {
     };
   }
 
-  handlePlayStateChanged(state) {
+  handlePlayStateChanged() {
     this.setState({
-      spritePlaying: state ? true : false,
+      spritePlaying: false,
     });
   };
 
