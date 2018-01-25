@@ -11,6 +11,7 @@ class GameStore {
   @observable coinInRound = 15;
   @observable winner = '';
   @observable game = true;
+  @observable botBesideBot = false;
 
   @observable stageX = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
   @observable stageY = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -84,6 +85,15 @@ class GameStore {
       minCoin: Math.sqrt(g)
     }
     ]
+  }
+  botsTest(botX1, botY1, botX2, botY2) {
+    let g = (Math.pow(botX1-botX2,2))+(Math.pow(botY1-botY2,2));
+    g = Math.sqrt(g);
+    if(g <= 90) {
+      this.botBesideBot = true;
+    } else {
+      this.botBesideBot = false;
+    }
   }
 }
 

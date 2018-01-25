@@ -63,9 +63,9 @@ export default class Character2 extends Component {
     };
   }
 
-   handlePlayStateChanged(state) {
+   handlePlayStateChanged() {
     this.setState({
-      spritePlaying: state ? true : false,
+      spritePlaying: false,
     });
   };
 
@@ -115,9 +115,6 @@ export default class Character2 extends Component {
     if (store.game) {
       this.checkKeys();
       store.setCharacterPosition(body.position, index);
-
-      this.lastX = body.position.x;
-      this.lastY = body.position.y;
     }
   };
 

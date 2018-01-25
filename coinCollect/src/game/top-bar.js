@@ -70,14 +70,37 @@ export default class Bar extends Component {
         }
     }
 
+    setPlayerPosition() {
+        const {playersPosition, store } = this.props;
+        if(playersPosition) {
+            store.characterPosition = playersPosition;
+            if(playersPosition.length !== 2) {
+                for(let i = playersPosition.length; i < 2; i++) {
+                    store.setCharacterPosition({x: Math.random() * (100 - 800) + 800, y: Math.random() * (100 - 500) + 500}, i)
+                }
+            }
+        } else {
+            for(let i = 0; i < 2; i++) {
+                if(i === 0) {
+                    store.setCharacterPosition({x: 64, y: 64}, i);
+                } else if(i === 1) {
+                    store.setCharacterPosition({x: 899, y: 450}, i);
+                } else {
+                    store.setCharacterPosition({x: Math.random() * (100 - 800) + 800, y: Math.random() * (100 - 500) + 500}, i);
+                }
+            }
+        }
+    }
+
     restart(e) {
         e.preventDefault();
-        const { store } = this.props;
-        store.playersScore[0].score = 0;
-        store.playersScore[1].score = 0;
-        store.playersRoundScore[0].score = 0;
-        store.playersRoundScore[1].score = 0;
-        store.winner = '';
+        const {store, onDispatch, gameId} = this.props;
+
+        if(onDispatch) {
+            onDispatch(store, true, false, gameId );
+        }
+        this.setCoinPositions();
+        this.setPlayerPosition();
     }
 
     render() {
@@ -91,7 +114,6 @@ export default class Bar extends Component {
                             <a style={{color: 'white', textDecoration: 'none', padding: '8px 20px', fontSize: 32, background: 'blue', borderRadius: 15}} href=""
                             onClick={(event) => {
                                 this.restart(event);
-                                this.setCoinPositions()
                             }}>Restart Game</a>
                         </p>
                     </div>

@@ -48,6 +48,10 @@ export default class Coin extends Component {
         };
     }
 
+    move(body, x, y) {
+        Matter.Body.setVelocity(body, { x, y });
+    };
+
     update() {
         const { store, index } = this.props;
         const { body } = this.body;
@@ -71,7 +75,6 @@ export default class Coin extends Component {
                 store.setScore(1);
                 store.setCoinPosition({x: coinPositionX, y: coinPositionY}, index);
             }
-
         }
     };
 

@@ -152,6 +152,7 @@ export default class Game extends Component {
                           store={this.props.gameStore}
                           coinsPosition={this.props.coinsPosition}
                           coins={this.props.coins}
+                          onDispatch={this.props.onDispatch}
                           playersPosition={this.props.playersPosition}
                           gameId={this.props.gameId}
                           handleClick={this.props.handleClick}
