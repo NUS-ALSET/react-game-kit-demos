@@ -11,6 +11,7 @@ import Matter from 'matter-js';
 import GameStore1 from './store/game-store1.jsx';
 import GameStore2 from './store/game-store2.jsx';
 import GameStore3 from './store/game-store3.jsx';
+import GameStore4 from './store/game-store4.jsx';
 import { observer } from 'mobx-react';
 @observer
 export default class Game extends Component {
@@ -22,6 +23,8 @@ export default class Game extends Component {
 			var GameStore = GameStore2;
 		else if(this.props.gameId == 2)
 			var GameStore = GameStore3;
+		else if(this.props.gameId == 3)
+			var GameStore = GameStore4;
 		if(props.player1)
 			this.keyListener1 = {status:false};
 		else
@@ -31,6 +34,7 @@ export default class Game extends Component {
 		else
 			this.keyListener2 = new KeyListener();
 		this.updateHandler = this.updateHandler.bind(this);
+		
 	}
 	componentDidMount() {
 		if(this.keyListener1&&this.keyListener1.status!==false)
@@ -62,6 +66,8 @@ export default class Game extends Component {
 			var GameStore = GameStore2;
 		else if(this.props.gameId == 2)
 			var GameStore = GameStore3;
+		else if(this.props.gameId == 3)
+			var GameStore = GameStore4;
 		return (
 			<Loop>
 				<Stage style={{ background: '#3a9bdc' }}>
@@ -106,20 +112,43 @@ export default class Game extends Component {
 	colissionHandler(engine) {
 	};
 	updateHandler(engine){
+		
 		if(this.props.gameId == 0)
 			var GameStore = GameStore1;
 		else if(this.props.gameId == 1)
 			var GameStore = GameStore2;
 		else if(this.props.gameId == 2)
 			var GameStore = GameStore3;
+		else if(this.props.gameId == 3)
+			var GameStore = GameStore4;
+		var WorldData = {
+			players: GameStore.characterPosition,
+			stones: GameStore.stonesData
+		}
 		if(this.props.player1)
-			var player1State = this.props.player1(engine.source.world, GameStore.stonesData);
+			var player1Direction = this.props.player1(WorldData);
 		if(this.props.player2)
-			var player2State = this.props.player2(engine.source.world, GameStore.stonesData);
-		if(player1State)
-			GameStore.characterState[0] = player1State;
-		if(player2State)
-			GameStore.characterState[1] = player2State;
+			var player2Direction = this.props.player2(WorldData);
+		if(player1Direction){
+			if(player1Direction.left)
+				GameStore.characterState[0] = 9;
+			else if(player1Direction.right)
+				GameStore.characterState[0] = 11;
+			else if(player1Direction.up)
+				GameStore.characterState[0] = 8;
+			else if(player1Direction.down)
+				GameStore.characterState[0] = 10;
+		}
+		if(player2Direction){
+			if(player2Direction.left)
+				GameStore.characterState[1] = 9;
+			else if(player2Direction.right)
+				GameStore.characterState[1] = 11;
+			else if(player2Direction.up)
+				GameStore.characterState[1] = 8;
+			else if(player2Direction.down)
+				GameStore.characterState[1] = 10;
+		}
 		GameStore.createNewStones();
 	}
 }

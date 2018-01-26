@@ -33,6 +33,7 @@ export default class Grass extends Component {
 		if(this.props.gameId==0) textInfo = "Player vs Player";
 		else if(this.props.gameId==1) textInfo = "Player vs Bot";
 		else if(this.props.gameId==2) textInfo = "Bot vs Bot";
+		else textInfo = "Bot vs Custom";
 		return (
 			<div style={this.getWrapperStyles()}>
 				{textInfo}
