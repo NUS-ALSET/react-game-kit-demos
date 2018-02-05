@@ -7,7 +7,8 @@ class GameStore {
   @observable stonesData = [];
   @observable timeStampData = Date.now();
   @observable score = [0,0];
-  
+  @observable mode = "play";
+  @observable config = {speed:1, minGems:4, maxGems:8, gatherToWin:10};
   setcharacterPosition(position, index) {
     this.characterPosition[index] = position;
   }
@@ -17,7 +18,7 @@ class GameStore {
 	if(newTimestamp - this.timeStampData>=5000){
 		this.timeStampData = Date.now();
 		if(this.stonesData.length==0){
-			var stonesQuant = Math.floor(Math.random()*(5-3+1)+3);
+			var stonesQuant = Math.floor(Math.random()*(this.config.maxGems-this.config.minGems+1)+this.config.minGems);
 			for(var i=0;i<stonesQuant;i++){
 				var stoneObj = {x:0, y:0}
 				stoneObj.x = Math.floor(Math.random()*(8-0+1)+0)*100;

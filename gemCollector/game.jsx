@@ -7,6 +7,8 @@ import Stone from "./stone.jsx";
 import Grass from "./grass.jsx";
 import Score from "./score.jsx";
 import Info from "./info.jsx";
+import Controls from "./controls.jsx";
+import WinLoseScreen from './winLoseScreen.jsx';
 import Matter from 'matter-js';
 import GameStore1 from './store/game-store1.jsx';
 import GameStore2 from './store/game-store2.jsx';
@@ -68,6 +70,8 @@ export default class Game extends Component {
 			var GameStore = GameStore3;
 		else if(this.props.gameId == 3)
 			var GameStore = GameStore4;
+		if(this.props.config)
+			GameStore.config = this.props.config;
 		return (
 			<Loop>
 				<Stage style={{ background: '#3a9bdc' }}>
@@ -101,6 +105,8 @@ export default class Game extends Component {
 						<Score store={GameStore} left={'0'} right={"none"} playerId={0}/>
 						<Score store={GameStore} left={"none"} right={'0'} playerId={1}/>
 						<Info gameId={this.props.gameId}/>
+						<Controls store={GameStore}/>
+						<WinLoseScreen store = {GameStore}/>
 					</World>
 				</Stage>
 			</Loop>
@@ -112,7 +118,6 @@ export default class Game extends Component {
 	colissionHandler(engine) {
 	};
 	updateHandler(engine){
-		
 		if(this.props.gameId == 0)
 			var GameStore = GameStore1;
 		else if(this.props.gameId == 1)
@@ -121,6 +126,8 @@ export default class Game extends Component {
 			var GameStore = GameStore3;
 		else if(this.props.gameId == 3)
 			var GameStore = GameStore4;
+		if(GameStore.mode == "pause")
+			return;
 		var WorldData = {
 			players: GameStore.characterPosition,
 			stones: GameStore.stonesData

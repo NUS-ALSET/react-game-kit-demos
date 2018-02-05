@@ -9,7 +9,7 @@ class MyNewGame{
         ReactDOM.render(
         <div id={"game-"+1} style={{height: '100vh', width: '100%'}}>
             <Game key={0} gameId={0}/>
-			<Game key={1} gameId={1}  player2= {(world) => this.getCommands(world,2)}/>
+			<Game key={1} gameId={1}  player2= {(world) => this.getCommands(world,2)} config={{speed:10, minGems:20, maxGems:30, gatherToWin:30}}/>
 			<Game key={2} gameId={2}  player1= {(world) => this.getCommands(world,1)}  player2= {(world) => this.getCommands(world,2)}/>
 			<Game key={3} gameId={3}  player1= {(world) => this.getPlayersCommands(world,1)}  player2= {(world) => this.getCommands(world,2)}/>
 			<h4>{'function getPlayersCommands(world, playerNum){'}</h4>
