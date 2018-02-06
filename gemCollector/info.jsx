@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { TileMap } from 'react-game-kit';
 import PropTypes from "prop-types";
 import { observer } from 'mobx-react';
 

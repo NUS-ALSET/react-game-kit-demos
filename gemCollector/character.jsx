@@ -44,6 +44,13 @@ export default class Character extends Component {
 		};
 	}
 	update = () => {
+		if(this.props.store.mode == "restart"){
+			this.props.store.characterPosition = [{ x: 100, y: 100 },{ x: 200, y: 200 }];
+			this.props.store.characterState = [11,10];
+			this.body1.body.position = this.props.store.characterPosition[this.props.index];
+			this.props.store.stonesData = [];
+			return;
+		}
 		var x = this.props.store.characterPosition[this.props.index].x;
 		var y = this.props.store.characterPosition[this.props.index].y;
 		if(this.props.keys&&this.props.keys.status!==false){
@@ -65,8 +72,9 @@ export default class Character extends Component {
 			else
 				return {characterState: prevState.characterState};
 		});
-
-		if(this.state.characterState == 8)
+		if(this.props.store.mode == "pause")
+			Matter.Body.setVelocity(this.body1.body, { x: 0, y: 0 });
+		else if(this.state.characterState == 8)
 			this.moveUp();
 		else if(this.state.characterState == 9)
 			this.moveLeft();
@@ -80,7 +88,7 @@ export default class Character extends Component {
 		const position = this.props.store.characterPosition[this.props.index];
 		if(this.props.store.checkIfObjectInsideTheScreen(this.props.index, "right", this.props.gameId))
 		//if(position.x<=(700-110))
-			Matter.Body.setVelocity(this.body1.body, { x: 1, y: 0 });
+			Matter.Body.setVelocity(this.body1.body, { x: this.props.store.config.speed, y: 0 });
 		else
 			Matter.Body.setVelocity(this.body1.body, { x: 0, y: 0 });
 		this.props.store.characterPosition[this.props.index] = this.body1.body.position;
@@ -90,7 +98,7 @@ export default class Character extends Component {
 		const position = this.props.store.characterPosition[this.props.index];
 		if(this.props.store.checkIfObjectInsideTheScreen(this.props.index, "left", this.props.gameId))
 		//if(position.x>=0)
-			Matter.Body.setVelocity(this.body1.body, { x: -1, y: 0 });
+			Matter.Body.setVelocity(this.body1.body, { x: -this.props.store.config.speed, y: 0 });
 		else
 			Matter.Body.setVelocity(this.body1.body, { x: 0, y: 0 });
 		this.props.store.characterPosition[this.props.index] = this.body1.body.position;
@@ -100,7 +108,7 @@ export default class Character extends Component {
 		const position = this.props.store.characterPosition[this.props.index];
 		if(this.props.store.checkIfObjectInsideTheScreen(this.props.index, "top", this.props.gameId))
 		//if(position.y>=0)
-			Matter.Body.setVelocity(this.body1.body, { x: 0, y: -1 });
+			Matter.Body.setVelocity(this.body1.body, { x: 0, y: -this.props.store.config.speed });
 		else
 			Matter.Body.setVelocity(this.body1.body, { x: 0, y: 0 });
 		this.props.store.characterPosition[this.props.index] = this.body1.body.position;
@@ -110,7 +118,7 @@ export default class Character extends Component {
 		const position = this.props.store.characterPosition[this.props.index];
 		if(this.props.store.checkIfObjectInsideTheScreen(this.props.index, "bottom", this.props.gameId))
 		//if(position.y<=700-128)
-			Matter.Body.setVelocity(this.body1.body, { x: 0, y: 1 });
+			Matter.Body.setVelocity(this.body1.body, { x: 0, y: this.props.store.config.speed });
 		else
 			Matter.Body.setVelocity(this.body1.body, { x: 0, y: 0 });
 		this.props.store.characterPosition[this.props.index] = this.body1.body.position;
