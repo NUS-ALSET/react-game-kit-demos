@@ -1,0 +1,44 @@
+{
+    "controls":{"up":119,"down":115,"left":97,"right":100},
+    "switchKey":9,
+    "botScript":"",
+    "gameWidth":400,
+    "gameHeight":300,
+    "collectedObjects":{
+        "type":"",
+        "maxAmount":20,
+        "minAmount":5,
+        "width":5,
+        "height":5
+    },
+    "time":90,
+    "games":[
+        {
+            "character":{
+                "type":"",
+                "speed":1,
+                "width":10,
+                "height":10,
+                "startingPoint":{"x":10,"y":10}
+            },
+            "tiles":[
+                {
+                    "tile":"grass",
+                    "rows":1,
+                    "columns":3,
+                    "tileSize":128,
+                    "layers":[[1]]
+                }
+            ],
+            "obstacles":[
+                {"obstacle":"", "width":20, "height":20, "x":20, "y":30}
+            ]
+        },
+        {
+            "same-as":0
+        },
+        {
+            "same-as":0
+        }
+    ]
+}
