@@ -5,19 +5,19 @@ export default class Character1 extends Component {
     getAnimationState(){
         switch(this.props.positionData.direction){
             case 'up':
-                this.animState = 2;
+                this.animState = 8;
                 break;
             case 'down':
-                this.animState = 3;
+                this.animState = 10;
                 break;
             case 'left':
-                this.animState = 1;
+                this.animState = 9;
                 break;
             case 'right':
-                this.animState = 0;
+                this.animState = 11;
                 break;
             default:
-                this.animState = 0;
+                this.animState = 8;
                 break;
         }
     }
@@ -44,11 +44,11 @@ export default class Character1 extends Component {
                     repeat={true}
                     tileWidth={64}
                     tileHeight={64}
-                    src={'characters/character1.png'}
+                    src={'characters/blonde.png'}
                     ticksPerFrame={4}
                     state={this.animState}
                     scale={1}
-                    steps={[7, 7, 7, 7, 0, 0]}
+                    steps={[6,6,6,6,7,7,7,7,8,8,8,8,5,5,5,5,12,12,12,12,5]}
                 />
 			</div>
 		)

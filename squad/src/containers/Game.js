@@ -18,7 +18,7 @@ class Game extends Component {
         };
     }
     render() {
-        return <div style={{height: gameJsonData.gameHeight+'px', width: gameJsonData.gameWidth+'px', float:'left', marginLeft: '5px', marginBottom: '15px'}}>
+        return <div id={this.props.type+'-game-'+this.props.index} style={{height: gameJsonData.gameHeight+'px', width: gameJsonData.gameWidth+'px', float:'left', marginLeft: '5px', marginBottom: '15px'}}>
             <h4 style={
                 this.props.index==this.props.gamesData.currentPlayer&&this.props.type=='player'?
                 {'margin':0,'color':'#fff', background:'green', textAlign:'center'}:
