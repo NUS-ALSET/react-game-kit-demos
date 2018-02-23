@@ -1,0 +1,85 @@
+{
+    "controls":{"up":87,"down":83,"left":65,"right":68},
+    "switchKey":9,
+    "botScript":"",
+    "gameWidth":400,
+    "gameHeight":300,
+    "collectedObjects":{
+        "type":"",
+        "maxAmount":20,
+        "minAmount":5,
+        "width":5,
+        "height":5
+    },
+    "time":90,
+    "games":[
+        {
+            "character":{
+                "type":"gnome1",
+                "speed":1,
+                "startingPoint":{"x":100,"y":0}
+            },
+            "tiles":[
+                {
+                    "type":"concrete",
+                    "rows":2,
+                    "columns":3,
+                    "tileSize":390,
+                    "layers":[[1,0,1,0,1,0]]
+                },
+                {
+                    "type":"grass",
+                    "rows":2,
+                    "columns":3,
+                    "tileSize":390,
+                    "layers":[[0,1,0,1,0,1]]
+                },
+                {
+                    "type":"sand",
+                    "rows":7,
+                    "columns":10,
+                    "tileSize":109,
+                    "layers":
+                    [[
+                        1,0,1,0,1,0,1,0,1,0,
+                        0,1,0,1,0,1,0,1,0,1,
+                        1,0,1,0,1,0,1,0,1,0,
+                        0,1,0,1,0,1,0,1,0,1,
+                        1,0,1,0,1,0,1,0,1,0,
+                        0,1,0,1,0,1,0,1,0,1,
+                        1,0,1,0,1,0,1,0,1,0
+                    ]]
+                }
+            ],
+            "obstacles":[
+                {"type":"bush", "width":100, "height":100, "x":160, "y":80},
+                {"type":"fir-tree", "width":100, "height":100, "x":20, "y":20},
+                {"type":"palm-tree", "width":100, "height":100, "x":100, "y":180},
+                {"type":"stone1", "width":100, "height":60, "x":280, "y":120},
+                {"type":"stone2", "width":100, "height":80, "x":10, "y":120}
+            ]
+        },
+        {
+            "character":{
+                "type":"blonde",
+                "speed":1,
+                "startingPoint":{"x":100,"y":150}
+            },
+            "tiles":[
+                {
+                    "type":"sand",
+                    "rows":2,
+                    "columns":3,
+                    "tileSize":390,
+                    "layers":[[1]]
+                }
+            ],
+            "obstacles":[
+                {"type":"palm-tree", "width":100, "height":100, "x":120, "y":100}
+            ]
+        },
+        {
+            "same-as":0
+        }
+    ]
+}
