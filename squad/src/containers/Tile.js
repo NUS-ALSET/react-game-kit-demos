@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import { TileMap } from 'react-game-kit';
 
-export default class Grass extends Component {
+import Grass from './Tiles/Grass';
+import Sand from './Tiles/Sand';
+import Concrete from './Tiles/Сoncrete';
+
+export default class Tile extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -15,18 +19,15 @@ export default class Grass extends Component {
 	}
 	
 	render() {
-		
-        return (
-            <div style={this.getWrapperStyles()}>
-                <TileMap
-                style={{ top: 0, left:0 }}
-                src={"tiles/sand.jpg"}
-                rows={8}
-                columns={8}
-                tileSize={128}
-                layers={[1]}
-                />
-            </div>
-        );
+        switch(this.props.tile.type){
+            case 'grass':
+                return <Grass tileData={this.props.tile}/>
+            case 'concrete':
+                return <Concrete tileData={this.props.tile}/>
+            case 'sand':
+                return <Sand tileData={this.props.tile}/>
+            default:
+                return <Grass tileData={this.props.tile}/>
+        }
     }
 }

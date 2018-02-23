@@ -8,6 +8,9 @@ import Game from './Game';
 class GamesContainer extends Component{
     constructor(){
         super();
+        this.state = {
+            currentPlayer: 0
+        }
     }
     componentDidMount(){
         if(this.props.type=="player"){
@@ -21,9 +24,11 @@ class GamesContainer extends Component{
     }
     render(){
         return <div style={{width: '100%'}}>
-            <h1>Type: {this.props.type}</h1>
             {this.props.playerGames.map((game, index) => {
-                return <Game key={index} index={index} type={this.props.type} gameData={game}/>
+                if(this.props.type=="player")
+                    return <Game key={index} index={index} type={this.props.type} gameData={game}/>
+                else
+                    return <Game key={index} index={index} type={this.props.type} gameData={game}/>
             })}
             <div style={{clear:"both"}}></div>
         </div>
@@ -38,7 +43,10 @@ function mapStateToProps(state){
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({fillPlayerData: fillPlayerData, fillBotData: fillBotData}, dispatch);
+    return bindActionCreators({
+        fillPlayerData: fillPlayerData,
+        fillBotData: fillBotData
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(GamesContainer);

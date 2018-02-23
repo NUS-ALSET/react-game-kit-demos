@@ -1,9 +1,3 @@
-export const fillCommonData = (data) => {
-    return {
-        type: "FILL_COMMON_GAME_DATA",
-        payload: data
-    }
-};
 export const fillPlayerData = (data) => {
     return {
         type: "FILL_PLAYER_GAME_DATA",
@@ -16,45 +10,45 @@ export const fillBotData = (data) => {
         payload: data
     }
 };
-export const updateBotPosition = (data) => {
+export const moveBot = (data) => {
     return {
-        type: "UPDATE_BOT_POSITION",
+        type: "MOVE_BOT",
         payload: data
     }
 };
-export const updatePlayerPosition = (data) => {
+export const movePlayer = (data) => {
     return {
-        type: "UPDATE_PLAYER_POSITION",
+        type: "MOVE_PLAYER",
         payload: data
     }
 };
-export const updateBotCollectedObjects = (data) => {
+export const updatePlayerDirection = (data) => {
     return {
-        type: "UPDATE_BOT_COLLECTED_OBJECTS",
+        type: "UPDATE_PLAYER_DIRECTION",
         payload: data
     }
 };
-export const updatePlayerCollectedObjects = (data) => {
+export const updatePlayerSpeed = (data) => {
     return {
-        type: "UPDATE_PLAYER_COLLECTED_OBJECTS",
+        type: "UPDATE_PLAYER_SPEED",
         payload: data
     }
 };
-export const updateBotScore = (data) => {
+export const updateBotDirection = (data) => {
     return {
-        type: "UPDATE_BOT_COLLECTED_OBJECTS",
+        type: "UPDATE_BOT_DIRECTION",
         payload: data
     }
 };
-export const updatePlayerScore = (data) => {
+export const updateBotSpeed = (data) => {
     return {
-        type: "UPDATE_PLAYER_COLLECTED_OBJECTS",
+        type: "UPDATE_BOT_SPEED",
         payload: data
     }
 };
-export const updateGameState = (data) => {
+export const switchPlayer = (data) => {
     return {
-        type: "UPDATE_GAME_STATE",
+        type: "SWITCH_PLAYER",
         payload: data
     }
 };

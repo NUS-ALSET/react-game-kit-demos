@@ -4,7 +4,7 @@ import GamesContainer from '../containers/GamesContainer';
 const App = () => (
 	<div>
 		<GamesContainer type="player"/>
-		<GamesContainer type="bot" className={'player-bot-holder'}/>
+		<GamesContainer type="bot"/>
 	</div>
 );
 
