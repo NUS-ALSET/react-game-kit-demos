@@ -52,3 +52,27 @@ export const switchPlayer = (data) => {
         payload: data
     }
 };
+export const generateBotCollectives = (data) => {
+    return {
+        type: "GENERATE_BOT_COLLECTIVES",
+        payload: data
+    }
+};
+export const generatePlayerCollectives = (data) => {
+    return {
+        type: "GENERATE_PLAYER_COLLECTIVES",
+        payload: data
+    }
+};
+export const removePlayerCollective = (data) => {
+    return {
+        type: "REMOVE_PLAYER_COLLECTIVE",
+        payload: data
+    }
+};
+export const removeBotCollective = (data) => {
+    return {
+        type: "REMOVE_BOT_COLLECTIVE",
+        payload: data
+    }
+};

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {movePlayer, moveBot, updatePlayerDirection, updatePlayerSpeed, switchPlayer} from '../actions/index';
+import {movePlayer, updatePlayerDirection, updatePlayerSpeed, switchPlayer, generatePlayerCollectives, removePlayerCollective} from '../actions/index';
 import { KeyListener } from 'react-game-kit';
 import Gnome1 from './Characters/Gnome1';
 import Blonde from './Characters/Blonde';
@@ -18,6 +18,7 @@ class Character extends Component {
         this.loop = this.loop.bind(this);
         this.keyListener = new KeyListener();
         this.checkBorderCollision = this.checkBorderCollision.bind(this);
+        this.getCollectives = this.getCollectives.bind(this);
     }
     
     loop = () => {
@@ -36,7 +37,33 @@ class Character extends Component {
             this.props.updatePlayerSpeed({gameIndex:this.props.gameIndex,speed:0});
         else
             this.props.updatePlayerSpeed({gameIndex:this.props.gameIndex,speed:gameJsonData.games[this.props.gameIndex].character.speed});
+        this.props.generatePlayerCollectives({gameIndex:this.props.gameIndex});
+        this.getCollectives();
     }
+
+    getCollectives(){
+        var player = document.getElementById("player"+this.props.gameIndex);
+        if(!player)
+            return false;
+        var parentEl = player.parentElement;
+        player = player.childNodes[0];
+        var collectives = parentEl.getElementsByClassName('collective');
+        Array.from(collectives).forEach(collective => {
+                if(this.rect2Rect(collective, player)){
+                    var collectiveId = collective.getAttribute("data-key");
+                    this.props.removePlayerCollective({gameIndex: this.props.gameIndex,collectiveIndex: collectiveId});
+                }
+            });
+    }
+
+    rect2Rect(collective, player) {
+		return (
+			collective.getBoundingClientRect().left <= player.getBoundingClientRect().left + player.getBoundingClientRect().width &&
+			collective.getBoundingClientRect().left + collective.getBoundingClientRect().width  >= player.getBoundingClientRect().left &&
+			collective.getBoundingClientRect().top + collective.getBoundingClientRect().height >= player.getBoundingClientRect().top &&
+			collective.getBoundingClientRect().top <= player.getBoundingClientRect().top + player.getBoundingClientRect().height
+		);
+	}
 
     checkBorderCollision(){
         var el = document.getElementById("player"+this.props.gameIndex);
@@ -105,8 +132,9 @@ function mapStateToProps(state){
 }
 
 function matchDispatchToProps(dispatch){
-    return bindActionCreators({movePlayer: movePlayer, moveBot: moveBot, updatePlayerDirection: updatePlayerDirection,
-        updatePlayerSpeed: updatePlayerSpeed, switchPlayer: switchPlayer}, dispatch);
+    return bindActionCreators({movePlayer: movePlayer, updatePlayerDirection: updatePlayerDirection,
+        updatePlayerSpeed: updatePlayerSpeed, switchPlayer: switchPlayer, 
+        generatePlayerCollectives: generatePlayerCollectives, removePlayerCollective: removePlayerCollective}, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Character);
