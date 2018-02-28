@@ -76,3 +76,15 @@ export const removeBotCollective = (data) => {
         payload: data
     }
 };
+export const incrementPlayerScore = (data) => {
+    return {
+        type: "INCREMENT_PLAYER_SCORE",
+        payload: data
+    }
+};
+export const incrementBotScore = (data) => {
+    return {
+        type: "INCREMENT_BOT_SCORE",
+        payload: data
+    }
+};

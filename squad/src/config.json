@@ -5,9 +5,9 @@
     "gameWidth":400,
     "gameHeight":300,
     "collectedObjects":{
-        "type":"gem",
-        "maxAmount":20,
-        "minAmount":5,
+        "type":"coin",
+        "maxAmount":50,
+        "minAmount":35,
         "size":20
     },
     "time":90,

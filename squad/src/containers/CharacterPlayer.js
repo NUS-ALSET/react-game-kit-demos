@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {movePlayer, updatePlayerDirection, updatePlayerSpeed, switchPlayer, generatePlayerCollectives, removePlayerCollective} from '../actions/index';
+import {movePlayer, updatePlayerDirection, updatePlayerSpeed, switchPlayer, generatePlayerCollectives, removePlayerCollective, incrementPlayerScore} from '../actions/index';
 import { KeyListener } from 'react-game-kit';
 import Gnome1 from './Characters/Gnome1';
 import Blonde from './Characters/Blonde';
@@ -51,6 +51,7 @@ class Character extends Component {
         Array.from(collectives).forEach(collective => {
                 if(this.rect2Rect(collective, player)){
                     var collectiveId = collective.getAttribute("data-key");
+                    this.props.incrementPlayerScore();
                     this.props.removePlayerCollective({gameIndex: this.props.gameIndex,collectiveIndex: collectiveId});
                 }
             });
@@ -134,7 +135,8 @@ function mapStateToProps(state){
 function matchDispatchToProps(dispatch){
     return bindActionCreators({movePlayer: movePlayer, updatePlayerDirection: updatePlayerDirection,
         updatePlayerSpeed: updatePlayerSpeed, switchPlayer: switchPlayer, 
-        generatePlayerCollectives: generatePlayerCollectives, removePlayerCollective: removePlayerCollective}, dispatch);
+        generatePlayerCollectives: generatePlayerCollectives, removePlayerCollective: removePlayerCollective,
+        incrementPlayerScore: incrementPlayerScore}, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Character);

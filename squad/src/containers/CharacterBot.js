@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {moveBot, updateBotDirection, updateBotSpeed, generateBotCollectives, removeBotCollective} from '../actions/index';
+import {moveBot, updateBotDirection, updateBotSpeed, generateBotCollectives, removeBotCollective, incrementBotScore} from '../actions/index';
 import gameJsonData from '../config.json';
 import Gnome1 from './Characters/Gnome1';
 import Blonde from './Characters/Blonde';
@@ -39,6 +39,7 @@ class Character extends Component {
         Array.from(collectives).forEach(collective => {
                 if(this.rect2Rect(collective, player)){
                     var collectiveId = collective.getAttribute("data-key");
+                    this.props.incrementBotScore();
                     this.props.removeBotCollective({gameIndex: this.props.gameIndex,collectiveIndex: collectiveId});
                 }
             });
@@ -112,7 +113,9 @@ function mapStateToProps(state){
 
 function matchDispatchToProps(dispatch){
     return bindActionCreators({updateBotSpeed:updateBotSpeed, moveBot: moveBot,
-        generateBotCollectives: generateBotCollectives, removeBotCollective: removeBotCollective}, dispatch);
+        generateBotCollectives: generateBotCollectives,
+        removeBotCollective: removeBotCollective, incrementBotScore: incrementBotScore
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Character);

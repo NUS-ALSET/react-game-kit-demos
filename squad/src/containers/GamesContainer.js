@@ -24,6 +24,8 @@ class GamesContainer extends Component{
     }
     render(){
         return <div style={{width: '100%'}}>
+            <h1>{this.props.type=="player"?"Player score: "+this.props.gamesData.playerScore:"Bot score: "+this.props.gamesData.botScore}</h1>
+            {this.props.type=="player"?"fds":"xzl"&&<div><button>{"Pause"}</button></div>}
             {this.props.playerGames.map((game, index) => {
                 if(this.props.type=="player")
                     return <Game key={index} index={index} type={this.props.type} gameData={game}/>
@@ -38,7 +40,8 @@ class GamesContainer extends Component{
 function mapStateToProps(state){
     return {
         botGames: state.botGames,
-        playerGames: state.playerGames
+        playerGames: state.playerGames,
+        gamesData: state.gamesData
     };
 }
 
