@@ -33,7 +33,13 @@ class Character extends Component {
         else if(this.keyListener.isDown(gameJsonData.switchKey)&&this.props.gamesData.currentPlayer==this.props.gameIndex)
             this.props.switchPlayer();
         this.props.movePlayer({gameIndex: this.props.gameIndex, direction:'right'});
-        if(!this.checkBorderCollision())
+        if(this.props.gamesData.playerScore>=gameJsonData.amountToWin)
+            this.props.updatePlayerSpeed({gameIndex:this.props.gameIndex,speed:0});
+        else if(this.props.gamesData.botScore>=gameJsonData.amountToWin)
+            this.props.updatePlayerSpeed({gameIndex:this.props.gameIndex,speed:0});
+        else if(this.props.gamesData.gameState=="pause")
+            this.props.updatePlayerSpeed({gameIndex:this.props.gameIndex,speed:0});
+        else if(!this.checkBorderCollision())
             this.props.updatePlayerSpeed({gameIndex:this.props.gameIndex,speed:0});
         else
             this.props.updatePlayerSpeed({gameIndex:this.props.gameIndex,speed:gameJsonData.games[this.props.gameIndex].character.speed});
@@ -79,7 +85,6 @@ class Character extends Component {
 		var left = viewportOffset.left;
 		var right = viewportOffset.right;
 		var bottom = viewportOffset.bottom;
-		
 		var parentTop = parentOffset.top;
 		var parentLeft = parentOffset.left;
 		var parentRight = parentOffset.right;

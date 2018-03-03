@@ -88,3 +88,14 @@ export const incrementBotScore = (data) => {
         payload: data
     }
 };
+export const changeGameState = (data) => {
+    return {
+        type: "CHANGE_GAME_STATE",
+        payload: data
+    }
+};
+export const restart = (data) => {
+    return {
+        type: "RESTART"
+    }
+};

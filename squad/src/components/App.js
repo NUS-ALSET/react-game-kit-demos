@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
 import GamesContainer from '../containers/GamesContainer';
 
-const App = () => (
-	<div>
-		<GamesContainer type="player"/>
-		<GamesContainer type="bot"/>
-	</div>
-);
+class App extends Component {
+	render(){
+		return <div>
+			<GamesContainer type="player"/>
+			<GamesContainer type="bot"/>
+		</div>
+	}
+}
 
 export default App;

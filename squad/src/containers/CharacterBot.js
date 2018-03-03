@@ -21,7 +21,13 @@ class Character extends Component {
     
     loop = () => {
         this.props.moveBot({gameIndex: this.props.gameIndex, direction:'down'});
-        if(!this.checkBorderCollision())
+        if(this.props.gamesData.playerScore>=gameJsonData.amountToWin)
+            this.props.updateBotSpeed({gameIndex:this.props.gameIndex,speed:0});
+        else if(this.props.gamesData.botScore>=gameJsonData.amountToWin)
+            this.props.updateBotSpeed({gameIndex:this.props.gameIndex,speed:0});
+        else if(this.props.gamesData.gameState=="pause")
+            this.props.updateBotSpeed({gameIndex:this.props.gameIndex,speed:0});
+        else if(!this.checkBorderCollision())
             this.props.updateBotSpeed({gameIndex:this.props.gameIndex,speed:0});
         else
             this.props.updateBotSpeed({gameIndex:this.props.gameIndex,speed:gameJsonData.games[this.props.gameIndex].character.speed});
@@ -107,7 +113,8 @@ class Character extends Component {
 
 function mapStateToProps(state){
     return {
-        botPositions: state.botPositions
+        botPositions: state.botPositions,
+        gamesData: state.gamesData
     };
 }
 

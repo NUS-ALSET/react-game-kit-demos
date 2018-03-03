@@ -30,6 +30,12 @@ export default function(state=defaultState, action){
 			return state;
 		case 'CHANGE_GAME_STATE':
 			state.gameState = action.payload;
+			state = {...state};
+			return state;
+		case 'RESTART':
+			state.botScore = 0;
+			state.playerScore = 0;
+			state = {...state};
 			return state;
 	}
 	return state;
