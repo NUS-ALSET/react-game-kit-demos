@@ -20,6 +20,20 @@ class Character extends Component {
     }
     
     loop = () => {
+        if(this.props.botPositions&&this.props.botCollectives.length){
+            var direction=this.props.script({collectives:this.props.botCollectives[this.props.gameIndex],player:this.props.botPositions[this.props.gameIndex]});
+            //console.log(direction);
+            if(!direction)
+                this.props.updateBotDirection({gameIndex: this.props.gameIndex, direction:'left'});
+            else if(direction.left)
+                this.props.updateBotDirection({gameIndex: this.props.gameIndex, direction:'left'});
+            else if(direction.right)
+                this.props.updateBotDirection({gameIndex: this.props.gameIndex, direction:'right'});
+            else if(direction.up)
+                this.props.updateBotDirection({gameIndex: this.props.gameIndex, direction:'up'});
+            else if(direction.down)
+                this.props.updateBotDirection({gameIndex: this.props.gameIndex, direction:'down'});
+        }
         this.props.moveBot({gameIndex: this.props.gameIndex, direction:'down'});
         if(this.props.gamesData.playerScore>=gameJsonData.amountToWin)
             this.props.updateBotSpeed({gameIndex:this.props.gameIndex,speed:0});
@@ -104,7 +118,7 @@ class Character extends Component {
             case 'gnome1':
                 return <div id={'bot'+this.props.gameIndex}><Gnome1 characterData={this.props.character} positionData={this.props.botPositions[this.props.gameIndex]}/></div>
             case 'blonde':
-                return <div id={'bot'+this.props.gameIndex}><Blonde characterData={this.props.character} positionData={this.props.botPositions[this.props.gameIndex]}/></div>
+                return <div id={'bot'+this.props.gameIndex}><Blonde type={'bot'} characterData={this.props.character} positionData={this.props.botPositions[this.props.gameIndex]}/></div>
             default:
                 return <div id={'bot'+this.props.gameIndex}><Gnome1 characterData={this.props.character} positionData={this.props.botPositions[this.props.gameIndex]}/></div>
         }
@@ -114,14 +128,16 @@ class Character extends Component {
 function mapStateToProps(state){
     return {
         botPositions: state.botPositions,
-        gamesData: state.gamesData
+        gamesData: state.gamesData,
+        botCollectives: state.botCollectives
     };
 }
 
 function matchDispatchToProps(dispatch){
     return bindActionCreators({updateBotSpeed:updateBotSpeed, moveBot: moveBot,
         generateBotCollectives: generateBotCollectives,
-        removeBotCollective: removeBotCollective, incrementBotScore: incrementBotScore
+        removeBotCollective: removeBotCollective, incrementBotScore: incrementBotScore,
+        updateBotDirection: updateBotDirection
     }, dispatch);
 }
 

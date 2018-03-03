@@ -73,7 +73,7 @@ class GamesContainer extends Component{
                         width:'40%',
                         marginLeft:'30%',
                         height:'50px',
-                        fontSize: '20px'
+                        fontSize:'20px'
                     }}
                     onClick={()=>{this.props.restart()}}
                 >Restart</button>
@@ -85,7 +85,7 @@ class GamesContainer extends Component{
                 if(this.props.type=="player")
                     return <Game key={index} index={index} type={this.props.type} gameData={game}/>
                 else
-                    return <Game key={index} index={index} type={this.props.type} gameData={game}/>
+                    return <Game script={this.props.script} key={index} index={index} type={this.props.type} gameData={game}/>
             })}
             <div style={{clear:"both"}}></div>
         </div>

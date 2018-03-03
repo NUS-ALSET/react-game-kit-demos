@@ -36,7 +36,6 @@ export default function(state=null, action){
             state[action.payload.gameIndex].speed=action.payload.speed;
             return state;
         case 'RESTART':
-            
             for(var i=0;i<state.length;i++){
                 var character2 = gameConfig.games[i].character;
                 state[i] = {x: character2.startingPoint.x, y: character2.startingPoint.y, direction: "right", speed: character2.speed}

@@ -10,7 +10,7 @@ export default function(state=null, action){
             }
             else{
                 state = [...state];
-                switch(action.payload.direction){
+                switch(state[action.payload.gameIndex].direction){
                     case 'up':
                         state[action.payload.gameIndex] = {...state[action.payload.gameIndex], y:state[action.payload.gameIndex].y-state[action.payload.gameIndex].speed};
                         break;
@@ -36,7 +36,6 @@ export default function(state=null, action){
             state[action.payload.gameIndex].speed=action.payload.speed;
             return state;
         case 'RESTART':
-            
             for(var i=0;i<state.length;i++){
                 var character2 = gameConfig.games[i].character;
                 state[i] = {x: character2.startingPoint.x, y: character2.startingPoint.y, direction: "down", speed: character2.speed}

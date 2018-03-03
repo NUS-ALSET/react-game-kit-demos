@@ -1,6 +1,6 @@
 {
     "controls":{"up":87,"down":83,"left":65,"right":68},
-    "amountToWin":20,
+    "amountToWin":150,
     "switchKey":9,
     "botScript":"",
     "gameWidth":400,
