@@ -52,3 +52,50 @@ export const switchPlayer = (data) => {
         payload: data
     }
 };
+export const generateBotCollectives = (data) => {
+    return {
+        type: "GENERATE_BOT_COLLECTIVES",
+        payload: data
+    }
+};
+export const generatePlayerCollectives = (data) => {
+    return {
+        type: "GENERATE_PLAYER_COLLECTIVES",
+        payload: data
+    }
+};
+export const removePlayerCollective = (data) => {
+    return {
+        type: "REMOVE_PLAYER_COLLECTIVE",
+        payload: data
+    }
+};
+export const removeBotCollective = (data) => {
+    return {
+        type: "REMOVE_BOT_COLLECTIVE",
+        payload: data
+    }
+};
+export const incrementPlayerScore = (data) => {
+    return {
+        type: "INCREMENT_PLAYER_SCORE",
+        payload: data
+    }
+};
+export const incrementBotScore = (data) => {
+    return {
+        type: "INCREMENT_BOT_SCORE",
+        payload: data
+    }
+};
+export const changeGameState = (data) => {
+    return {
+        type: "CHANGE_GAME_STATE",
+        payload: data
+    }
+};
+export const restart = (data) => {
+    return {
+        type: "RESTART"
+    }
+};

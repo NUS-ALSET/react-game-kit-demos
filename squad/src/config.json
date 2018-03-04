@@ -1,15 +1,15 @@
 {
     "controls":{"up":87,"down":83,"left":65,"right":68},
+    "amountToWin":150,
     "switchKey":9,
     "botScript":"",
     "gameWidth":400,
     "gameHeight":300,
     "collectedObjects":{
-        "type":"",
-        "maxAmount":20,
-        "minAmount":5,
-        "width":5,
-        "height":5
+        "type":"coin",
+        "maxAmount":50,
+        "minAmount":35,
+        "size":20
     },
     "time":90,
     "games":[
@@ -77,9 +77,6 @@
             "obstacles":[
                 {"type":"palm-tree", "width":100, "height":100, "x":120, "y":100}
             ]
-        },
-        {
-            "same-as":0
         }
     ]
 }

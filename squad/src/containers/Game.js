@@ -4,6 +4,7 @@ import Tile from './Tile';
 import Obstacle from './Obstacle';
 import CharacterPlayer from './CharacterPlayer';
 import CharacterBot from './CharacterBot';
+import Collectives from './Collectives';
 import gameJsonData from '../config.json';
 import {connect} from 'react-redux';
 
@@ -24,7 +25,7 @@ class Game extends Component {
                 {'margin':0,'color':'#fff', background:'green', textAlign:'center'}:
                 {'margin':0, textAlign:'center'}
             }>{this.props.type=='player'?'Player '+(this.props.index+1):'Bot '+(this.props.index+1)}</h4>
-            <Loop loop>
+            <Loop>
                 <Stage style={this.getWrapperStyles()}>
                     {this.props.gameData.tiles.map((tile, index) => {
                         return <Tile key={index} tile={tile} />
@@ -34,8 +35,9 @@ class Game extends Component {
                     })}
                     {this.props.type=='player'?
                         <CharacterPlayer character={this.props.gameData.character} gameIndex={this.props.index} gameType={this.props.type}/>:
-                        <CharacterBot character={this.props.gameData.character} gameIndex={this.props.index} gameType={this.props.type}/>
+                        <CharacterBot script={this.props.script} character={this.props.gameData.character} gameIndex={this.props.index} gameType={this.props.type}/>
                     }
+                    <Collectives gameIndex={this.props.index} gameType={this.props.type} collectivesData={gameJsonData.collectedObjects}/>
                 </Stage>
             </Loop>
         </div>

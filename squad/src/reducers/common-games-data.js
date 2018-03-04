@@ -20,6 +20,23 @@ export default function(state=defaultState, action){
 			state.time=Date.now();
 			state = {...state};
 			return state;
+		case 'INCREMENT_PLAYER_SCORE':
+			state.playerScore++;
+			state = {...state};
+			return state;
+		case 'INCREMENT_BOT_SCORE':
+			state.botScore++;
+			state = {...state};
+			return state;
+		case 'CHANGE_GAME_STATE':
+			state.gameState = action.payload;
+			state = {...state};
+			return state;
+		case 'RESTART':
+			state.botScore = 0;
+			state.playerScore = 0;
+			state = {...state};
+			return state;
 	}
 	return state;
 }

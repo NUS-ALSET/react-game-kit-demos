@@ -3,6 +3,8 @@ import { Sprite } from 'react-game-kit';
 
 export default class Character1 extends Component {
     getAnimationState(){
+        //if(this.props.type)
+        //console.log(this.props.positionData.direction);
         switch(this.props.positionData.direction){
             case 'up':
                 this.animState = 8;
