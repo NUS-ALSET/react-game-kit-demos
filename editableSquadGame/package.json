@@ -2,7 +2,7 @@
   "name": "editable-squad-game",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --hot",
@@ -18,7 +18,7 @@
     "mobx-react": "^4.3.5",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
-    "react-game-kit": "^1.0.6",
+    "react-game-kit": "^1.0.6"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
