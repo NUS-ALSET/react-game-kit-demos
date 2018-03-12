@@ -362,7 +362,7 @@ if (process.env.NODE_ENV !== 'production') {
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = {"controls":{"up":87,"down":83,"left":65,"right":68},"switchKey":9,"botScript":"","gameWidth":400,"gameHeight":300,"collectedObjects":{"type":"coin","maxAmount":50,"minAmount":35,"size":20},"time":90,"games":[{"character":{"type":"gnome1","speed":1,"startingPoint":{"x":100,"y":0}},"tiles":[{"type":"concrete","rows":2,"columns":3,"tileSize":390,"layers":[[1,0,1,0,1,0]]},{"type":"grass","rows":2,"columns":3,"tileSize":390,"layers":[[0,1,0,1,0,1]]},{"type":"sand","rows":7,"columns":10,"tileSize":109,"layers":[[1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0]]}],"obstacles":[{"type":"bush","width":100,"height":100,"x":160,"y":80},{"type":"fir-tree","width":100,"height":100,"x":20,"y":20},{"type":"palm-tree","width":100,"height":100,"x":100,"y":180},{"type":"stone1","width":100,"height":60,"x":280,"y":120},{"type":"stone2","width":100,"height":80,"x":10,"y":120}]},{"character":{"type":"blonde","speed":1,"startingPoint":{"x":100,"y":150}},"tiles":[{"type":"sand","rows":2,"columns":3,"tileSize":390,"layers":[[1]]}],"obstacles":[{"type":"palm-tree","width":100,"height":100,"x":120,"y":100}]},{"same-as":0}]}
+module.exports = {"controls":{"up":87,"down":83,"left":65,"right":68},"amountToWin":150,"switchKey":9,"botScript":"","gameWidth":400,"gameHeight":300,"collectedObjects":{"type":"coin","maxAmount":50,"minAmount":35,"size":20},"time":90,"games":[{"character":{"type":"gnome1","speed":1,"startingPoint":{"x":100,"y":0}},"tiles":[{"type":"concrete","rows":2,"columns":3,"tileSize":390,"layers":[[1,0,1,0,1,0]]},{"type":"grass","rows":2,"columns":3,"tileSize":390,"layers":[[0,1,0,1,0,1]]},{"type":"sand","rows":7,"columns":10,"tileSize":109,"layers":[[1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0]]}],"obstacles":[{"type":"bush","width":100,"height":100,"x":160,"y":80},{"type":"fir-tree","width":100,"height":100,"x":20,"y":20},{"type":"palm-tree","width":100,"height":100,"x":100,"y":180},{"type":"stone1","width":100,"height":60,"x":280,"y":120},{"type":"stone2","width":100,"height":80,"x":10,"y":120}]},{"character":{"type":"blonde","speed":1,"startingPoint":{"x":100,"y":150}},"tiles":[{"type":"sand","rows":2,"columns":3,"tileSize":390,"layers":[[1]]}],"obstacles":[{"type":"palm-tree","width":100,"height":100,"x":120,"y":100}]}]}
 
 /***/ }),
 /* 5 */
@@ -1023,6 +1023,17 @@ var incrementBotScore = exports.incrementBotScore = function incrementBotScore(d
     return {
         type: "INCREMENT_BOT_SCORE",
         payload: data
+    };
+};
+var changeGameState = exports.changeGameState = function changeGameState(data) {
+    return {
+        type: "CHANGE_GAME_STATE",
+        payload: data
+    };
+};
+var restart = exports.restart = function restart(data) {
+    return {
+        type: "RESTART"
     };
 };
 
@@ -12572,6 +12583,8 @@ var Character1 = function (_Component) {
     _createClass(Character1, [{
         key: 'getAnimationState',
         value: function getAnimationState() {
+            //if(this.props.type)
+            //console.log(this.props.positionData.direction);
             switch (this.props.positionData.direction) {
                 case 'up':
                     this.animState = 8;
@@ -31935,6 +31948,12 @@ exports.default = function () {
 			return state;
 		case 'CHANGE_GAME_STATE':
 			state.gameState = action.payload;
+			state = _extends({}, state);
+			return state;
+		case 'RESTART':
+			state.botScore = 0;
+			state.playerScore = 0;
+			state = _extends({}, state);
 			return state;
 	}
 	return state;
@@ -32121,7 +32140,7 @@ exports.default = function () {
                 state[action.payload.gameIndex] = { x: character.startingPoint.x, y: character.startingPoint.y, direction: action.payload.direction, speed: character.speed };
             } else {
                 state = [].concat(_toConsumableArray(state));
-                switch (action.payload.direction) {
+                switch (state[action.payload.gameIndex].direction) {
                     case 'up':
                         state[action.payload.gameIndex] = _extends({}, state[action.payload.gameIndex], { y: state[action.payload.gameIndex].y - state[action.payload.gameIndex].speed });
                         break;
@@ -32145,6 +32164,12 @@ exports.default = function () {
             return state;
         case 'UPDATE_BOT_SPEED':
             state[action.payload.gameIndex].speed = action.payload.speed;
+            return state;
+        case 'RESTART':
+            for (var i = 0; i < state.length; i++) {
+                var character2 = _config2.default.games[i].character;
+                state[i] = { x: character2.startingPoint.x, y: character2.startingPoint.y, direction: "down", speed: character2.speed };
+            }
             return state;
     }
     return state;
@@ -32208,6 +32233,12 @@ exports.default = function () {
         case 'UPDATE_PLAYER_SPEED':
             state[action.payload.gameIndex].speed = action.payload.speed;
             return state;
+        case 'RESTART':
+            for (var i = 0; i < state.length; i++) {
+                var character2 = _config2.default.games[i].character;
+                state[i] = { x: character2.startingPoint.x, y: character2.startingPoint.y, direction: "right", speed: character2.speed };
+            }
+            return state;
     }
     return state;
 };
@@ -32231,6 +32262,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -32241,14 +32274,65 @@ var _GamesContainer2 = _interopRequireDefault(_GamesContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var App = function App() {
-	return _react2.default.createElement(
-		'div',
-		null,
-		_react2.default.createElement(_GamesContainer2.default, { type: 'player' }),
-		_react2.default.createElement(_GamesContainer2.default, { type: 'bot' })
-	);
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_Component) {
+	_inherits(App, _Component);
+
+	function App() {
+		_classCallCheck(this, App);
+
+		return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	}
+
+	_createClass(App, [{
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(_GamesContainer2.default, { type: 'player' }),
+				_react2.default.createElement(_GamesContainer2.default, { script: function script(world) {
+						return _this2.getCommands(world);
+					}, type: 'bot' })
+			);
+		}
+	}, {
+		key: 'getCommands',
+		value: function getCommands(world) {
+			//console.log(world);
+			//var player = world.bodies.find(body=>{if(body.label=="character"&&body.customId==playerNum-1) return body;});
+			var player = world.player;
+			var closestGem = false;
+			world.collectives.forEach(function (stone) {
+				if (closestGem == false) closestGem = stone;else if (Math.sqrt(Math.pow(player.x - closestGem.x, 2) + Math.pow(player.y - closestGem.y, 2)) > Math.sqrt(Math.pow(player.x - stone.x, 2) + Math.pow(player.y - stone.y, 2))) {
+					closestGem = stone;
+				}
+			});
+			if (closestGem) {
+				if (closestGem.x - player.x > 64) {
+					var direction = { left: false, right: true, up: false, down: false };
+				} else if (closestGem.x - player.x < 0) {
+					var direction = { left: true, right: false, up: false, down: false };
+				} else if (closestGem.y - player.y > 64) {
+					var direction = { left: false, right: false, up: false, down: true };
+				} else if (closestGem.y - player.y < 0) {
+					var direction = { left: false, right: false, up: true, down: false };
+				}
+				//console.log(direction);
+				return direction;
+			}
+		}
+	}]);
+
+	return App;
+}(_react.Component);
 
 exports.default = App;
 
@@ -32302,6 +32386,7 @@ var GamesContainer = function (_Component) {
         _this.state = {
             currentPlayer: 0
         };
+        _this.playPause = _this.playPause.bind(_this);
         return _this;
     }
 
@@ -32317,6 +32402,17 @@ var GamesContainer = function (_Component) {
             }
         }
     }, {
+        key: 'playPause',
+        value: function playPause() {
+            if (this.props.gamesData.gameState == "play") this.props.changeGameState("pause");else if (this.props.gamesData.gameState == "pause") this.props.changeGameState("play");
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            console.log("componentWillMount");
+            if (this.props.gamesData.playerScore >= _config2.default.amountToWin) this.props.changeGameState("pause");
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -32324,22 +32420,93 @@ var GamesContainer = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 { style: { width: '100%' } },
+                this.props.type == "player" && this.props.gamesData.playerScore >= _config2.default.amountToWin ? _react2.default.createElement(
+                    'div',
+                    { style: { width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                            zIndex: 1,
+                            background: '#fff' } },
+                    _react2.default.createElement(
+                        'h1',
+                        {
+                            style: {
+                                marginTop: '30%',
+                                textAlign: 'center'
+                            }
+                        },
+                        'Player won!'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        {
+                            style: {
+                                width: '40%',
+                                marginLeft: '30%',
+                                height: '50px',
+                                fontSize: '20px'
+                            },
+                            onClick: function onClick() {
+                                _this2.props.restart();
+                            }
+                        },
+                        'Restart'
+                    )
+                ) : "",
+                this.props.type == "player" && this.props.gamesData.botScore >= _config2.default.amountToWin ? _react2.default.createElement(
+                    'div',
+                    { style: { width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                            zIndex: 1,
+                            background: '#fff' } },
+                    _react2.default.createElement(
+                        'h1',
+                        {
+                            style: {
+                                marginTop: '30%',
+                                textAlign: 'center'
+                            }
+                        },
+                        'Player loose!'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        {
+                            style: {
+                                width: '40%',
+                                marginLeft: '30%',
+                                height: '50px',
+                                fontSize: '20px'
+                            },
+                            onClick: function onClick() {
+                                _this2.props.restart();
+                            }
+                        },
+                        'Restart'
+                    )
+                ) : "",
                 _react2.default.createElement(
                     'h1',
                     null,
                     this.props.type == "player" ? "Player score: " + this.props.gamesData.playerScore : "Bot score: " + this.props.gamesData.botScore
                 ),
-                this.props.type == "player" ? "fds" : "xzl" && _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'button',
-                        null,
-                        "Pause"
-                    )
+                this.props.type == "player" ? _react2.default.createElement(
+                    'button',
+                    { onClick: function onClick() {
+                            _this2.playPause();
+                        }, style: { display: "block" } },
+                    this.props.gamesData.gameState == "play" ? "Pause" : "Play"
+                ) : _react2.default.createElement('div', null),
+                this.props.type == "player" && _react2.default.createElement(
+                    'button',
+                    { onClick: function onClick() {
+                            _this2.props.restart();
+                        }, style: { display: "block" } },
+                    "Restart"
                 ),
                 this.props.playerGames.map(function (game, index) {
-                    if (_this2.props.type == "player") return _react2.default.createElement(_Game2.default, { key: index, index: index, type: _this2.props.type, gameData: game });else return _react2.default.createElement(_Game2.default, { key: index, index: index, type: _this2.props.type, gameData: game });
+                    if (_this2.props.type == "player") return _react2.default.createElement(_Game2.default, { key: index, index: index, type: _this2.props.type, gameData: game });else return _react2.default.createElement(_Game2.default, { script: _this2.props.script, key: index, index: index, type: _this2.props.type, gameData: game });
                 }),
                 _react2.default.createElement('div', { style: { clear: "both" } })
             );
@@ -32360,7 +32527,9 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
         fillPlayerData: _index.fillPlayerData,
-        fillBotData: _index.fillBotData
+        fillBotData: _index.fillBotData,
+        changeGameState: _index.changeGameState,
+        restart: _index.restart
     }, dispatch);
 }
 
@@ -32462,7 +32631,7 @@ var Game = function (_Component) {
                         this.props.gameData.obstacles.map(function (obstacle, index) {
                             return _react2.default.createElement(_Obstacle2.default, { key: index, obstacle: obstacle });
                         }),
-                        this.props.type == 'player' ? _react2.default.createElement(_CharacterPlayer2.default, { character: this.props.gameData.character, gameIndex: this.props.index, gameType: this.props.type }) : _react2.default.createElement(_CharacterBot2.default, { character: this.props.gameData.character, gameIndex: this.props.index, gameType: this.props.type }),
+                        this.props.type == 'player' ? _react2.default.createElement(_CharacterPlayer2.default, { character: this.props.gameData.character, gameIndex: this.props.index, gameType: this.props.type }) : _react2.default.createElement(_CharacterBot2.default, { script: this.props.script, character: this.props.gameData.character, gameIndex: this.props.index, gameType: this.props.type }),
                         _react2.default.createElement(_Collectives2.default, { gameIndex: this.props.index, gameType: this.props.type, collectivesData: _config2.default.collectedObjects })
                     )
                 )
@@ -34452,7 +34621,7 @@ var Character = (_temp = _class = function (_Component) {
         _this.loop = function () {
             if (_this.keyListener.isDown(_config2.default.controls.left) && _this.props.gamesData.currentPlayer == _this.props.gameIndex) _this.props.updatePlayerDirection({ gameIndex: _this.props.gameIndex, direction: 'left' });else if (_this.keyListener.isDown(_config2.default.controls.right) && _this.props.gamesData.currentPlayer == _this.props.gameIndex) _this.props.updatePlayerDirection({ gameIndex: _this.props.gameIndex, direction: 'right' });else if (_this.keyListener.isDown(_config2.default.controls.up) && _this.props.gamesData.currentPlayer == _this.props.gameIndex) _this.props.updatePlayerDirection({ gameIndex: _this.props.gameIndex, direction: 'up' });else if (_this.keyListener.isDown(_config2.default.controls.down) && _this.props.gamesData.currentPlayer == _this.props.gameIndex) _this.props.updatePlayerDirection({ gameIndex: _this.props.gameIndex, direction: 'down' });else if (_this.keyListener.isDown(_config2.default.switchKey) && _this.props.gamesData.currentPlayer == _this.props.gameIndex) _this.props.switchPlayer();
             _this.props.movePlayer({ gameIndex: _this.props.gameIndex, direction: 'right' });
-            if (!_this.checkBorderCollision()) _this.props.updatePlayerSpeed({ gameIndex: _this.props.gameIndex, speed: 0 });else _this.props.updatePlayerSpeed({ gameIndex: _this.props.gameIndex, speed: _config2.default.games[_this.props.gameIndex].character.speed });
+            if (_this.props.gamesData.playerScore >= _config2.default.amountToWin) _this.props.updatePlayerSpeed({ gameIndex: _this.props.gameIndex, speed: 0 });else if (_this.props.gamesData.botScore >= _config2.default.amountToWin) _this.props.updatePlayerSpeed({ gameIndex: _this.props.gameIndex, speed: 0 });else if (_this.props.gamesData.gameState == "pause") _this.props.updatePlayerSpeed({ gameIndex: _this.props.gameIndex, speed: 0 });else if (!_this.checkBorderCollision()) _this.props.updatePlayerSpeed({ gameIndex: _this.props.gameIndex, speed: 0 });else _this.props.updatePlayerSpeed({ gameIndex: _this.props.gameIndex, speed: _config2.default.games[_this.props.gameIndex].character.speed });
             _this.props.generatePlayerCollectives({ gameIndex: _this.props.gameIndex });
             _this.getCollectives();
         };
@@ -34501,7 +34670,6 @@ var Character = (_temp = _class = function (_Component) {
             var left = viewportOffset.left;
             var right = viewportOffset.right;
             var bottom = viewportOffset.bottom;
-
             var parentTop = parentOffset.top;
             var parentLeft = parentOffset.left;
             var parentRight = parentOffset.right;
@@ -34629,8 +34797,13 @@ var Character = (_temp = _class = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Character.__proto__ || Object.getPrototypeOf(Character)).call(this, props));
 
         _this.loop = function () {
+            if (_this.props.botPositions && _this.props.botCollectives.length) {
+                var direction = _this.props.script({ collectives: _this.props.botCollectives[_this.props.gameIndex], player: _this.props.botPositions[_this.props.gameIndex] });
+                //console.log(direction);
+                if (!direction) _this.props.updateBotDirection({ gameIndex: _this.props.gameIndex, direction: 'left' });else if (direction.left) _this.props.updateBotDirection({ gameIndex: _this.props.gameIndex, direction: 'left' });else if (direction.right) _this.props.updateBotDirection({ gameIndex: _this.props.gameIndex, direction: 'right' });else if (direction.up) _this.props.updateBotDirection({ gameIndex: _this.props.gameIndex, direction: 'up' });else if (direction.down) _this.props.updateBotDirection({ gameIndex: _this.props.gameIndex, direction: 'down' });
+            }
             _this.props.moveBot({ gameIndex: _this.props.gameIndex, direction: 'down' });
-            if (!_this.checkBorderCollision()) _this.props.updateBotSpeed({ gameIndex: _this.props.gameIndex, speed: 0 });else _this.props.updateBotSpeed({ gameIndex: _this.props.gameIndex, speed: _config2.default.games[_this.props.gameIndex].character.speed });
+            if (_this.props.gamesData.playerScore >= _config2.default.amountToWin) _this.props.updateBotSpeed({ gameIndex: _this.props.gameIndex, speed: 0 });else if (_this.props.gamesData.botScore >= _config2.default.amountToWin) _this.props.updateBotSpeed({ gameIndex: _this.props.gameIndex, speed: 0 });else if (_this.props.gamesData.gameState == "pause") _this.props.updateBotSpeed({ gameIndex: _this.props.gameIndex, speed: 0 });else if (!_this.checkBorderCollision()) _this.props.updateBotSpeed({ gameIndex: _this.props.gameIndex, speed: 0 });else _this.props.updateBotSpeed({ gameIndex: _this.props.gameIndex, speed: _config2.default.games[_this.props.gameIndex].character.speed });
             _this.props.generateBotCollectives({ gameIndex: _this.props.gameIndex });
             _this.getCollectives();
         };
@@ -34711,7 +34884,7 @@ var Character = (_temp = _class = function (_Component) {
                     return _react2.default.createElement(
                         'div',
                         { id: 'bot' + this.props.gameIndex },
-                        _react2.default.createElement(_Blonde2.default, { characterData: this.props.character, positionData: this.props.botPositions[this.props.gameIndex] })
+                        _react2.default.createElement(_Blonde2.default, { type: 'bot', characterData: this.props.character, positionData: this.props.botPositions[this.props.gameIndex] })
                     );
                 default:
                     return _react2.default.createElement(
@@ -34732,14 +34905,17 @@ var Character = (_temp = _class = function (_Component) {
 
 function mapStateToProps(state) {
     return {
-        botPositions: state.botPositions
+        botPositions: state.botPositions,
+        gamesData: state.gamesData,
+        botCollectives: state.botCollectives
     };
 }
 
 function matchDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({ updateBotSpeed: _index.updateBotSpeed, moveBot: _index.moveBot,
         generateBotCollectives: _index.generateBotCollectives,
-        removeBotCollective: _index.removeBotCollective, incrementBotScore: _index.incrementBotScore
+        removeBotCollective: _index.removeBotCollective, incrementBotScore: _index.incrementBotScore,
+        updateBotDirection: _index.updateBotDirection
     }, dispatch);
 }
 
