@@ -2,6 +2,7 @@ import { observable, computed } from 'mobx';
 import squadConfig from '../defaultConfigs/squadConfig.json';
 
 class squadStore{
+    timestamp = Date.now();
     @observable position = [
         [
             squadConfig.game1.character1.startingPoint,
@@ -11,7 +12,8 @@ class squadStore{
             squadConfig.game2.character2.startingPoint
         ]
     ];
-    @observable direction = [['left','down'],['left','down']]
+    @observable direction = [['left','up'],['left','up']];
+    @observable currentControllable = [1,1];
     @observable collectivesData = [];
     @observable timeStampData = Date.now();
     @observable score = [0,0];
@@ -34,6 +36,17 @@ class squadStore{
                 break;
         }
     }
-    
+    changeDirection(gameId, characterId, direction){
+        this.direction[gameId][characterId] = direction;
+    }
+    switchPlayer(gameId){
+        if(Date.now()-this.timestamp<1000)
+            return;
+        if(this.currentControllable[gameId]==0)
+            this.currentControllable[gameId] = 1;
+        else
+            this.currentControllable[gameId] = 0;
+        this.timestamp = Date.now();
+    }
 }
 export default new squadStore();

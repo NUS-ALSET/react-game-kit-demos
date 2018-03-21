@@ -37,8 +37,19 @@ export default class SquadGame extends Component {
             <Loop>
                 <div style={this.getGameWrapperStyles()}><Stage style={this.getGameStyles()}>
                     <Tile tiles={this.props.gameData.config.game1.tiles}/>
-                    <Character gameId={0} charId={0} type={this.props.gameData.config.game1.character1.type}/>
-                    <Character gameId={0} charId={1} type={this.props.gameData.config.game1.character2.type}/>
+                    <Character 
+                        gameId={0}
+                        charId={0}
+                        type={this.props.gameData.config.game1.character1.type}
+                        keys={this.props.gameData.player1Keys}
+                    />
+                    <Character
+                        gameId={0} 
+                        charId={1} 
+                        type={this.props.gameData.config.game1.character2.type}
+                        keys={this.props.gameData.player1Keys}
+                    />
+                    
                 </Stage></div>
                 <div style={this.getGameWrapperStyles()}><Stage style={this.getGameStyles()}>
                     <Tile tiles={this.props.gameData.config.game2.tiles}/>

@@ -24,7 +24,6 @@ export default class Blonde extends Component {
         }
     }
     getWrapperStyles() {
-        this.getAnimationState();
         var targetX = this.props.position.x;
         var targetY = this.props.position.y;
         return {
@@ -34,6 +33,7 @@ export default class Blonde extends Component {
         };
     }
     render() {
+        this.getAnimationState();
 		return (
 			<div id={"character"} style={this.getWrapperStyles()}>
                 <Sprite

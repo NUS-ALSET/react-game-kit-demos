@@ -7,7 +7,9 @@ import SinglePlayerTwoWindows from './singlePlayerTwoWindows/index';
 import SquadDefaultConfig from '../defaultConfigs/squadConfig.json';
 import SinglePlayerTwoWindowsDefaultConfig from '../defaultConfigs/singlePlayerTwoWindowsConfig.json';
 import gemCollectorDefaultConfig from '../defaultConfigs/gemCollectorConfig.json';
+import { observer } from 'mobx-react';
 
+@observer
 export default class ALSETReactGame extends Component{
     constructor(props){
         super(props);

@@ -6,7 +6,10 @@ import Gnome2 from '../../selectable/Characters/Gnome2';
 import Blonde from '../../selectable/Characters/Blonde';
 import Brunette from '../../selectable/Characters/Brunette';
 import Store from '../../store/squad';
+import Util from '../../utils/index';
+import { observer } from 'mobx-react';
 
+@observer
 export default class Character extends Component {
     static contextTypes = {
 		loop: PropTypes.object,
@@ -17,7 +20,11 @@ export default class Character extends Component {
         this.loop = this.loop.bind(this);
     }
     loop = () => {
-        Store.moveCharacter(this.props.gameId, this.props.charId)
+        var player = document.getElementById('bt'+this.props.charId+"-"+this.props.gameId).childNodes[0];
+        var parentEl = document.getElementById('bt'+this.props.charId+"-"+this.props.gameId).parentElement;
+        var direction = Store.direction[this.props.gameId][this.props.charId];
+        if(Util.rect2parent(player,parentEl,direction))
+            Store.moveCharacter(this.props.gameId, this.props.charId)
     }
     componentDidMount() {
         this.loopID = this.context.loop.subscribe(this.loop);
@@ -28,28 +35,28 @@ export default class Character extends Component {
     render() {
         switch(this.props.type){
             case 'gnome1':
-                return <div id={'bt'+this.props.charId}>
+                return <div id={'bt'+this.props.charId+"-"+this.props.gameId}>
                     <Gnome1 
                         position={Store.position[this.props.gameId][this.props.charId]}
                         direction={Store.direction[this.props.gameId][this.props.charId]}    
                     />
                 </div>
             case 'gnome2':
-                return <div id={'bt'+this.props.charId}>
+                return <div id={'bt'+this.props.charId+"-"+this.props.gameId}>
                     <Gnome2 
                         position={Store.position[this.props.gameId][this.props.charId]}
                         direction={Store.direction[this.props.gameId][this.props.charId]}    
                     />
                 </div>
             case 'blonde':
-                return <div id={'bt'+this.props.charId}>
+                return <div id={'bt'+this.props.charId+"-"+this.props.gameId}>
                     <Blonde 
                         position={Store.position[this.props.gameId][this.props.charId]}
                         direction={Store.direction[this.props.gameId][this.props.charId]}    
                     />
                 </div>
             case 'brunette':
-                return <div id={'bt'+this.props.charId}>
+                return <div id={'bt'+this.props.charId+"-"+this.props.gameId}>
                     <Brunette 
                         position={Store.position[this.props.gameId][this.props.charId]}
                         direction={Store.direction[this.props.gameId][this.props.charId]}
