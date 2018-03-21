@@ -17,7 +17,6 @@ export default class Character extends Component {
         this.loop = this.loop.bind(this);
     }
     loop = () => {
-        
         Store.moveCharacter(this.props.gameId, this.props.charId)
     }
     componentDidMount() {
@@ -27,38 +26,37 @@ export default class Character extends Component {
         this.context.loop.unsubscribe(this.loopID);
     }
     render() {
-        console.log("render");
         switch(this.props.type){
             case 'gnome1':
-                return <div id={'pl'+this.props.charId}>
+                return <div id={'bt'+this.props.charId}>
                     <Gnome1 
                         position={Store.position[this.props.gameId][this.props.charId]}
                         direction={Store.direction[this.props.gameId][this.props.charId]}    
                     />
                 </div>
             case 'gnome2':
-                return <div id={'pl'+this.props.charId}>
+                return <div id={'bt'+this.props.charId}>
                     <Gnome2 
                         position={Store.position[this.props.gameId][this.props.charId]}
                         direction={Store.direction[this.props.gameId][this.props.charId]}    
                     />
                 </div>
             case 'blonde':
-                return <div id={'pl'+this.props.charId}>
+                return <div id={'bt'+this.props.charId}>
                     <Blonde 
                         position={Store.position[this.props.gameId][this.props.charId]}
                         direction={Store.direction[this.props.gameId][this.props.charId]}    
                     />
                 </div>
             case 'brunette':
-                return <div id={'pl'+this.props.charId}>
+                return <div id={'bt'+this.props.charId}>
                     <Brunette 
                         position={Store.position[this.props.gameId][this.props.charId]}
                         direction={Store.direction[this.props.gameId][this.props.charId]}
                     />
                 </div>
             default:
-                return <div id={'pl'+this.props.charId}>
+                return <div id={'bt'+this.props.charId}>
                     <Gnome1 
                         position={Store.position[this.props.gameId][this.props.charId]}
                         direction={Store.direction[this.props.gameId][this.props.charId]}    

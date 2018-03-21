@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import { TileMap } from 'react-game-kit';
+import PropTypes from "prop-types";
 
 export default class Grass extends Component {
+    static contextTypes = {
+		scale: PropTypes.number,
+	};
+
 	constructor(props) {
 		super(props);
 	}
@@ -23,7 +28,7 @@ export default class Grass extends Component {
                     src={"tiles/grass.jpg"}
                     rows={tileData.rows}
                     columns={tileData.columns}
-                    tileSize={tileData.tileSize}
+                    tileSize={tileData.tileSize/this.context.scale}
                     layers={tileData.layers}
                 />
             </div>

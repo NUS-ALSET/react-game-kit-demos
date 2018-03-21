@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Loop, Stage } from 'react-game-kit';
 import Tile from './tile';
+import Character from './character';
+import Bot from './bot';
 
 export default class SquadGame extends Component {
     getWrapperStyles() {
@@ -34,10 +36,14 @@ export default class SquadGame extends Component {
         return <div style={this.getWrapperStyles()}>
             <Loop>
                 <div style={this.getGameWrapperStyles()}><Stage style={this.getGameStyles()}>
-                    <Tile tiles={this.props.data.confg.game1.tiles}/>
+                    <Tile tiles={this.props.gameData.config.game1.tiles}/>
+                    <Character gameId={0} charId={0} type={this.props.gameData.config.game1.character1.type}/>
+                    <Character gameId={0} charId={1} type={this.props.gameData.config.game1.character2.type}/>
                 </Stage></div>
                 <div style={this.getGameWrapperStyles()}><Stage style={this.getGameStyles()}>
-                    <Tile tiles={this.props.data.confg.game2.tiles}/>
+                    <Tile tiles={this.props.gameData.config.game2.tiles}/>
+                    <Bot gameId={1} charId={0} type={this.props.gameData.config.game2.character1.type}/>
+                    <Bot gameId={1} charId={1} type={this.props.gameData.config.game2.character2.type}/>
                 </Stage></div>
             </Loop>
         </div>

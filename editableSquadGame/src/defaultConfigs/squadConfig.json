@@ -20,17 +20,17 @@
         "tiles":[
             {
                 "type":"concrete",
-                "rows":2,
+                "rows":3,
                 "columns":3,
-                "tileSize":390,
-                "layers":[[1,0,1,0,1,0]]
+                "tileSize":220,
+                "layers":[[1,0,1,0,1,0,1,0,1]]
             },
             {
                 "type":"grass",
-                "rows":2,
+                "rows":3,
                 "columns":3,
-                "tileSize":390,
-                "layers":[[0,1,0,1,0,1]]
+                "tileSize":220,
+                "layers":[[0,1,0,1,0,1,0,1,0]]
             }
         ],
         "obstacles":[
@@ -55,9 +55,9 @@
         "tiles":[
             {
                 "type":"sand",
-                "rows":2,
-                "columns":3,
-                "tileSize":390,
+                "rows":4,
+                "columns":5,
+                "tileSize":150,
                 "layers":[[1]]
             }
         ],
