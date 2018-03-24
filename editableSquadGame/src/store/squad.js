@@ -14,7 +14,7 @@ class squadStore{
     ];
     @observable direction = [['left','up'],['left','up']];
     @observable currentControllable = [1,1];
-    @observable collectivesData = [];
+    @observable collectives = [[],[]];
     @observable timeStampData = Date.now();
     @observable score = [0,0];
     @observable mode = "play";
@@ -36,6 +36,10 @@ class squadStore{
                 break;
         }
     }
+    restartCharacter(gameId, charId){
+        this.position[gameId][charId]=squadConfig["game"+(gameId+1)]["character"+(charId+1)].startingPoint;
+        this.direction[gameId] = ['left','up'];
+    }
     changeDirection(gameId, characterId, direction){
         this.direction[gameId][characterId] = direction;
     }
@@ -47,6 +51,23 @@ class squadStore{
         else
             this.currentControllable[gameId] = 0;
         this.timestamp = Date.now();
+    }
+    generateCollectives(gameId,min, max, size){
+        var gameWidth = document.getElementById("game"+gameId).childNodes[0].childNodes[0].offsetWidth;
+        var gameHeight = document.getElementById("game"+gameId).childNodes[0].childNodes[0].offsetHeight;
+        if(this.collectives[gameId].length>0)
+				return;
+		var stonesQuant = Math.floor(Math.random()*(max-min+1)+min);
+        for(var i=0;i<stonesQuant;i++){
+            var stoneObj = {x:0, y:0}
+            stoneObj.x = Math.floor(Math.random()*(gameWidth/size-0)+0)*size;
+            stoneObj.y = Math.floor(Math.random()*(gameHeight/size-0)+0)*size;
+            stoneObj.size = size;
+            this.collectives[gameId].push(stoneObj);
+        }
+    }
+    removeCollective(gameId,colId){
+        this.collectives[gameId].splice(colId,1);
     }
 }
 export default new squadStore();

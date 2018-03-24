@@ -1,39 +1,42 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
+import Store from '../../store/squad';
+import Coin from '../../selectable/Collectives/Coin';
+import Gem from '../../selectable/Collectives/Gem';
+import { observer } from 'mobx-react';
 
-import Coin from '../../selectable/Characters/Gnome1';
-import Gem from './Collectives/Gem';
-import {connect} from 'react-redux';
-
-class Collectives extends Component {
+@observer
+export default class Collectives extends Component {
+    static contextTypes = {
+		loop: PropTypes.object,
+		scale: PropTypes.number,
+    };
     constructor(){
         super();
     }
+    loop = () => {
+        Store.generateCollectives(this.props.gameId,this.props.min, this.props.max, this.props.size);
+    }
+    componentDidMount() {
+        this.loopID = this.context.loop.subscribe(this.loop);
+    }
+    componentWillUnmount() {
+        this.context.loop.unsubscribe(this.loopID);
+    }
     render() {
-        const collectives = this.props.gameType=='player'?this.props.playerCollectives:this.props.botCollectives;
-        if(collectives[this.props.gameIndex]==undefined)
-            return <div></div>;
-        switch(this.props.collectivesData.type){
+        switch(this.props.type){
             case 'coin':
-                return  <div>{collectives[this.props.gameIndex].map((collective, index) => {
-                    return <Coin key = {index} collectiveData = {collective} index = {index}/>;
+                return  <div>{Store.collectives[this.props.gameId].map((collective, index) => {
+                    return <Coin key={index} collectiveData={collective} index={index}/>;
                 })}</div>
             case 'gem':
-                return  <div>{collectives[this.props.gameIndex].map((collective, index) => {
-                    return <Gem key = {index} collectiveData = {collective} index = {index}/>;
+                return  <div>{Store.collectives[this.props.gameId].map((collective, index) => {
+                    return <Gem key={index} collectiveData={collective} index={index}/>;
                 })}</div>
             default:
-                return  <div>{collectives[this.props.gameIndex].map((collective, index) => {
-                    return <Coin key = {index} collectiveData = {collective} index = {index}/>;
+                return  <div>{Store.collectives[this.props.gameId].map((collective, index) => {
+                    return <Coin key={index} collectiveData={collective} index={index}/>;
                 })}</div>
         }
     }
 }
-
-function mapStateToProps(state){
-    return {
-        playerCollectives: state.playerCollectives,
-        botCollectives: state.botCollectives
-    };
-}
-
-export default connect(mapStateToProps)(Collectives);

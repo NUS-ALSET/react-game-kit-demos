@@ -3,6 +3,9 @@ import { Loop, Stage } from 'react-game-kit';
 import Tile from './tile';
 import Character from './character';
 import Bot from './bot';
+import Collectives from './collectives';
+import Obstacle from './obstacle';
+import Controls from './controls';
 
 export default class SquadGame extends Component {
     getWrapperStyles() {
@@ -35,8 +38,19 @@ export default class SquadGame extends Component {
     render(){
         return <div style={this.getWrapperStyles()}>
             <Loop>
-                <div style={this.getGameWrapperStyles()}><Stage style={this.getGameStyles()}>
+                <Controls/>
+                <div id={"game0"} style={this.getGameWrapperStyles()}><Stage style={this.getGameStyles()}>
                     <Tile tiles={this.props.gameData.config.game1.tiles}/>
+                    <div>{this.props.gameData.config.game1.obstacles.map((obstacle, index) => {
+                        return <Obstacle key={index} obstacle={obstacle} index={index}/>;
+                    })}</div>
+                    <Collectives 
+                        type={this.props.gameData.config.game1.collectives.type}
+                        size={this.props.gameData.config.game1.collectives.size}                
+                        min={this.props.gameData.config.game1.collectives.min}                
+                        max={this.props.gameData.config.game1.collectives.max} 
+                        gameId={0}              
+                    />
                     <Character 
                         gameId={0}
                         charId={0}
@@ -49,10 +63,19 @@ export default class SquadGame extends Component {
                         type={this.props.gameData.config.game1.character2.type}
                         keys={this.props.gameData.player1Keys}
                     />
-                    
                 </Stage></div>
-                <div style={this.getGameWrapperStyles()}><Stage style={this.getGameStyles()}>
+                <div id={"game1"} style={this.getGameWrapperStyles()}><Stage style={this.getGameStyles()}>
                     <Tile tiles={this.props.gameData.config.game2.tiles}/>
+                    <div>{this.props.gameData.config.game2.obstacles.map((obstacle, index) => {
+                        return <Obstacle key={index} obstacle={obstacle} index={index}/>;
+                    })}</div>
+                    <Collectives 
+                        type={this.props.gameData.config.game2.collectives.type}
+                        size={this.props.gameData.config.game2.collectives.size}                
+                        min={this.props.gameData.config.game2.collectives.min}                
+                        max={this.props.gameData.config.game2.collectives.max} 
+                        gameId={1}              
+                    />
                     <Bot gameId={1} charId={0} type={this.props.gameData.config.game2.character1.type}/>
                     <Bot gameId={1} charId={1} type={this.props.gameData.config.game2.character2.type}/>
                 </Stage></div>

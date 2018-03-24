@@ -18,13 +18,30 @@ export default class Character extends Component {
     constructor(props) {
         super(props);
         this.loop = this.loop.bind(this);
+        this.getCollectives = this.getCollectives.bind(this);
     }
     loop = () => {
         var player = document.getElementById('bt'+this.props.charId+"-"+this.props.gameId).childNodes[0];
         var parentEl = document.getElementById('bt'+this.props.charId+"-"+this.props.gameId).parentElement;
         var direction = Store.direction[this.props.gameId][this.props.charId];
-        if(Util.rect2parent(player,parentEl,direction))
+        if(Util.rect2parent(player,parentEl,direction)&&Store.mode=="play")
             Store.moveCharacter(this.props.gameId, this.props.charId)
+        this.getCollectives();
+        if(Store.mode=="restart"){
+            Store.restartCharacter(this.props.gameId, this.props.charId);
+        }
+    }
+    getCollectives(){
+        var player = document.getElementById('bt'+this.props.charId+"-"+this.props.gameId);
+        var parentEl = player.parentElement;
+        player = player.childNodes[0];
+        var collectives = parentEl.getElementsByClassName('collective');
+        Array.from(collectives).forEach(collective => {
+            if(Util.rect2Rect(collective, player)){
+                var collectiveId = collective.getAttribute("data-key");
+                Store.removeCollective(this.props.gameId,collectiveId);
+            }
+        });
     }
     componentDidMount() {
         this.loopID = this.context.loop.subscribe(this.loop);

@@ -4,7 +4,6 @@
     "mode":"player-vs-bot",
     "player1Keys":{"left":"s","right":"f","up":"e","down":"d", "action":"w"},
     "player2Keys":{"left":"j","right":"l","up":"i","down":"k", "action":"p"},
-    "gameType":"timing",
     "time":90,
     "game1":{
         "character1":{
@@ -39,7 +38,13 @@
             {"type":"palm-tree", "width":100, "height":100, "x":100, "y":180},
             {"type":"stone1", "width":100, "height":60, "x":280, "y":120},
             {"type":"stone2", "width":100, "height":80, "x":10, "y":120}
-        ]
+        ],
+        "collectives":{
+            "type":"coin",
+            "size":20,
+            "min":10,
+            "max":30
+        }
     },
     "game2":{
         "character1":{
@@ -63,6 +68,12 @@
         ],
         "obstacles":[
             {"type":"palm-tree", "width":100, "height":100, "x":120, "y":100}
-        ]
+        ],
+        "collectives":{
+            "type":"gem",
+            "size":20,
+            "min":10,
+            "max":30
+        }
     }
 }

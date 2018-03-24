@@ -18,9 +18,10 @@ export default class Character extends Component {
     constructor(props) {
         super(props);
         this.loop = this.loop.bind(this);
+        this.getCollectives = this.getCollectives.bind(this);
         this.keyListener = new KeyListener();
         document.addEventListener("keydown",(e)=>{
-            if(Store.currentControllable[this.props.gameId]==this.props.charId){
+            if(Store.currentControllable[this.props.gameId]==this.props.charId&&Store.mode=="play"){
                 switch(e.key){
                     case this.props.keys.left:
                         Store.changeDirection(this.props.gameId, this.props.charId,'left');
@@ -47,8 +48,24 @@ export default class Character extends Component {
         var player = document.getElementById('pl'+this.props.charId+"-"+this.props.gameId).childNodes[0];
         var parentEl = document.getElementById('pl'+this.props.charId+"-"+this.props.gameId).parentElement;
         var direction = Store.direction[this.props.gameId][this.props.charId];
-        if(Util.rect2parent(player,parentEl,direction))
+        if(Util.rect2parent(player,parentEl,direction)&&Store.mode=="play")
             Store.moveCharacter(this.props.gameId, this.props.charId)
+        this.getCollectives();
+        if(Store.mode=="restart"){
+            Store.restartCharacter(this.props.gameId, this.props.charId);
+        }
+    }
+    getCollectives(){
+        var player = document.getElementById('pl'+this.props.charId+"-"+this.props.gameId);
+        var parentEl = player.parentElement;
+        player = player.childNodes[0];
+        var collectives = parentEl.getElementsByClassName('collective');
+        Array.from(collectives).forEach(collective => {
+            if(Util.rect2Rect(collective, player)){
+                var collectiveId = collective.getAttribute("data-key");
+                Store.removeCollective(this.props.gameId,collectiveId);
+            }
+        });
     }
     componentDidMount() {
         this.loopID = this.context.loop.subscribe(this.loop);
