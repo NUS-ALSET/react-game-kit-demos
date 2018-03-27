@@ -76,8 +76,18 @@ export default class SquadGame extends Component {
                         max={this.props.gameData.config.game2.collectives.max} 
                         gameId={1}              
                     />
-                    <Bot gameId={1} charId={0} type={this.props.gameData.config.game2.character1.type}/>
-                    <Bot gameId={1} charId={1} type={this.props.gameData.config.game2.character2.type}/>
+                    <Bot
+                        gameId={1}
+                        charId={0}
+                        type={this.props.gameData.config.game2.character1.type}
+                        getCommands={this.props.getCommands}
+                    />
+                    <Bot
+                        gameId={1}
+                        charId={1}
+                        type={this.props.gameData.config.game2.character2.type}
+                        getCommands={this.props.getCommands}
+                    />
                 </Stage></div>
             </Loop>
         </div>

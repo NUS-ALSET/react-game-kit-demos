@@ -24,8 +24,24 @@ export default class Character extends Component {
         var player = document.getElementById('bt'+this.props.charId+"-"+this.props.gameId).childNodes[0];
         var parentEl = document.getElementById('bt'+this.props.charId+"-"+this.props.gameId).parentElement;
         var direction = Store.direction[this.props.gameId][this.props.charId];
-        if(Util.rect2parent(player,parentEl,direction)&&Store.mode=="play")
-            Store.moveCharacter(this.props.gameId, this.props.charId)
+        if(Util.rect2parent(player,parentEl,direction)&&Store.mode=="play"){
+            Store.moveCharacter(this.props.gameId, this.props.charId);
+            var setDirection = this.props.getCommands({
+                player:Store.position[this.props.gameId][this.props.charId],
+                collectives: Store.collectives[this.props.gameId]
+            });
+            if(setDirection){
+                if(setDirection.left)
+                    Store.changeDirection(this.props.gameId, this.props.charId, "left");
+                else if(setDirection.right)
+                    Store.changeDirection(this.props.gameId, this.props.charId, "right");
+                else if(setDirection.up)
+                    Store.changeDirection(this.props.gameId, this.props.charId, "up");
+                else if(setDirection.down)
+                    Store.changeDirection(this.props.gameId, this.props.charId, "down");
+            }
+            //console.log(setDirection);
+        }
         this.getCollectives();
         if(Store.mode=="restart"){
             Store.restartCharacter(this.props.gameId, this.props.charId);

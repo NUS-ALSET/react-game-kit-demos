@@ -2,7 +2,7 @@ import { observable, computed } from 'mobx';
 import squadConfig from '../defaultConfigs/squadConfig.json';
 
 class squadStore{
-    timestamp = Date.now();
+    @observable time = squadConfig.time;
     @observable position = [
         [
             squadConfig.game1.character1.startingPoint,
@@ -39,6 +39,8 @@ class squadStore{
     restartCharacter(gameId, charId){
         this.position[gameId][charId]=squadConfig["game"+(gameId+1)]["character"+(charId+1)].startingPoint;
         this.direction[gameId] = ['left','up'];
+        this.time = squadConfig.time;
+        this.score = [0,0];
     }
     changeDirection(gameId, characterId, direction){
         this.direction[gameId][characterId] = direction;
@@ -68,6 +70,7 @@ class squadStore{
     }
     removeCollective(gameId,colId){
         this.collectives[gameId].splice(colId,1);
+        this.score[gameId]++;
     }
 }
 export default new squadStore();

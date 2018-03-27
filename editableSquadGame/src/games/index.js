@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import Util from '../utils/index';
 import SquadGame from './squadGame/index';
 import GemCollector from './GemCollector/index';
 import SinglePlayerTwoWindows from './singlePlayerTwoWindows/index';
@@ -17,6 +17,7 @@ export default class ALSETReactGame extends Component{
     }
     render() {
         var gameData = this.getGameData(this.props.game);
+        var getCommands = Util.getCommands;
         switch(this.props.game){
             case 'squad':
                 return <SquadGame
@@ -26,6 +27,7 @@ export default class ALSETReactGame extends Component{
                     onError={this.props.onError}
                     onStateChange={this.props.onStateChange}
                     gameData={gameData}
+                    getCommands={getCommands}
                 />
             case 'gemCollector':
                 return <GemCollector
@@ -53,6 +55,7 @@ export default class ALSETReactGame extends Component{
                     onError={this.props.onError}
                     onStateChange={this.props.onStateChange}
                     gameData={gameData}
+                    getCommands={getCommands}
                 />
         }
     }
