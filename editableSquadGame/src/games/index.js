@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Util from '../utils/index';
 import SquadGame from './squadGame/index';
-import GemCollector from './GemCollector/index';
-import SinglePlayerTwoWindows from './singlePlayerTwoWindows/index';
+//import GemCollector from './GemCollector/index';
+//import SinglePlayerTwoWindows from './singlePlayerTwoWindows/index';
 
 import SquadDefaultConfig from '../defaultConfigs/squadConfig.json';
 import SinglePlayerTwoWindowsDefaultConfig from '../defaultConfigs/singlePlayerTwoWindowsConfig.json';
@@ -31,7 +31,7 @@ export default class ALSETReactGame extends Component{
                     gameData={gameData}
                     getCommands={getCommands}
                 />
-            case 'gemCollector':
+            /*case 'gemCollector':
                 return <GemCollector
                     onPlay={this.props.onPlay}
                     onPause={this.props.onPause}
@@ -48,7 +48,7 @@ export default class ALSETReactGame extends Component{
                     onError={this.props.onError}
                     onStateChange={this.props.onStateChange}
                     gameData={gameData}
-                />
+                />*/
             default:
                 return <SquadGame
                     onPlay={this.props.onPlay}
