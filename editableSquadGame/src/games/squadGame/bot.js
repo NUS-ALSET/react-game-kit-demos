@@ -15,6 +15,7 @@ export default class Character extends Component {
 		loop: PropTypes.object,
 		scale: PropTypes.number,
     };
+    func=false;
     constructor(props) {
         super(props);
         this.loop = this.loop.bind(this);
@@ -24,12 +25,29 @@ export default class Character extends Component {
         var player = document.getElementById('bt'+this.props.charId+"-"+this.props.gameId).childNodes[0];
         var parentEl = document.getElementById('bt'+this.props.charId+"-"+this.props.gameId).parentElement;
         var direction = Store.direction[this.props.gameId][this.props.charId];
-        if(Util.rect2parent(player,parentEl,direction)&&Store.mode=="play"){
-            Store.moveCharacter(this.props.gameId, this.props.charId);
-            var setDirection = this.props.getCommands({
-                player:Store.position[this.props.gameId][this.props.charId],
-                collectives: Store.collectives[this.props.gameId]
-            });
+        if(Store.mode=="play"){
+            if(Util.rect2parent(player,parentEl,direction))
+                Store.moveCharacter(this.props.gameId, this.props.charId);
+            var world = {
+                    player:Store.position[this.props.gameId][this.props.charId],
+                    collectives: Store.collectives[this.props.gameId]
+                };
+            if(this.props.showCodeEditor){
+                try{
+                    var setDirection = eval('(function(world){'+Store.func+'}(world))');
+                }
+                catch(err){
+                    var setDirection = {down:true};
+                    if(this.props.onError)
+                        this.props.onError(err);
+                }
+            }
+            else if(this.props.player1Function)
+                var setDirection = this.props.player1Function(world);
+            else if(this.props.player2Function)
+                var setDirection = this.props.player2Function(world);
+            else
+                var setDirection = this.props.getCommands(world);
             if(setDirection){
                 if(setDirection.left)
                     Store.changeDirection(this.props.gameId, this.props.charId, "left");
@@ -40,7 +58,6 @@ export default class Character extends Component {
                 else if(setDirection.down)
                     Store.changeDirection(this.props.gameId, this.props.charId, "down");
             }
-            //console.log(setDirection);
         }
         this.getCollectives();
         if(Store.mode=="restart"){
@@ -60,9 +77,10 @@ export default class Character extends Component {
         });
     }
     componentDidMount() {
-        this.loopID = this.context.loop.subscribe(this.loop);
+        this.loopID2 = this.context.loop.subscribe(this.loop);
     }
     componentWillUnmount() {
+        console.log("unmounting");
         this.context.loop.unsubscribe(this.loopID);
     }
     render() {

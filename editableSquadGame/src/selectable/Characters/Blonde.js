@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Sprite } from 'react-game-kit';
+import Sprite from './Sprite';
+//import { Sprite } from 'react-game-kit';
 import { observer } from 'mobx-react';
 
 @observer

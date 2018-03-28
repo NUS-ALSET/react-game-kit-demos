@@ -26,6 +26,8 @@ export default class ALSETReactGame extends Component{
                     onEnd={this.props.onEnd}
                     onError={this.props.onError}
                     onStateChange={this.props.onStateChange}
+                    player1Function={this.props.player1Function}
+                    player2Function={this.props.player2Function}
                     gameData={gameData}
                     getCommands={getCommands}
                 />
@@ -54,6 +56,8 @@ export default class ALSETReactGame extends Component{
                     onEnd={this.props.onEnd}
                     onError={this.props.onError}
                     onStateChange={this.props.onStateChange}
+                    player1Function={this.props.player1Function}
+                    player2Function={this.props.player2Function}
                     gameData={gameData}
                     getCommands={getCommands}
                 />

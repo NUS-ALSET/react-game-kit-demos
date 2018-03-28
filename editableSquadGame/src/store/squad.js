@@ -18,6 +18,8 @@ class squadStore{
     @observable timeStampData = Date.now();
     @observable score = [0,0];
     @observable mode = "play";
+    @observable func = false;
+    @observable funcNeedUpdate = false;
     moveCharacter(gameId, characterId){
         switch(this.direction[gameId][characterId]){
             case 'up':
@@ -71,6 +73,9 @@ class squadStore{
     removeCollective(gameId,colId){
         this.collectives[gameId].splice(colId,1);
         this.score[gameId]++;
+    }
+    updateCustomCode(newText){
+        this.func = newText;
     }
 }
 export default new squadStore();

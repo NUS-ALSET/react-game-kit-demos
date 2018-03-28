@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { Sprite } from 'react-game-kit';
+import Sprite from './Sprite';
 import { observer } from 'mobx-react';
 
 @observer
-export default class Brnette extends Component {
+export default class Brunette extends Component {
     getAnimationState(){
         switch(this.props.direction){
             case 'up':

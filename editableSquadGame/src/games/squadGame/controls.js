@@ -16,8 +16,12 @@ export default class Controls extends Component {
         this.startCountDown();
 	}
     loop(){
-        if(Store.time==0&&Store.mode!="restart"){
+        if(Store.time==0&&Store.mode!="restart"&&Store.mode!="pause"){
             Store.mode="pause";
+            if(this.props.onEnd){
+                var player = Store.score[0]>Store.score[1]?"player1":"player2";
+                this.props.onEnd(player);
+            }
         }
     }
     startCountDown(){
@@ -27,17 +31,24 @@ export default class Controls extends Component {
         },1000)
     }
     pauseResumeGame(){
-        //console.log(Store);
-        if(Store.mode=='pause')
+        if(Store.mode=='pause'){
             Store.mode='play';
-        else
+            if(this.props.onPlay)
+                this.props.onPlay();
+        }
+        else{
             Store.mode='pause';
+            if(this.props.onPause)
+                this.props.onPause();
+        }
     }
 
     restartGame(){
         Store.mode='restart';
         setTimeout(()=>{
             Store.mode='play';
+            if(this.props.onPlay)
+                this.props.onPlay();
         },1000)
     }
 	
