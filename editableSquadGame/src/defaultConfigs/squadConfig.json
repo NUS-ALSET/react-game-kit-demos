@@ -1,0 +1,79 @@
+{
+    "showCodeEditor":false,
+    "player":"player1",
+    "mode":"player-vs-bot",
+    "player1Keys":{"left":"s","right":"f","up":"e","down":"d", "action":"w"},
+    "player2Keys":{"left":"j","right":"l","up":"i","down":"k", "action":"p"},
+    "time":90,
+    "game1":{
+        "character1":{
+            "type":"gnome1",
+            "speed":1,
+            "startingPoint":{"x":100,"y":0}
+        },
+        "character2":{
+            "type":"brunette",
+            "speed":1,
+            "startingPoint":{"x":100,"y":100}
+        },
+        "tiles":[
+            {
+                "type":"concrete",
+                "rows":3,
+                "columns":3,
+                "tileSize":220,
+                "layers":[[1,0,1,0,1,0,1,0,1]]
+            },
+            {
+                "type":"grass",
+                "rows":3,
+                "columns":3,
+                "tileSize":220,
+                "layers":[[0,1,0,1,0,1,0,1,0]]
+            }
+        ],
+        "obstacles":[
+            {"type":"bush", "width":100, "height":100, "x":160, "y":80},
+            {"type":"fir-tree", "width":100, "height":100, "x":20, "y":20},
+            {"type":"palm-tree", "width":100, "height":100, "x":100, "y":180},
+            {"type":"stone1", "width":100, "height":60, "x":280, "y":120},
+            {"type":"stone2", "width":100, "height":80, "x":10, "y":120}
+        ],
+        "collectives":{
+            "type":"coin",
+            "size":20,
+            "min":10,
+            "max":30
+        }
+    },
+    "game2":{
+        "character1":{
+            "type":"gnome2",
+            "speed":1,
+            "startingPoint":{"x":100,"y":0}
+        },
+        "character2":{
+            "type":"blonde",
+            "speed":1,
+            "startingPoint":{"x":100,"y":100}
+        },
+        "tiles":[
+            {
+                "type":"sand",
+                "rows":4,
+                "columns":5,
+                "tileSize":150,
+                "layers":[[1]]
+            }
+        ],
+        "obstacles":[
+            {"type":"palm-tree", "width":100, "height":100, "x":120, "y":100}
+        ],
+        "collectives":{
+            "type":"gem",
+            "size":20,
+            "min":10,
+            "max":30
+        }
+    }
+}

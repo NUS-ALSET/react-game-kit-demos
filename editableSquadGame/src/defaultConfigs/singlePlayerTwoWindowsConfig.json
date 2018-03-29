@@ -1,0 +1,58 @@
+{
+    "showCodeEditor":false,
+    "player":"player1",
+    "mode":"player-vs-bot",
+    "player1Keys":{"left":"s","right":"f","up":"e","down":"d"},
+    "player2Keys":{"left":"j","right":"l","up":"i","down":"k"},
+    "gameType":"timing",
+    "time":90,
+    "game1":{
+        "character":{
+            "type":"gnome1",
+            "speed":1,
+            "startingPoint":{"x":100,"y":0}
+        },
+        "tiles":[
+            {
+                "type":"concrete",
+                "rows":2,
+                "columns":3,
+                "tileSize":390,
+                "layers":[[1,0,1,0,1,0]]
+            },
+            {
+                "type":"grass",
+                "rows":2,
+                "columns":3,
+                "tileSize":390,
+                "layers":[[0,1,0,1,0,1]]
+            }
+        ],
+        "obstacles":[
+            {"type":"bush", "width":100, "height":100, "x":160, "y":80},
+            {"type":"fir-tree", "width":100, "height":100, "x":20, "y":20},
+            {"type":"palm-tree", "width":100, "height":100, "x":100, "y":180},
+            {"type":"stone1", "width":100, "height":60, "x":280, "y":120},
+            {"type":"stone2", "width":100, "height":80, "x":10, "y":120}
+        ]
+    },
+    "game2":{
+        "character":{
+            "type":"gnome2",
+            "speed":1,
+            "startingPoint":{"x":100,"y":0}
+        },
+        "tiles":[
+            {
+                "type":"sand",
+                "rows":2,
+                "columns":3,
+                "tileSize":390,
+                "layers":[[1]]
+            }
+        ],
+        "obstacles":[
+            {"type":"palm-tree", "width":100, "height":100, "x":120, "y":100}
+        ]
+    }
+}
