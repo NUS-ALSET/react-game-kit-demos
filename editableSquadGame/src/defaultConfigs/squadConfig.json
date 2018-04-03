@@ -7,29 +7,29 @@
     "time":90,
     "game1":{
         "character1":{
-            "type":"gnome1",
+            "type":"drone1",
             "speed":1,
             "startingPoint":{"x":100,"y":0}
         },
         "character2":{
-            "type":"brunette",
+            "type":"drone3",
             "speed":1,
             "startingPoint":{"x":100,"y":100}
         },
         "tiles":[
             {
                 "type":"concrete",
-                "rows":3,
-                "columns":3,
+                "rows":4,
+                "columns":4,
                 "tileSize":220,
-                "layers":[[1,0,1,0,1,0,1,0,1]]
+                "layers":[[1,0,1,0,0,1,0,1,1,0,1,0,0,1,0,1]]
             },
             {
                 "type":"grass",
-                "rows":3,
-                "columns":3,
+                "rows":4,
+                "columns":4,
                 "tileSize":220,
-                "layers":[[0,1,0,1,0,1,0,1,0]]
+                "layers":[[0,1,0,1,1,0,1,0,0,1,0,1,1,0,1,0]]
             }
         ],
         "obstacles":[
@@ -40,28 +40,28 @@
             {"type":"stone2", "width":100, "height":80, "x":10, "y":120}
         ],
         "collectives":{
-            "type":"coin",
-            "size":20,
+            "type":"trash1",
+            "size":40,
             "min":10,
             "max":30
         }
     },
     "game2":{
         "character1":{
-            "type":"gnome2",
+            "type":"drone2",
             "speed":1,
             "startingPoint":{"x":100,"y":0}
         },
         "character2":{
-            "type":"blonde",
+            "type":"drone1",
             "speed":1,
             "startingPoint":{"x":100,"y":100}
         },
         "tiles":[
             {
                 "type":"sand",
-                "rows":4,
-                "columns":5,
+                "rows":8,
+                "columns":8,
                 "tileSize":150,
                 "layers":[[1]]
             }
@@ -70,8 +70,8 @@
             {"type":"palm-tree", "width":100, "height":100, "x":120, "y":100}
         ],
         "collectives":{
-            "type":"gem",
-            "size":20,
+            "type":"passengers",
+            "size":40,
             "min":10,
             "max":30
         }

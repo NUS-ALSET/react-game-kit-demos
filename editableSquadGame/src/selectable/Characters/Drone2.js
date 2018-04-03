@@ -3,7 +3,7 @@ import Sprite from './Sprite';
 import { observer } from 'mobx-react';
 
 @observer
-export default class Drone1 extends Component {
+export default class Drone2 extends Component {
     getAnimationState(){
         switch(this.props.direction){
             case 'up':
@@ -42,7 +42,7 @@ export default class Drone1 extends Component {
                     repeat={true}
                     tileWidth={224}
                     tileHeight={224}
-                    src={'characters/drone1.png'}
+                    src={'characters/drone2.png'}
                     ticksPerFrame={4}
                     state={this.animState}
                     scale={0.4}

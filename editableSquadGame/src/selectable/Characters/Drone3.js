@@ -3,17 +3,17 @@ import Sprite from './Sprite';
 import { observer } from 'mobx-react';
 
 @observer
-export default class Drone1 extends Component {
+export default class Drone2 extends Component {
     getAnimationState(){
         switch(this.props.direction){
             case 'up':
-                this.animState = 0;
+                this.animState = 3;
                 break;
             case 'down':
                 this.animState = 2;
                 break;
             case 'left':
-                this.animState = 3;
+                this.animState = 0;
                 break;
             case 'right':
                 this.animState = 1;
@@ -40,12 +40,12 @@ export default class Drone1 extends Component {
 			<div id={"character"} style={this.getWrapperStyles()}>
                 <Sprite
                     repeat={true}
-                    tileWidth={224}
-                    tileHeight={224}
-                    src={'characters/drone1.png'}
+                    tileWidth={160}
+                    tileHeight={160}
+                    src={'characters/drone3.png'}
                     ticksPerFrame={4}
                     state={this.animState}
-                    scale={0.4}
+                    scale={0.5}
                     steps={[0,0,0,0]}
                 />
 			</div>

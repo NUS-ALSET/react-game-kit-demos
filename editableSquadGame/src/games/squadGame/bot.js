@@ -5,6 +5,9 @@ import Gnome1 from '../../selectable/Characters/Gnome1';
 import Gnome2 from '../../selectable/Characters/Gnome2';
 import Blonde from '../../selectable/Characters/Blonde';
 import Brunette from '../../selectable/Characters/Brunette';
+import Drone1 from '../../selectable/Characters/Drone1';
+import Drone2 from '../../selectable/Characters/Drone2';
+import Drone3 from '../../selectable/Characters/Drone3';
 import Store from '../../store/squad';
 import Util from '../../utils/index';
 import { observer } from 'mobx-react';
@@ -113,8 +116,29 @@ export default class Character extends Component {
                         direction={Store.direction[this.props.gameId][this.props.charId]}
                     />
                 </div>
+            case 'drone1':
+                return <div id={'bt'+this.props.charId+"-"+this.props.gameId}>
+                    <Drone1 
+                        position={Store.position[this.props.gameId][this.props.charId]}
+                        direction={Store.direction[this.props.gameId][this.props.charId]}
+                    />
+                </div>
+            case 'drone2':
+                return <div id={'bt'+this.props.charId+"-"+this.props.gameId}>
+                    <Drone2 
+                        position={Store.position[this.props.gameId][this.props.charId]}
+                        direction={Store.direction[this.props.gameId][this.props.charId]}
+                    />
+                </div>
+            case 'drone3':
+                return <div id={'bt'+this.props.charId+"-"+this.props.gameId}>
+                    <Drone3 
+                        position={Store.position[this.props.gameId][this.props.charId]}
+                        direction={Store.direction[this.props.gameId][this.props.charId]}
+                    />
+                </div>
             default:
-                return <div id={'bt'+this.props.charId}>
+                return <div id={'bt'+this.props.charId+"-"+this.props.gameId}>
                     <Gnome1 
                         position={Store.position[this.props.gameId][this.props.charId]}
                         direction={Store.direction[this.props.gameId][this.props.charId]}    
