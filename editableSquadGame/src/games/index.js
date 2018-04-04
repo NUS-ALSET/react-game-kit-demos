@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Util from '../utils/index';
 import SquadGame from './squadGame/index';
 //import GemCollector from './GemCollector/index';
-//import SinglePlayerTwoWindows from './singlePlayerTwoWindows/index';
+import SinglePlayerTwoWindows from './singlePlayerTwoWindows/index';
 
 import SquadDefaultConfig from '../defaultConfigs/squadConfig.json';
 import SinglePlayerTwoWindowsDefaultConfig from '../defaultConfigs/singlePlayerTwoWindowsConfig.json';
@@ -39,7 +39,7 @@ export default class ALSETReactGame extends Component{
                     onError={this.props.onError}
                     onStateChange={this.props.onStateChange}
                     gameData={gameData}
-                />
+                />*/
             case 'singlePlayerTwoWindows':
                 return <SinglePlayerTwoWindows
                     onPlay={this.props.onPlay}
@@ -47,8 +47,11 @@ export default class ALSETReactGame extends Component{
                     onEnd={this.props.onEnd}
                     onError={this.props.onError}
                     onStateChange={this.props.onStateChange}
+                    player1Function={this.props.player1Function}
+                    player2Function={this.props.player2Function}
                     gameData={gameData}
-                />*/
+                    getCommands={getCommands}
+                />
             default:
                 return <SquadGame
                     onPlay={this.props.onPlay}
@@ -68,7 +71,7 @@ export default class ALSETReactGame extends Component{
         if(gameType=="gemCollectorConfig")
             var defaultConfig = GemCollector;
         else if(gameType=="singlePlayerTwoWindows")
-            var defaultConfig = SinglePlayerTwoWindows;
+            var defaultConfig = SinglePlayerTwoWindowsDefaultConfig;
         else
             var defaultConfig = SquadDefaultConfig;
         var customConfig =this.props.config?this.props.config:{};
