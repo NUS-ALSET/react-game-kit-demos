@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Util from '../utils/index';
 import SquadGame from './squadGame/index';
-import GemCollector from './GemCollector/index';
+import GemCollector from './gemCollector/index';
 import SinglePlayerTwoWindows from './singlePlayerTwoWindows/index';
 
 import SquadDefaultConfig from '../defaultConfigs/squadConfig.json';
