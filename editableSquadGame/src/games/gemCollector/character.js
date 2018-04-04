@@ -8,7 +8,7 @@ import Brunette from '../../selectable/Characters/Brunette';
 import Drone1 from '../../selectable/Characters/Drone1';
 import Drone2 from '../../selectable/Characters/Drone2';
 import Drone3 from '../../selectable/Characters/Drone3';
-import Store from '../../store/squad';
+import Store from '../../store/gemCollector';
 import Util from '../../utils/index';
 import { observer } from 'mobx-react';
 
@@ -24,22 +24,19 @@ export default class Character extends Component {
         this.getCollectives = this.getCollectives.bind(this);
         this.keyListener = new KeyListener();
         document.addEventListener("keydown",(e)=>{
-            if(Store.currentControllable[this.props.gameId]==this.props.charId&&Store.mode=="play"){
+            if(Store.mode=="play"){
                 switch(e.key){
                     case this.props.keys.left:
-                        Store.changeDirection(this.props.gameId, this.props.charId,'left');
+                        Store.changeDirection(this.props.charId,'left');
                         break;
                     case this.props.keys.right:
-                        Store.changeDirection(this.props.gameId, this.props.charId,'right');
+                        Store.changeDirection(this.props.charId,'right');
                         break;
                     case this.props.keys.up:
-                        Store.changeDirection(this.props.gameId, this.props.charId,'up');
+                        Store.changeDirection(this.props.charId,'up');
                         break;
                     case this.props.keys.down:
-                        Store.changeDirection(this.props.gameId, this.props.charId,'down');
-                        break;
-                    case this.props.keys.action:
-                        Store.switchPlayer(this.props.gameId);
+                        Store.changeDirection(this.props.charId,'down');
                         break;
                     default:
                         break;
@@ -48,25 +45,25 @@ export default class Character extends Component {
         })
     }
     loop = () => {
-        var player = document.getElementById('pl'+this.props.charId+"-"+this.props.gameId).childNodes[0];
-        var parentEl = document.getElementById('pl'+this.props.charId+"-"+this.props.gameId).parentElement;
-        var direction = Store.direction[this.props.gameId][this.props.charId];
+        var player = document.getElementById('pl'+this.props.charId).childNodes[0];
+        var parentEl = document.getElementById('pl'+this.props.charId).parentElement;
+        var direction = Store.direction[this.props.charId];
         if(Util.rect2parent(player,parentEl,direction)&&Store.mode=="play")
-            Store.moveCharacter(this.props.gameId, this.props.charId)
+            Store.moveCharacter(this.props.charId)
         this.getCollectives();
         if(Store.mode=="restart"){
-            Store.restartCharacter(this.props.gameId, this.props.charId);
+            Store.restartCharacter(this.props.charId);
         }
     }
     getCollectives(){
-        var player = document.getElementById('pl'+this.props.charId+"-"+this.props.gameId);
+        var player = document.getElementById('pl'+this.props.charId);
         var parentEl = player.parentElement;
         player = player.childNodes[0];
         var collectives = parentEl.getElementsByClassName('collective');
         Array.from(collectives).forEach(collective => {
             if(Util.rect2Rect(collective, player)){
                 var collectiveId = collective.getAttribute("data-key");
-                Store.removeCollective(this.props.gameId,collectiveId);
+                Store.removeCollective(this.props.charId,collectiveId);
             }
         });
     }
@@ -79,59 +76,59 @@ export default class Character extends Component {
     render() {
         switch(this.props.type){
             case 'gnome1':
-                return <div id={'pl'+this.props.charId+"-"+this.props.gameId}>
+                return <div id={'pl'+this.props.charId}>
                     <Gnome1 
-                        position={Store.position[this.props.gameId][this.props.charId]}
-                        direction={Store.direction[this.props.gameId][this.props.charId]}    
+                        position={Store.position[this.props.charId]}
+                        direction={Store.direction[this.props.charId]}    
                     />
                 </div>
             case 'gnome2':
-                return <div id={'pl'+this.props.charId+"-"+this.props.gameId}>
+                return <div id={'pl'+this.props.charId}>
                     <Gnome2 
-                        position={Store.position[this.props.gameId][this.props.charId]}
-                        direction={Store.direction[this.props.gameId][this.props.charId]}    
+                        position={Store.position[this.props.charId]}
+                        direction={Store.direction[this.props.charId]}    
                     />
                 </div>
             case 'blonde':
-                return <div id={'pl'+this.props.charId+"-"+this.props.gameId}>
+                return <div id={'pl'+this.props.charId}>
                     <Blonde 
-                        position={Store.position[this.props.gameId][this.props.charId]}
-                        direction={Store.direction[this.props.gameId][this.props.charId]}    
+                        position={Store.position[this.props.charId]}
+                        direction={Store.direction[this.props.charId]}    
                     />
                 </div>
             case 'brunette':
-                return <div id={'pl'+this.props.charId+"-"+this.props.gameId}>
+                return <div id={'pl'+this.props.charId}>
                     <Brunette 
-                        position={Store.position[this.props.gameId][this.props.charId]}
-                        direction={Store.direction[this.props.gameId][this.props.charId]}
+                        position={Store.position[this.props.charId]}
+                        direction={Store.direction[this.props.charId]}
                     />
                 </div>
             case 'drone1':
-                return <div id={'pl'+this.props.charId+"-"+this.props.gameId}>
+                return <div id={'pl'+this.props.charId}>
                     <Drone1 
-                        position={Store.position[this.props.gameId][this.props.charId]}
-                        direction={Store.direction[this.props.gameId][this.props.charId]}
+                        position={Store.position[this.props.charId]}
+                        direction={Store.direction[this.props.charId]}
                     />
                 </div>
             case 'drone2':
-                return <div id={'pl'+this.props.charId+"-"+this.props.gameId}>
+                return <div id={'pl'+this.props.charId}>
                     <Drone2 
-                        position={Store.position[this.props.gameId][this.props.charId]}
-                        direction={Store.direction[this.props.gameId][this.props.charId]}
+                        position={Store.position[this.props.charId]}
+                        direction={Store.direction[this.props.charId]}
                     />
                 </div>
             case 'drone3':
-                return <div id={'pl'+this.props.charId+"-"+this.props.gameId}>
+                return <div id={'pl'+this.props.charId}>
                     <Drone3 
-                        position={Store.position[this.props.gameId][this.props.charId]}
-                        direction={Store.direction[this.props.gameId][this.props.charId]}
+                        position={Store.position[this.props.charId]}
+                        direction={Store.direction[this.props.charId]}
                     />
                 </div>
             default:
-                return <div id={'pl'+this.props.charId+"-"+this.props.gameId}>
+                return <div id={'pl'+this.props.charId}>
                     <Gnome1 
-                        position={Store.position[this.props.gameId][this.props.charId]}
-                        direction={Store.direction[this.props.gameId][this.props.charId]}    
+                        position={Store.position[this.props.charId]}
+                        direction={Store.direction[this.props.charId]}    
                     />
                 </div>
         }

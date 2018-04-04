@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Util from '../utils/index';
 import SquadGame from './squadGame/index';
-//import GemCollector from './GemCollector/index';
+import GemCollector from './GemCollector/index';
 import SinglePlayerTwoWindows from './singlePlayerTwoWindows/index';
 
 import SquadDefaultConfig from '../defaultConfigs/squadConfig.json';
@@ -31,15 +31,18 @@ export default class ALSETReactGame extends Component{
                     gameData={gameData}
                     getCommands={getCommands}
                 />
-            /*case 'gemCollector':
+            case 'gemCollector':
                 return <GemCollector
                     onPlay={this.props.onPlay}
                     onPause={this.props.onPause}
                     onEnd={this.props.onEnd}
                     onError={this.props.onError}
                     onStateChange={this.props.onStateChange}
+                    player1Function={this.props.player1Function}
+                    player2Function={this.props.player2Function}
                     gameData={gameData}
-                />*/
+                    getCommands={getCommands}
+                />
             case 'singlePlayerTwoWindows':
                 return <SinglePlayerTwoWindows
                     onPlay={this.props.onPlay}
@@ -68,8 +71,8 @@ export default class ALSETReactGame extends Component{
     }
     getGameData(gameType){
         var data = {};
-        if(gameType=="gemCollectorConfig")
-            var defaultConfig = GemCollector;
+        if(gameType=="gemCollector")
+            var defaultConfig = gemCollectorDefaultConfig;
         else if(gameType=="singlePlayerTwoWindows")
             var defaultConfig = SinglePlayerTwoWindowsDefaultConfig;
         else

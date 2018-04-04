@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import Store from '../../store/squad';
+import Store from '../../store/gemCollector';
 import { observer } from 'mobx-react';
 
 @observer

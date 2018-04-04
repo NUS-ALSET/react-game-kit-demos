@@ -1,7 +1,7 @@
 import { observable, computed } from 'mobx';
 import twoWinConfig from '../defaultConfigs/singlePlayerTwoWindowsConfig.json';
 
-class squadStore{
+class singlePlayerTwoWindowsStore{
     @observable time = twoWinConfig.time;
     @observable position = [
         twoWinConfig.game1.character.startingPoint,
@@ -64,4 +64,4 @@ class squadStore{
         this.func = newText;
     }
 }
-export default new squadStore();
+export default new singlePlayerTwoWindowsStore();
