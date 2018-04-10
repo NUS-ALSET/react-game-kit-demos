@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import Store from '../../store/squad';
+import Store from '../../store/gemCollector';
 import Coin from '../../selectable/Collectives/Coin';
 import Gem from '../../selectable/Collectives/Gem';
 import Passenger from '../../selectable/Collectives/Passenger';
@@ -19,7 +19,7 @@ export default class Collectives extends Component {
         super();
     }
     loop = () => {
-        Store.generateCollectives(this.props.gameId,this.props.min, this.props.max, this.props.size);
+        Store.generateCollectives(this.props.min, this.props.max, this.props.size);
     }
     componentDidMount() {
         this.loopID = this.context.loop.subscribe(this.loop);
@@ -30,31 +30,31 @@ export default class Collectives extends Component {
     render() {
         switch(this.props.type){
             case 'coin':
-                return  <div>{Store.collectives[this.props.gameId].map((collective, index) => {
+                return  <div>{Store.collectives.map((collective, index) => {
                     return <Coin key={index} collectiveData={collective} index={index}/>;
                 })}</div>
             case 'gem':
-                return  <div>{Store.collectives[this.props.gameId].map((collective, index) => {
+                return  <div>{Store.collectives.map((collective, index) => {
                     return <Gem key={index} collectiveData={collective} index={index}/>;
                 })}</div>
             case 'passenger':
-                return  <div>{Store.collectives[this.props.gameId].map((collective, index) => {
+                return  <div>{Store.collectives.map((collective, index) => {
                     return <Passenger key={index} collectiveData={collective} index={index}/>;
                 })}</div>
             case 'passengers':
-                return  <div>{Store.collectives[this.props.gameId].map((collective, index) => {
+                return  <div>{Store.collectives.map((collective, index) => {
                     return <Passengers key={index} collectiveData={collective} index={index}/>;
                 })}</div>
             case 'trash1':
-                return  <div>{Store.collectives[this.props.gameId].map((collective, index) => {
+                return  <div>{Store.collectives.map((collective, index) => {
                     return <Trash1 key={index} collectiveData={collective} index={index}/>;
                 })}</div>
             case 'trash2':
-                return  <div>{Store.collectives[this.props.gameId].map((collective, index) => {
+                return  <div>{Store.collectives.map((collective, index) => {
                     return <Trash2 key={index} collectiveData={collective} index={index}/>;
                 })}</div>
             default:
-                return  <div>{Store.collectives[this.props.gameId].map((collective, index) => {
+                return  <div>{Store.collectives.map((collective, index) => {
                     return <Coin key={index} collectiveData={collective} index={index}/>;
                 })}</div>
         }

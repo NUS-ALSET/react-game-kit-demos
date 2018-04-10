@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Util from '../utils/index';
 import SquadGame from './squadGame/index';
-//import GemCollector from './GemCollector/index';
-//import SinglePlayerTwoWindows from './singlePlayerTwoWindows/index';
+import GemCollector from './gemCollector/index';
+import SinglePlayerTwoWindows from './singlePlayerTwoWindows/index';
 
 import SquadDefaultConfig from '../defaultConfigs/squadConfig.json';
 import SinglePlayerTwoWindowsDefaultConfig from '../defaultConfigs/singlePlayerTwoWindowsConfig.json';
@@ -31,14 +31,17 @@ export default class ALSETReactGame extends Component{
                     gameData={gameData}
                     getCommands={getCommands}
                 />
-            /*case 'gemCollector':
+            case 'gemCollector':
                 return <GemCollector
                     onPlay={this.props.onPlay}
                     onPause={this.props.onPause}
                     onEnd={this.props.onEnd}
                     onError={this.props.onError}
                     onStateChange={this.props.onStateChange}
+                    player1Function={this.props.player1Function}
+                    player2Function={this.props.player2Function}
                     gameData={gameData}
+                    getCommands={getCommands}
                 />
             case 'singlePlayerTwoWindows':
                 return <SinglePlayerTwoWindows
@@ -47,8 +50,11 @@ export default class ALSETReactGame extends Component{
                     onEnd={this.props.onEnd}
                     onError={this.props.onError}
                     onStateChange={this.props.onStateChange}
+                    player1Function={this.props.player1Function}
+                    player2Function={this.props.player2Function}
                     gameData={gameData}
-                />*/
+                    getCommands={getCommands}
+                />
             default:
                 return <SquadGame
                     onPlay={this.props.onPlay}
@@ -65,10 +71,10 @@ export default class ALSETReactGame extends Component{
     }
     getGameData(gameType){
         var data = {};
-        if(gameType=="gemCollectorConfig")
-            var defaultConfig = GemCollector;
+        if(gameType=="gemCollector")
+            var defaultConfig = gemCollectorDefaultConfig;
         else if(gameType=="singlePlayerTwoWindows")
-            var defaultConfig = SinglePlayerTwoWindows;
+            var defaultConfig = SinglePlayerTwoWindowsDefaultConfig;
         else
             var defaultConfig = SquadDefaultConfig;
         var customConfig =this.props.config?this.props.config:{};

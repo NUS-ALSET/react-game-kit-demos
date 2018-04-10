@@ -64,7 +64,6 @@ class Utils{
             else if(closestGem.y-player.y<0){
 				var direction = {left:false, right:false, up:true, down:false};
 			}
-			//console.log(direction);
             return direction;
         }
     }

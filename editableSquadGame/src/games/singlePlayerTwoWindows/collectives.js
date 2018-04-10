@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import Store from '../../store/squad';
+import Store from '../../store/singlePlayerTwoWindows';
 import Coin from '../../selectable/Collectives/Coin';
 import Gem from '../../selectable/Collectives/Gem';
 import Passenger from '../../selectable/Collectives/Passenger';
