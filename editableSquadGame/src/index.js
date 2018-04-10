@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 ReactDOM.render(
-	<ALSETReactGame game={"gemCollector"} mode={"bot-vs-bot"}
+	<ALSETReactGame game={"squad"} mode={"bot-vs-bot"}
 		onPlay={onPlay}
 		onPause={onPause}
 		onEnd={onEnd}
